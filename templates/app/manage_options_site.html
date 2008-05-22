@@ -1,0 +1,23 @@
+{% load i18n %}
+
+{% autoescape off %}
+{% if authenticated %}
+
+  {% if manage_site_mode %}
+    <a href="{{ path }}/change_owner/" class="frameLink"
+       title="{% trans "Besitzer ändern" %}">
+    {% trans "Besitzrechte ..." %}</a><br />
+
+    <a href="{{ path }}/info_managers/" class="frameLink"
+       title="{% trans "Patinnen und Paten des Bereichs" %}">
+    {% trans "Paten ..." %}</a><br />
+  {% endif %}
+
+  {% if manage_domain_mode %}
+    <a href="{{ path }}/manage_site/" class="frameLink"
+       title="{% trans "Domaine ändern" %}">
+    {% trans "Domaine ..." %}</a><br />
+  {% endif %}
+
+{% endif %}
+{% endautoescape %}

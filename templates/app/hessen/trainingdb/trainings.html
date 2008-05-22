@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block html_head_ext %}
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/datatable/assets/skins/sam/datatable.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/assets/skins/sam/tabview.css" />
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/element/element-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/datasource/datasource-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/datatable/datatable-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/tabview.js"></script>
+<style>
+.yui-content { background-color: #f4f4f4 !important; }
+</style>
+{% endblock %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+
+<script type="text/javascript">
+function do_show_more () {
+  document.getElementById("show_more").style.display="none";
+  document.getElementById("text_more").style.display="inline";
+  document.getElementById("show_less").style.display="inline";
+}
+function do_hide_more (id) {
+  document.getElementById("text_more").style.display="none";
+  document.getElementById("show_less").style.display="none";
+  document.getElementById("show_more").style.display="inline";
+}
+</script>
+<p>
+  <a id="show_more" class="navLink" 
+      href="javascript:void(0)" onClick="do_show_more()"
+      title="{% trans "Suchformular zeigen ..." %}"><img
+      src="{{ base_site_url }}/dms_media/image/action/more_icon.gif" 
+      title="{% trans "Ein/Ausblende-Symbol" %}" />&nbsp;{% trans "Suche verfeinern ..." %}</a>
+  <a id="show_less" class="navLink" style="display:none"
+      href="javascript:void(0)" onClick="do_hide_more()"
+      title="{% trans "Suchformular zusammenfalten ..." %}"><img
+      src="{{ base_site_url }}/dms_media/image/action/more_icon.gif" 
+      title="{% trans "Ein/Ausblende-Symbol" %}" />&nbsp;{% trans "Suchformular zusammenfalten ..." %}</a>
+</p>
+<div id="text_more" style="display:none">
+  <p>
+  {% trans "Anzahl der akkreditierten Fortbildungsveranstaltungen:" %} {{ count_total }}
+  </p>
+  <form method="post"
+        name  ="form_input"
+        action="{{ next }}">
+  {{ content }}
+  <p align="right" style="margin-top:0.5em;">
+  <input name="path" type="hidden" value="{{ path }}" />
+  <input name="submit" type="submit" value="{{ submit }} ..." />
+  </p>
+  </form>
+</div>
+
+<script>
+ var editTab = new YAHOO.widget.TabView('editForm');
+</script>
+
+<p>
+{% blocktrans %}
+Sie können die folgende Tabelle nach verschiedenen Kriterien sortieren, indem Sie
+die entsprechenden Überschriften anklicken. Anzahl der gefundenen Veranstaltungen:
+{% endblocktrans %}
+{{ count }}
+</p>
+
+{% if errors %}
+<p>
+<span class="red">
+{% blocktrans %}
+Ihre Anmeldedaten sind unvollständig! Bitte überprüfen Sie alle Formularfelder
+der verschiedenen Reiter des Anmeldeformulars!
+{% endblocktrans %}
+</span>
+</p>
+{% endif %}
+
+{% if objs %}
+<div class="yui-skin-sam">
+  <div id="markup">
+    <table id="items">
+      <tbody>
+        {% for obj in objs %}
+        <tr>
+          <td>{{ obj.thema }}</td>
+          <td>{{ obj.anbieter }}</td>
+          <td>{{ obj.kosten }}</td>
+          <td>{{ obj.datum }}</td>
+          <td><a href="{{ base_url }}?show_training={{ obj.iq_id }}">{% trans "Details&nbsp;..." %}</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% else %}
+<p>
+  {% trans "Für diese Filtereinstellung gibt es gegenwärtig keine passenden Fortbildungangebote." %}
+</p>
+{% endif %}
+
+<script type="text/javascript">
+my_formatDate = function(el, oRecord, oColumn, oData) {
+  var oDate = oData;
+  if (oDate == "Invalid Date") {
+    el.innerHTML = "";
+  }
+  else {
+    el.innerHTML = oDate.getDate() + "." + (oDate.getMonth()+1) + "." + oDate.getFullYear();
+  }
+};
+/* YAHOO.widget.DataTable.formatCurrency */
+my_formatCurreny = function(el, oRecord, oColumn, oData) {
+    if(YAHOO.lang.isNumber(oData)) {
+        var nAmount = oData;
+        var markup;
+        /*nAmount = Math.round(nAmount*100)/100;*/
+        markup = "€&nbsp;"+nAmount;
+        var dotIndex = markup.indexOf(".");
+        if(dotIndex < 0) {
+            markup += ".00";
+        }
+        else {
+            while(dotIndex > markup.length-3) {
+                markup += "0";
+            }
+        }
+        el.innerHTML = markup;
+    }
+    else {
+        el.innerHTML = YAHOO.lang.isValue(oData) ? oData : "";
+    }
+};
+
+YAHOO.util.Event.addListener(window, "load", function() {
+    YAHOO.example.EnhanceFromMarkup = new function() {
+        var myColumnDefs = [
+            {key:"thema",label:"Thema",sortable:true},
+            {key:"anbieter",label:"Anbieter",sortable:true},
+            {key:"kosten",label:"Kosten",formatter:my_formatCurreny,sortable:true},
+            {key:"datum",label:"Datum",formatter:my_formatDate,sortable:false},
+            {key:"edit",label:"Anzeige"}
+        ];
+
+        this.myDataSource = new YAHOO.util.DataSource(YAHOO.util.Dom.get("items"));
+        this.myDataSource.responseType = YAHOO.util.DataSource.TYPE_HTMLTABLE;
+        this.myDataSource.responseSchema = {
+            fields: [ {key:"thema"}, 
+                      {key:"anbieter"}, 
+                      {key:"kosten", parser:YAHOO.util.DataSource.parseNumber},
+                      {key:"datum", parser:YAHOO.util.DataSource.parseDate},
+                      {key:"edit"} ]
+        };
+
+        this.myDataTable = new YAHOO.widget.DataTable("markup", myColumnDefs, this.myDataSource,
+                {sortedBy:{key:"thema",dir:"asc"}});
+        };
+});
+</script>
+{% endblock %}
+

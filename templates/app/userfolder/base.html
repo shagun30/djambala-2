@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block html_head_ext %}
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/assets/skins/sam/tabview.css" />
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/element/element-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/tabview.js"></script>
+<script type="text/javascript" src="/dms_media/javascript/overlib/overlib.js-small"></script>
+<style>
+.yui-content { background-color: #f4f4f4 !important; }
+</style>
+{% endblock %}
+
+{% block frame_left %}{% endblock %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+{% if edit_user_role %}
+  {{ edit_user_role }}
+{% else %}
+  {% if add_user_role %}
+    {{ add_user_role }}
+  {% else %}
+  <h4>{% trans "Community-Mitglieder ergänzen" %}</h4>
+
+  <p>
+  <b>{% blocktrans %}Die Daten der Community-Mitglieder dürfen Sie ausschließlich dazu
+  verwenden, um passende Personen für diesen Bereich einzutragen. Eine
+  Weitergabe an Dritte ist verboten.{% endblocktrans %}</b>
+  </p>
+
+<div style="right:220px;">
+  <div class=" yui-skin-sam">
+    <div id="userForm" class="yui-navset">
+      <ul class="yui-nav">
+    {% if own_institution %}
+          <li class="selected"><a href="#tab10"><em>{% trans "Eigene Institution" %}</em></a></li>
+    {% else %}
+          <li class="selected"><a href="#tab11"><em>{% trans "Komplette Community" %}</em></a></li>
+    {% endif %}
+          <li><a href="#tab12"><em>{% trans "Liste importieren" %}</em></a></li>
+          <li><a href="#tab13"><em>{% trans "Liste exportieren" %}</em></a></li>
+          <li><a href="#tab14"><em>{% trans "Gezielt suchen" %}</em></a></li>
+      </ul>
+      <div class="yui-content">
+    {% if own_institution %}
+          <div id="tab10">
+            {{ own_institution }}
+          </div>
+    {% else %}
+          <div id="tab11">
+            {{ all_members }}
+          </div>
+    {% endif %}
+          <div id="tab12">
+            {{ import_members }}
+          </div>
+          <div id="tab13">
+            {{ export_members }}
+          </div>
+          <div id="tab14">
+            {{ search_members }}
+          </div>
+      </div>
+    </div>
+  </div>
+
+<h4>{% trans "Liste der eingetragenen Community-Mitglieder" %} (n={{ user_count }})</h4>
+
+<p>
+{% blocktrans %}Folgende Mitglieder wurden bislang für diesen Bereich eingetragen. 
+Um die Rolle zu ändern, klicken Sie bitte auf die Namen.
+<b>Achtung: Das Löschen erfolgt ohne Nachfrage!</b>" {% endblocktrans %}
+</p>
+
+<table class="form-table" style="width:100%;">
+
+<thead>
+  {% if prev_next %}
+  <tr class="white" style="border-width:1px; border-color:#000000; border-style:solid;">
+  <td width="5%">&nbsp;</td>
+  <td colspan="4">
+  {{ prev_next }}
+  </td>
+  </tr>
+  {% endif %}
+  <tr class="tabHeaderBg">
+  <td width="5%">&nbsp;</td>
+  <td width="25%">
+    <a href="./?sort=last_name">{% trans "Name" %}</a>
+  </td>
+  <td width="40%">
+    <a href="./?sort=email">{% trans "E-Mail" %}</a>
+  </td>
+  <td width="15%">
+    <a href="./?sort=username">{% trans "Zugangsname" %}</a>
+  </td>
+  <td width="15%">
+    <a href="./?sort=role">{% trans "Rolle" %}</a>
+  </td>
+  </tr>
+</thead>
+
+<tbody>
+{% if users %}
+  <form method = "post"
+        action = ".">
+  {% for u in users %}
+  <tr class="selectblock" style="border-width:1px; border-color:#000000; border-style:solid;">
+  <td width="5%">
+  <input type="checkbox" name="delete_{{ u.user.id }}" value="{{ u.user.username }}" />
+  </td>
+  <td width="25%">
+  <a href="./?edit_user={{ u.user.id }}&path_id={{ u.container.id }}">
+  {% if user.title %}{{ user.title }} {% endif %}{{ u.user.last_name }}, {{ u.user.first_name }}
+  </a>
+  </td>
+  <td width="40%">
+  {% if u.user.email %}
+    <a href="mailto:{{ u.user.email }}">{{ u.user.email }}</a>
+  {% endif %}
+  </td>
+  <td width="15%">
+  {{ u.user.username }}
+  </td>
+  <td width="15%">
+  {{ u.role.name }}
+  </td>
+  </tr>
+  {% endfor %}
+
+  {% if prev_next %}
+  <tr class="white" style="border-width:1px; border-color:#000000; border-style:solid;">
+  <td width="5%">&nbsp;</td>
+  <td colspan="4">
+  {{ prev_next }}
+  </td>
+  </tr>
+  {% endif %}
+
+  <tr>
+  <td colspan="5" align="right">
+  <input name="modus_delete" type="hidden" value="1" />
+  <input name="submit" type="submit" value="{% trans "Community-Mitglieder austragen ..." %}" />
+  </td>
+  </tr>
+  </form>
+
+{% else %}
+<tr>
+<td colspan="5">
+{% trans "Bislang wurden keine Community-Mitglieder eingetragen." %}
+</td>
+</tr>
+{% endif %}
+
+</tbody>
+
+</table>
+
+<script>
+ var addTab = new YAHOO.widget.TabView('userForm');
+</script>
+  {% endif %}
+{% endif %}
+
+{% endblock %}
+{% endautoescape %}

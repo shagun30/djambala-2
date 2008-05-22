@@ -1,0 +1,57 @@
+{% load i18n %}
+
+{% autoescape off %}
+<h4>{% trans "Community-Mitglied(er) aufnehmen und Rollen zuweisen" %}</h4>
+
+<p>
+{% trans "Es werden nur Personen angezeigt, die für diesen Bereich noch nicht eingetragen wurden." %}
+</p>
+
+<form action = "./"
+      method = "POST">
+<table class="form-table" style="width:100%;">
+
+{% for u in users %}
+<tr>
+<td class="bottom-border-ex" width="5%">
+<input type="checkbox" name="user_{{ u.id }}" />
+</td>
+<td class="bottom-border-ex">
+{{ u.last_name }}, {% if u.title %}{{ u.title }} {% endif %} {{ u.first_name }}
+</td>
+<td class="bottom-border-ex">
+{% if u.user.email %}
+<a href="mailto:{{ u.user.email }}">{{ u.email }}</a>
+{% endif %}
+</td>
+<td class="bottom-border-ex">{{ u.username }}</td>
+</tr>
+{% endfor %}
+
+<tr class="tabHeaderBg">
+  <td width="5%">&nbsp;</td>
+  <td width="75%" colspan="2"><b>{% trans "Rollenbeschreibung" %}</b></td>
+  <td width="20%"><b>{% trans "Kurzname" %}</b></td>
+</tr>
+
+{% for role in roles %}
+<tr>
+<td class="bottom-border-ex" width="5%">
+<input type="radio" name="role_id" value="{{ role.id }}"
+       {% if role.checked %} checked="checked"{% endif %} />
+</td>
+<td class="bottom-border-ex" colspan="2">{{ role.description }}</td>
+<td class="bottom-border-ex" width="20%">{{ role.name }}</td>
+</tr>
+{% endfor %}
+
+<tr>
+<td colspan="4" align="right">
+<input name="edit_users" type="hidden" value="1" />
+<input name="reset" type="submit" value="{% trans "Abbrechen" %}" />
+<input name="submit" type="submit" value="{% trans "Mitglied(er) aufnehmen und Rolle zuweisen ..." %}" />
+</td>
+</tr>
+</table>
+</form>
+{% endautoescape %}

@@ -1,0 +1,12 @@
+{% load i18n %}
+
+{% autoescape off %}
+<p>
+{% trans "Sie haben jetzt Zugang zu folgendem Bereich:" %}
+</p>
+<ul>
+<li>{% trans "Web-Adresse" %}: <a href="{{ url }}">{{ url }}</a></li>
+<li>{% trans "Ihr Zugangsname" %}: {{ username }}</li>
+<li>{% trans "Zugriffsrecht(e)" %}: {{ role }}</li>
+</ul>
+{% endautoescape %}

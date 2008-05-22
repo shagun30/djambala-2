@@ -1,0 +1,18 @@
+{% extends "app/base_section.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block infos %}
+<div style="margin-left:10%;">
+{{ text }}
+<p align="right">
+{% if email %}
+  <a href="mailto:{{ email }}">{{ name }}</a>,
+{% else %}
+  {{ name }},
+{% endif %}
+{{ date }}
+</p>
+</div>
+{% endblock %}
+{% endautoescape %}

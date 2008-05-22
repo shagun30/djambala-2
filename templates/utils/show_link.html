@@ -1,0 +1,10 @@
+{% load i18n %}
+
+{% autoescape off %}
+{% if target %}
+  {{ start }}<a href="{{ url }}" {{ class }} target="{{ target }}" 
+  title="{% trans "Wird in einem eigenen Fenster geöffnet ..." %}">{{ info }}</a>
+{% else %}
+  {{ start }}<a href="{{ url }}"{{ class }}{{ title }}>{{ info }}</a>
+{% endif %}
+{% endautoescape %}

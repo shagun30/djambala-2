@@ -1,0 +1,62 @@
+{% load i18n %}
+
+{% autoescape off %}
+
+{% block content %}
+
+<h4>{% trans "Liste der Community-Mitglieder der Gruppe" %} "{{ group_name }}" (n={{ user_count }})</h4>
+
+<p>
+{% blocktrans %}Folgende Personen können Sie aus der Community entfernen.<br />
+<b>Achtung: Das Löschen erfolgt ohne Nachfrage!</b>" {% endblocktrans %}
+</p>
+
+{% if users %}
+<table class="form-table" style="width:100%;">
+
+<thead>
+  <tr class="tabHeaderBg">
+  <td width="5%">&nbsp;</td>
+  <td width="25%"><b>{% trans "Name" %}</b></td>
+  <td width="40%"><b>{% trans "E-Mail" %}</b></td>
+  <td width="15%"><b>{% trans "Zugangsname" %}</b>
+  </td>
+  </tr>
+</thead>
+
+<tbody>
+  <form method = "post"
+        action = "{{ next }}">
+  {% for user in users %}
+  <tr class="selectblock" style="border-width:1px; border-color:#000000; border-style:solid;">
+  <td width="5%">
+    <input type="checkbox" name="delete_id" value="{{ user.id }}" />
+  </td>
+  <td width="25%">{{ user.name }}</td>
+  <td width="40%">{{ user.email }}</td>
+  <td width="15%">{{ user.username }}</td>
+  </tr>
+  {% endfor %}
+
+  <tr>
+  <td colspan="5" align="right">
+  <input name="modus_delete" type="hidden" value="1" />
+  <input name="submit" type="submit" value="{% trans "Community-Mitglieder löschen ..." %}" />
+  </td>
+  </tr>
+  </form>
+
+</tbody>
+
+</table>
+
+{% else %}
+<p>
+{% trans "Zu dieser Gruppe gibt es in Ihrer Institution keine Community-Mitglieder." %}
+</p>
+{% endif %}
+
+{% endblock %}
+{% endautoescape %}
+
+

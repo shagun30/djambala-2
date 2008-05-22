@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block html_head_ext %}
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/assets/skins/sam/tabview.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/datatable/assets/skins/sam/datatable.css" />
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/element/element-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/tabview.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo/yahoo.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/event/event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/connection/connection.js"></script>
+<script type="text/javascript" 
+      src="{{ site.url }}/dms_media/javascript/overlib/overlib.js-small"></script>
+<style>
+.yui-content { background-color: #f4f4f4 !important; }
+</style>
+{% endblock %}
+
+{% block title %}{{ thema }}{% endblock %}
+
+{% block content %}
+
+<p>
+{% blocktrans %}
+Falls Sie sich zu dieser Veranstaltung anmelden, setzt dies voraus, dass Sie
+die <b>Genehmigung zur Teilnahme</b> an der Veranstaltung eingeholt haben und mit der Datenerhebung
+und vorübergehenden Speicherung zur Durchführung der Veranstaltung einverstanden sind.
+{% endblocktrans %}
+</p>
+
+{% if errors %}
+  <p><b><span class="red">{% blocktrans %}
+  Ihre Eingaben können <i>nicht</i> gesendet werden, da Sie unvollständig sind.
+  Bitte überprüfen Sie alle Reiter des Online-Anmeldeformulars und versuchen Sie es 
+  anschließend noch einmal.
+  {% endblocktrans %}</span></b></p>
+{% endif %}
+
+<div style="right:220px;">
+  <div class=" yui-skin-sam">
+    <div id="trainingForm" class="yui-navset">
+      <ul class="yui-nav">
+          <li class="selected"><a href="#tab1"><em>{% trans "Veranstaltung" %}</em></a></li>
+          <li><a href="#tab2"><em>{% trans "Online-Anmeldung" %}</em></a></li>
+          <li><a href="#tab3"><em>{% trans "Flyer" %}</em></a></li>
+      </ul>
+      <div class="yui-content">
+          <div id="tab1">
+            {{ details }}
+          </div>
+          <div id="tab2">
+            {{ anmeldeformular }}
+          </div>
+          <div id="tab3">
+            <p>
+            <br />
+            <span class="red"><b>&middot;&middot;</b></span> 
+            <a href="?school_flyer={{ veranst_iq_id }}" 
+               target="_extern">{% trans "Flyer anzeigen" %} ...</a>
+            </p>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var trainingTab = new YAHOO.widget.TabView('trainingForm');
+  var editTab = new YAHOO.widget.TabView('editForm');
+</script>
+{% endblock %}

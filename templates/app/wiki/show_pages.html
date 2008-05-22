@@ -1,0 +1,57 @@
+{% extends "base_util_window.html" %}
+{% load i18n %}
+
+{% block title %}{{title}}{% endblock %}
+{% block sub_title %}{{ sub_title }}{% endblock %}
+
+{% block content %}
+
+{% blocktrans %}
+<p>
+Text fehlt
+</p>
+
+{% endblocktrans %}
+
+<table class="form-table" style="width:100%;">
+
+<thead>
+  <tr class="tabHeaderBg">
+  <td width="20%">
+    <b>{% trans "Name" %}</b>
+  </td>
+  <td width="80%">
+    <b>{% trans "Überschrift" %}</b>
+  </td>
+  </tr>
+</thead>
+
+<tbody>
+<!-- hier beginnen die eigentlichen Objekte -->
+{% if objs %}
+  {% for obj in objs %}
+    <tr>
+      <td class="bottom-border-ex" width="20%">{{ obj.name }}</td>
+      <td class="bottom-border-ex" width="80%">
+      {{ obj.title }}
+      {% if obj.is_image %}
+        <img src="{{ obj.url }}" border="0" />
+      {% endif %}
+      </td>
+      </td>
+    </tr>
+  {% endfor %}
+{% else %}
+  <tr>
+  <td colspan="8">
+  {% trans "Dieses Wiki ist leer." %}
+  </td>
+  </tr>
+{% endif %}
+
+</tbody>
+
+</table>
+
+{% endblock %}
+

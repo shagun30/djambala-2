@@ -1,0 +1,141 @@
+{% load i18n %}
+
+{% autoescape off %}
+<script type="text/javascript">
+function do_show_rename(id) {
+  document.getElementById("a_rename_"+id).style.display="none";
+  document.getElementById("div_rename_"+id).style.display="inline";
+  document.eval("form_rename_"+id).new_name.focus();
+}
+function do_hide_rename(id) {
+  document.getElementById("div_rename_"+id).style.display="none";
+  document.getElementById("a_rename_"+id).style.display="inline";
+}
+function do_show_delete(id) {
+  document.getElementById("a_delete_"+id).style.display="none";
+  document.getElementById("div_delete_"+id).style.display="inline";
+}
+function do_hide_delete(id) {
+  document.getElementById("div_delete_"+id).style.display="none";
+  document.getElementById("a_delete_"+id).style.display="inline";
+}
+function do_show_delete_total(id) {
+  document.getElementById("a_delete_total_"+id).style.display="none";
+  document.getElementById("div_delete_total_"+id).style.display="inline";
+}
+function do_hide_delete_total(id) {
+  document.getElementById("div_delete_total_"+id).style.display="none";
+  document.getElementById("a_delete_total_"+id).style.display="inline";
+}
+</script>
+
+<table class="form-table" style="width:100%;">
+
+<thead>
+  <tr class="tabHeaderBg">
+    <td colspan="5">&nbsp;</td>
+    <td colspan="3"><b>{% trans "Typ" %}</b></td>
+    <td>
+      <a class="navLink" href="{{ main_obj.url }}/manage/?sort=name"><b>{% trans "Name" %}</b></a>
+    </td>
+    <td>
+      <a class="navLink" href="{{ main_obj.url }}/manage/?sort=title"><b>{% trans "Überschrift" %}</b></a>
+    </td>
+    <td width="20%">
+      <a class="navLink" href="{{ main_obj.url }}/manage/?sort=date"><b>{% trans "Datum" %}</b></a>
+    </td>
+  </tr>
+</thead>
+
+<tbody>
+<!-- Kopfzeile zur Objektuebersicht -->
+<tr class="selectblock" style="border-width:1px; border-color:#000000; border-style:solid;">
+<td class="selectblock" width="2%">
+{% if main_obj.top_url %}
+<a class="nav" href="{{ main_obj.top_url }}index.html/manage/"
+title="Zum übergeordneten Ordner"><img 
+src="/dms_media/image/app/{{ main_obj.app_name }}.gif" border="0" /></a>
+{% else %}
+&nbsp;
+{% endif %}
+</td>
+<td class="selectblock" width="2%"></td>
+<td colspan="6"></td>
+<td><b>{{ main_obj.name }}</b></td>
+<td><b>{{ main_obj.title }}</b></td>
+<td width="20%"><b>{{ main_obj.last_modified }}<b></td>
+</tr>
+
+<!-- hier beginnen die eigentlichen Objekte -->
+{% if objs %}
+  {% for obj in objs %}
+  <tr>
+  <td class="bottom-border-ex" width="2%">&nbsp;</td>
+  <td class="bottom-border-ex" width="2%">
+  <a class="nav" href="{{ obj.feed_url }}/edit/" title="{% trans "Objekt ändern" %}"><img
+     src="/dms_media/image/manage/edit.gif" border="0" /></a>
+  </td>
+  <td class="bottom-border-ex" width="2%">&nbsp;</td>
+  <td class="bottom-border-ex" width="2%">&nbsp;</td>
+  <td class="bottom-border-ex" width="2%">&nbsp;</td>
+  <td class="bottom-border-ex" width="2%"><img 
+  src="/dms_media/image/app/{{ obj.app_name }}.gif" border="0" title="{{ obj.app_name }}" />
+  </td>
+  <td class="bottom-border-ex" width="2%">
+  {% if obj.is_deleted %}
+    <a href="{{ obj.feed_url }}/undo/" title="Löschen rückgängig machen"><img
+    src="/dms_media/image/manage/undo.gif" alt="{% trans "Undo-Symbol" %}" border="0"></a>
+  {% else %}
+    <a href="{{ obj.feed_url }}/delete/" title="Löschen"><img
+    src="/dms_media/image/manage/delete.gif" alt="{% trans "Löschen-Symbol" %}" border="0"></a>
+  {% endif %}
+  </td>
+  <td class="bottom-border-ex" width="2%">
+  {% if obj.is_deleted %}
+    <a id="a_delete_total_{{ obj.id }}" class="nav" href="javascript:void(0)" 
+      onClick="javascript:do_show_delete_total({{ obj.id }})" title="Schreddern"><img
+    src="/dms_media/image/manage/delete_total.gif" 
+    alt="{% trans "Schreddern-Symbol" %}" border="0"></a>
+    <div id="div_delete_total_{{obj.id}}" style="display: none;">
+      <b>Wirklich&nbsp;schreddern?</b>
+      <form name="form_delete_total_{{ obj.id }}" method="get" action="{{ obj.url }}/delete_total/"
+            onreset="return do_hide_delete_total({{ obj.id }})">
+      <input name="submit" type="submit" value=" {% trans "Ja" %} " />
+      <input name="reset" type="reset" value=" {% trans "Nein" %} " />
+      </form>
+    </div>
+  {% endif %}
+  </td>
+  <td class="bottom-border-ex">
+  {% if obj.is_renameable %}
+    <a class="navLink" id="a_rename_{{obj.id}}" class="nav" href="javascript:void(0)" 
+      onClick="javascript:do_show_rename({{ obj.id }})" 
+      title="{% trans "Umbenennen" %}">{{ obj.name }}</a>
+    <div id="div_rename_{{ obj.id }}" style="display: none;">
+      <form name="form_rename_{{ obj.id }}" method="get" action="{{ obj.url }}/rename/">
+      <input name="new_name" size="30"
+            value="{{ obj.name }}" onblur="return do_hide_rename({{ obj.id }})" />
+      </form>
+    </div>
+  {% else %}
+    <b>{{ obj.name }}</b>
+  {% endif %}
+  </td>
+  <td class="bottom-border-ex">
+  <a href="{{ obj.url }}" title="{% trans "Objekt anzeigen" %}">{{ obj.title }}</a>
+  </td>
+  <td class="bottom-border-ex" width="20%">{{ obj.last_modified }}</td>
+  </tr>
+  {% endfor %}
+{% else %}
+<tr>
+<td colspan="11">
+{% trans "Dieser Ordner ist leer bzw. enthält keine eigenen Objekte." %}
+</td>
+</tr>
+{% endif %}
+
+</tbody>
+
+</table>
+{% endautoescape %}

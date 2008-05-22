@@ -1,0 +1,11 @@
+{% load i18n %}
+
+{% autoescape off %}
+<a href="./index.html/newitems/" class="navLink"
+  title="{% trans "Beiträge der letzten 30 Tage ,,," %}">
+  {% trans "Neue Beiträge" %}</a><br />
+<a href="./index.html/sitemap/" class="navLink"
+  title="{% trans "Unterarchive dieses Lernarchivs ,,," %}">
+  {% trans "Sitemap" %}</a><br />
+<br />
+{% endautoescape %}

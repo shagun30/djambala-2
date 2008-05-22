@@ -1,0 +1,23 @@
+{% load i18n %}
+
+{% autoescape off %}
+{% if not quota_exceeded %}
+  <a href="{{ path }}index.html/add/file/" class="frameLink" 
+     title="{% trans "Datei ergänzen ..." %}"
+     >{% trans "Neue Datei ..." %}</a><br />
+{% endif %}
+  <a href="{{ path }}index.html/add/document/" class="frameLink" 
+     title="{% trans "Informationsseite ergänzen ..." %}"
+     >{% trans "Neue Informationsseite ..." %}</a><br />
+{% if not quota_exceeded %}
+  <a href="{{ path }}index.html/add/image/" class="frameLink" 
+     title="{% trans "Bild, Foto, Grafik ergänzen ..." %}"
+     >{% trans "Neues Bild ..." %}</a><br />
+{% endif %}
+  <a href="{{ path }}index.html/add/linkitem/" class="frameLink" 
+     title="{% trans "Verweis ergänzen ..." %}"
+     >{% trans "Neuer Verweis ..." %}</a><br />
+  <a href="{{ path }}index.html/add/wiki/" class="frameLink" 
+     title="{% trans "Wki ergänzen ..." %}"
+     >{% trans "Neues Wiki ..." %}</a><br />
+{% endautoescape %}

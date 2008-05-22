@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+{% if answers %}
+{{ answers }}
+{% else %}
+<h4>{% trans "Ergebnisse der einzelnen Fragen" %}</h4>
+
+<ul>
+{% for question in survey_questions %}
+<li>
+  <a href="?show_question_survey={{ question.id }}">{{ question.header }}</a><br />
+  {{ question.question }}
+</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% endblock %}

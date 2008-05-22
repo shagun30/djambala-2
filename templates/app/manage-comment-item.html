@@ -1,0 +1,26 @@
+{% load i18n %}
+<tr class="selectblock" style="border-width:1px; border-color:#000000; border-style:solid;">
+  <td width="5%" rowspan="2" align="center">
+  <input type="checkbox" name="is_visible_{{ obj.id }}"
+        {% if obj.is_browseable %}checked="checked"{% endif %} />
+  </td>
+  <td width="90%">
+  <b>{{ obj.title }}</b> /
+  {% if obj.email %}
+    <a href="mailto:{{ obj.email }}">{{ obj.name }}</a>
+  {% else %}
+    {{ obj.name }}
+  {% endif %}
+  / {{ last_modified }}<br />
+  {% trans "Bezug" %}: {{ obj.parent_item.title }}
+  </td>
+  <td width="5%" rowspan="2" align="center">
+    <input type="checkbox" name="delete_{{ obj.id }}" />
+  </td>
+</tr>
+
+<tr class="white" style="border-width:1px; border-color:#000000; border-style:solid;">
+  <td>
+    {{ obj.text }}
+  </td>
+</tr>

@@ -1,0 +1,14 @@
+{% extends "app/base_section.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block infos %}
+<div>
+  <div style="float:left;"><img src="{{ image_url }}" /></div>
+  <div style="margin-left:{{ width }};">
+    {{ content }}
+  </div>
+  <br clear="all" />
+</div>
+{% endblock %}
+{% endautoescape %}

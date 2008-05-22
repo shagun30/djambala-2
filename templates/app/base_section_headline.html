@@ -1,0 +1,29 @@
+{% load i18n %}
+
+{% autoescape off %}
+<a name="{{ section|safe }}"></a>
+{% if section %}
+<div class="top-bottom-border-ex">
+  <div style="margin-bottom:0.6em;">
+    <a name="anker_{{ name }}"></a>
+    <p class="headlineBg">
+      <b>{{ section|safe }}</b>{{ to_top_of_page }}
+    </p>
+  </div>
+</div>
+{% endif %}
+
+{% if title %}
+<div class="top-bottom-border-ex">
+  <div style="margin-bottom:0.6em;">
+    <a name="anker_{{ name }}"></a>
+    <p class="headlineBg">
+      <b>{{ title|safe }}</b>
+    </p>
+  </div>
+</div>
+{% endif %}
+
+{% block infos %}
+{% endblock %}
+{% endautoescape %}

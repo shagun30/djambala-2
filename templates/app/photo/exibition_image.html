@@ -1,0 +1,74 @@
+{% load i18n %}
+
+{% autoescape off %}
+<p align="right" style="margin-top:0; margin-bottom:0;">
+{% if first_url %}
+<a href="{{ first_url }}" target="_extern" class="frameLink">{% trans "erstes Bild" %}</a>
+{% else %}
+<span class="grey">{% trans "erstes Bild" %}</span>
+{% endif %}
+|
+{% if prev_url %}
+<a href="{{ prev_url }}" target="_extern" class="frameLink">{% trans "zurück" %}</a>
+{% else %}
+<span class="grey">{% trans "zurück" %}</span>
+{% endif %}
+| &middot;&middot;&middot; |
+{% if next_url %}
+<a href="{{ next_url }}" target="_extern" class="frameLink">{% trans "nächstes" %}</a>
+{% else %}
+<span class="grey">{% trans "nächstes" %}</span>
+{% endif %}
+|
+{% if last_url %}
+<a href="{{ last_url }}" target="_extern" class="frameLink">{% trans "letzes Bild" %}</a>
+{% else %}
+<span class="grey">{% trans "letzes Bild" %}</span>
+{% endif %}
+<br />
+<span class="grey">{{ section }} </span>
+</p>
+
+<div align="center">
+<table>
+<tr>
+<td width="20%">&nbsp;</td>
+<td width="60%">
+<h3>
+  {{ title }}
+  {% if comments %}
+  <span class="grey" title="{% trans "Beitrag/Beiträge kommentierbar" %}">&there4;</span>
+  {% endif %}
+</h3>
+
+{% if image_url %}
+<img src="{{ image_url }}" alt="{% trans "Bild" %}" />
+<br />
+
+<p>
+  {% trans "Photograph/in" %}:
+  {% if email %}
+    <a href="mailto:{{ email }}" class="navLink">{{ full_name }}</a>,
+  {% else %}
+    {{ full_name }},
+  {% endif %}
+  {% trans "eingestellt" %}: {{ last_modified }}
+</p>
+{% endif %}
+
+{% if text %}
+<h4>{% trans "Informationen zum Bild" %}</h4>
+
+{{ text }}
+{{ text_more }}
+{% endif %}
+
+<p>
+{{ image_url_big }}
+</p>
+</td>
+<td width="20%">&nbsp;</td>
+</tr>
+</table>
+</div>
+{% endautoescape %}

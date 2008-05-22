@@ -1,0 +1,16 @@
+{% load i18n %}
+
+{% autoescape off %}
+{% if header %}
+<div class="info-frame-header" style="width:95%;">
+<span class="indexHeaderText"><span class="headerSymBg"><img 
+src="/dms_media/skin_style/base/leer.gif" width="10" height="10" alt="" /></span>&nbsp;<span 
+class="tabHeaderText"><!-- header start -->{{ header }}<!-- header end --></span></span>
+</div>
+{% else %}
+<!-- header start --><!-- header end -->
+{% endif %}
+<!-- info start -->
+{{ info }}
+<!-- info end -->
+{% endautoescape %}

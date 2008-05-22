@@ -1,0 +1,44 @@
+{% extends "base_base.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block html_head %}
+  <title>{{ title }}</title>
+
+  <meta name="DC.Subject.Publisher" content="{{ site.title }}">
+  <meta name="DC.Subject.Rights"    content="{{ site.impress_url }}">
+
+  {% if this_style %}
+  <link rel="stylesheet" media="all" type="text/css" 
+        href="{{ site.url }}/dms_media/skin_style/{{this_style}}/css_{{this_style}}.css">
+  {% else %}
+  <link rel="stylesheet" media="all" type="text/css" href="{{ site.url }}/dms_media/skin_style/bs/css_bs.css">
+  {% endif %}
+  <link href="{{ site.url }}/dms_media/skin_style/base/favicon.ico" rel="shortcut icon">
+  <link rel="alternate" type="application/rss+xml" title="{% trans "RDF-Datei" %}" 
+        href="{{ site.url }}/rss_feeds/index.html">
+  <script type="text/javascript" src="{{ site.url }}/dms_media/javascript/base.js"></script>
+  {% if content_div_style %}
+  <style>
+    #header {display: none;}
+    #col1 {display: none;}
+    #col3 {margin-left: 0; margin-right: 0;}
+    #main {background-image: url();}
+    th,td { padding: 1px; }
+  </style>
+  {% endif %}
+{% endblock %}
+
+{% block bottom_of_page %}
+<!-- footer -->
+<a name="frame-foot"></a>
+<div id="page-footer">
+  <div style="float:left;">
+  {{ footer_left }}
+  </div>
+  <div style="text-align:right;">
+    {{footer_email}}, {{ last_modified }}
+  </div>
+</div> <!-- end of footer -->
+{% endblock %}
+{% endautoescape %}

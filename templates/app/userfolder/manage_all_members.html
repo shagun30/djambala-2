@@ -1,0 +1,24 @@
+{% load i18n %}
+
+{% autoescape off %}
+<p>
+{% trans "Geben Sie bitte im folgenden Formular den Nachnamen der Community-Mtglieder ein:" %}
+</p>
+<form method = "POST"
+      action = "./">
+<table class="form-table" style="width:100%;">
+<tr class="selectblock" style="border-width:1px; border-color:#000000; border-style:solid;">
+<td class="selectblock" width="30%"><label for="search_last_name"><b>{% trans "Nachname" %}</b></lable></td>
+<td width="70%">
+<input name="search_last_name" value="" />
+</td>
+</tr>
+<tr class="selectblock" style="border-width:1px; border-color:#000000; border-style:solid;">
+<td class="selectblock" colspan="2" align="right">
+<input name="org_id" type="hidden" value="0" />
+<input name="submit" type="submit" value="{% trans "Mitglied in der kompletten Community suchen ..." %}" />
+</td>
+</tr>
+</table>
+</form>
+{% endautoescape %}

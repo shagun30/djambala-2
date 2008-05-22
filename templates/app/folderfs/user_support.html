@@ -1,0 +1,8 @@
+{% load i18n %}
+
+{% autoescape off %}
+  <a href="{{ path }}index.html/add/file/" class="frameLink" 
+     title="{% trans "Datei ergänzen ..." %}">{% trans "Neue Datei ..." %}</a><br />
+  <a href="{{ path }}index.html/add/filefs/" class="frameLink" 
+     title="{% trans "Ordner für Dateisystem ergänzen ..." %}">{% trans "Neuer Ordner ..." %}</a><br />
+{% endautoescape %}

@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block html_head_ext %}
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/datatable/assets/skins/sam/datatable.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/assets/skins/sam/tabview.css" />
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/element/element-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/datasource/datasource-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/datatable/datatable-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/tabview.js"></script>
+<style>
+.yui-content { background-color: #f4f4f4 !important; }
+</style>
+{% endblock %}
+
+{% block title %} {{title}}{% endblock %}
+
+{% block content %}
+
+<script type="text/javascript">
+function do_show_more () {
+  document.getElementById("show_more").style.display="none";
+  document.getElementById("text_more").style.display="inline";
+  document.getElementById("show_less").style.display="inline";
+}
+function do_hide_more (id) {
+  document.getElementById("text_more").style.display="none";
+  document.getElementById("show_less").style.display="none";
+  document.getElementById("show_more").style.display="inline";
+}
+</script>
+<p>
+  <a id="show_more" class="navLink" 
+      href="javascript:void(0)" onClick="do_show_more()"
+      title="{% trans "Suchformular zeigen ..." %}"><img
+      src="{{ base_site_url }}/dms_media/image/action/more_icon.gif" 
+      title="{% trans "Ein/Ausblende-Symbol" %}" />&nbsp;{% trans "Suche verfeinern ..." %}</a>
+  <a id="show_less" class="navLink" style="display:none"
+      href="javascript:void(0)" onClick="do_hide_more()"
+      title="{% trans "Suchformular zusammenfalten ..." %}"><img
+      src="{{ base_site_url }}/dms_media/image/action/more_icon.gif" 
+      title="{% trans "Ein/Ausblende-Symbol" %}" />&nbsp;{% trans "Suchformular zusammenfalten ..." %}</a>
+</p>
+<div id="text_more" style="display:none">
+  <p>
+  {% trans "Anzahl der Schulen:" %} {{ count_total }}
+  </p>
+  <form method="post"
+        name  ="form_input"
+        action="{{ next }}">
+  {{ content }}
+  <p align="right" style="margin-top:0.5em;">
+  <input name="path" type="hidden" value="{{ path }}" />
+  <input name="submit" type="submit" value="{{ submit }} ..." />
+  </p>
+  </form>
+</div>
+
+<script>
+ var editTab = new YAHOO.widget.TabView('editForm');
+</script>
+
+<p>
+{% blocktrans %}
+Sie können die folgende Tabelle nach verschiedenen Kriterien sortieren, indem Sie
+die entsprechenden Überschriften anklicken. Anzahl der gefundenen Schulen:
+{% endblocktrans %}
+{{ count }}
+</p>
+
+{% if objs %}
+<div class="yui-skin-sam">
+<div id="markup">
+<table id="items" class="form-table" style="width:100%;">
+  <tbody>
+    {% for obj in objs %}
+    <tr>
+    <td>
+    {{ obj.schul_name }} -
+    <a href="{{ base_url }}?show_school={{ obj.schul_nr }}">{% trans "Details&nbsp;..." %}</a>
+    </td>
+    <td>{{ obj.schul_ort }}</td>
+    <td>{{ obj.schul_typ }}</td>
+    <td>{{ obj.schul_nr }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+</div>
+{% else %}
+  <p>
+    {% trans "Für diese Filtereinstellung gibt es keine passenden Schulen in Hessen." %}
+  </p>
+{% endif %}
+
+<script type="text/javascript">
+YAHOO.util.Event.addListener(window, "load", function() {
+    YAHOO.example.EnhanceFromMarkup = new function() {
+        var myColumnDefs = [
+            {key:"schul_name",label:"Schulname",sortable:true},
+            {key:"schul_ort",label:"Schulort",sortable:true},
+            {key:"schul_typ",label:"Schulart",sortable:true},
+            {key:"schul_nr",label:"Schul-Nr",sortable:true}
+        ];
+
+        this.myDataSource = new YAHOO.util.DataSource(YAHOO.util.Dom.get("items"));
+        this.myDataSource.responseType = YAHOO.util.DataSource.TYPE_HTMLTABLE;
+        this.myDataSource.responseSchema = {
+            fields: [ {key:"schul_name"}, {key:"schul_ort"}, 
+                      {key:"schul_typ"}, {key:"schul_nr"} ]
+        };
+
+        this.myDataTable = new YAHOO.widget.DataTable("markup", myColumnDefs, this.myDataSource,
+                {sortedBy:{key:"schul_name",dir:"asc"}});
+        };
+});
+</script>
+{% endblock %}
+

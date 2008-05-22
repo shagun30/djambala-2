@@ -1,0 +1,7 @@
+{% load i18n %}{% autoescape off %}{{ title }}
+
+{{ text }}
+{% if url_more %}{% trans "Weitere Infos: " %}{{ url_more }}{% endif %}
+{{ name }} , {{ mail }}
+{{ date }}
+-------------------------------------------{% endautoescape %}

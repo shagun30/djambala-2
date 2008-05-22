@@ -1,0 +1,14 @@
+{% extends "app/base_section.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block infos %}
+<ul class="form-no-margin" style="margin-left:180px; list-style-position:inside;">
+{% for feed in feeds %}
+  <li>
+  <a class="navLink" href="/feeds/rss/{{ feed.name }}">{{ feed.title }}</a>
+  </li>
+{% endfor %}
+</ul>
+{% endblock %}
+{% endautoescape %}

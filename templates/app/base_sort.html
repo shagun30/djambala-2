@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block html_head_ext %}
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/assets/skins/sam/tabview.css" />
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/element/element-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/tabview.js"></script>
+<style>
+.yui-content { background-color: #f4f4f4 !important; }
+</style>
+
+<script type="text/javascript" src="{{ site_url }}/dms_media/javascript/overlib/overlib.js-small"></script>
+<script type="text/javascript" src="{{ site_url }}/dms_media/javascript/tool-man/core.js"></script>
+<script type="text/javascript" src="{{ site_url }}/dms_media/javascript/tool-man/events.js"></script>
+<script type="text/javascript" src="{{ site_url }}/dms_media/javascript/tool-man/css.js"></script>
+<script type="text/javascript" src="{{ site_url }}/dms_media/javascript/tool-man/coordinates.js"></script>
+<script type="text/javascript" src="{{ site_url }}/dms_media/javascript/tool-man/drag.js"></script>
+<script type="text/javascript" src="{{ site_url }}/dms_media/javascript/tool-man/dragsort.js"></script>
+<script type="text/javascript" src="{{ site_url }}/dms_media/javascript/tool-man/cookies.js"></script>
+
+<script language="JavaScript" type="text/javascript">
+<!--
+var dragsort = ToolMan.dragsort()
+var junkdrawer = ToolMan.junkdrawer()
+
+window.onload = function() {
+{{ js_head|safe }}
+}
+function saveValues () {
+  var n     = 0;
+  var pat   = "";
+  while ( n <= {{ max_items }} ) {
+    pat = "var_order_by_" + String(n);
+    order_by = junkdrawer.serializeList(document.getElementById("order_by_"+String(n)));
+    document.form_drag_sort[pat].value = order_by;
+    //alert ( document.form_drag_sort[pat].value )
+    n ++;
+  }
+}
+function verticalOnly(item) { item.toolManDragGroup.verticalOnly() }
+function saveOrder(item) {
+  var group = item.toolManDragGroup
+  var list = group.element.parentNode
+  var id = list.getAttribute("id")
+  if (id == null) return
+  group.register('dragend', function() {
+        ToolMan.cookies().set("list-" + id, junkdrawer.serializeList(list), 365) })
+}
+//-->
+</script>
+{% endblock %}
+
+{% block frame_left %}{% endblock %}
+
+{% block title %}{{title}}{% endblock %}
+{% block sub_title %}{{ sub_title }}{% endblock %}
+
+{% block content %}
+
+  <div class=" yui-skin-sam">
+    <div id="sortForm" class="yui-navset">
+      <ul class="yui-nav">
+          <li class="selected"><a href="#tab0"><em>{% trans "Reihenfolge" %}</em></a></li>
+          <li><a href="#tab1"><em>{% trans "Zwischentitel" %}</em></a></li>
+      </ul>
+      <div class="yui-content">
+          <div id="tab0">
+            {% if input_str %}
+              {% blocktrans %}
+              <p>Verschieben Sie die Objekte an die gewünschte Position.</p>
+              <p>Objekte mit der Kennzeichung '***' gehören zu einem unbekannten Zwischentitel. Dies
+              passiert häufig nach dem Einfügen eines Objektes.
+              </p>
+              {% endblocktrans %}
+              <form method = "post"
+                    name   = "form_drag_sort"
+                    action = "."
+                    onSubmit = "return saveValues()">
+              {{ drag_list }}
+              <div style="clear: left;"><br></div>
+              <div style="margin-top:0.5em; width:100%;" align="right">
+                {{ input_str }}
+                <input name="drag_item_form" type="hidden" value="1" />
+                <input name="submit" type="submit" value="{{ title }} ... " />
+              </div>
+              </form>
+            {% else %}
+              <p>{% trans "Dieser Ordner ist leer." %}</p>
+            {% endif %}
+          </div>
+          <div id="tab1">
+            <form method = "post"
+                  action = ".">
+            {{ sec_content }}
+            <div style="clear: left;"><br></div>
+            <div style="margin-top:0.5em; width:100%;" align="right">
+              <input name="sections_form" type="hidden" value="1" />
+              <input name="submit" type="submit" value="{% trans "Liste der Zwischentitel speichern ..." %}" />
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+ var editTab = new YAHOO.widget.TabView('sortForm');
+</script>
+{% endblock %}
+{% endautoescape %}

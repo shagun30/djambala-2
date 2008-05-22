@@ -1,0 +1,16 @@
+{% load i18n %}
+{{ text }}
+
+{% if text_more %}{{ text_more }}{% endif %}
+
+<p>
+{% trans "Sie haben uns folgende Angaben übermittelt:" %}
+</p>
+<table border="1" cellspacing="1" cellpadding="3">
+{% for d in data %}
+  <tr>
+    <td><b>{{ d.header }}</b></td>
+    <td>{{ d.value }}</td>
+  </tr>
+{% endfor %}
+</table>

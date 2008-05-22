@@ -1,0 +1,40 @@
+{% load i18n %}
+
+{% autoescape off %}
+{% block content %}
+<p>
+{% blocktrans %}
+An Ihre E-Mail-Adresse wurden zwei PDF-Dateien geschickt. Die erste Datei senden
+Sie bitte mit Stempel und Unterschrift an uns zurück. Die zweite PDF-Dateien
+ist für Ihre Akten bestimmt. Sie enthält das Kennwort im Klartext und
+muss deshalb sorgfältig abgelegt werden.
+{% endblocktrans %}
+</p>
+
+<table class="info-border" border="1" cellspacing="1" cellpadding="3" style="width:100%;">
+  <tr>
+    <td class="introblock" width="30%"><b>{% trans "Zugangsname" %}</b></td>
+    <td width="70%"><b>{{ username }}</b></td>
+  </tr>
+  <tr>
+    <td class="introblock" width="30%"><b>{% trans "Name" %}</b></td>
+    <td width="70%">
+      {% if female %}
+        Frau
+      {% else %}
+        Herr
+      {% endif %}
+      {{ title_name }} {{ first_name }} {{ last_name }}
+    </td>
+  </tr>
+  <tr>
+    <td class="introblock" width="30%"><b>{% trans "E-Mail-Adresse" %}</b></td>
+    <td width="70%">{{ email }}</td>
+  </tr>
+</table>
+
+<p>
+<a href="{{ next }}">Weiter ...</a>
+</p>
+{% endblock %}
+{% endautoescape %}

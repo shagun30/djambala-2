@@ -1,0 +1,13 @@
+{% load i18n %}
+
+{% autoescape off %}
+{% if view_mode %}
+  <a href="{{ path }}index.html" class="frameLink" 
+     title="{% trans "Webquestmodus einschalten" %}"
+     >{% trans "Einzelseiten ..." %}</a><br />
+{% else %}
+  <a href="{{ path }}index.html?view_mode=complete" class="frameLink" 
+     title="{% trans "Übersichtsmodus einschalten" %}"
+     >{% trans "Alle Seiten ..." %}</a><br />
+{% endif %}
+{% endautoescape %}

@@ -1,0 +1,15 @@
+{% extends "app/eventboard/base_section.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block infos %}
+<ul class="form-no-margin" style="margin-left:180px%; list-style-position:inside;">
+  {% for i in items %}
+    {% if not i.item.app.is_folderish %}
+    <li><a href="#anker_{{ i.item.name }}">{{ i.item.title }}</a></li>
+    {% endif %}
+  {% endfor %}
+</ul>
+<br />
+{% endblock %}
+{% endautoescape %}

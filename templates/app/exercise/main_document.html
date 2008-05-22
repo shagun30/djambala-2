@@ -1,0 +1,17 @@
+{% load i18n %}
+
+{% autoescape off %}
+<li>
+{% if link.extern %}
+  {{ link.extern_icon }}<a href="{{ link.url }}" target="{{ link.extern }}"
+     title="{% trans "Wird in einem eigenen Fenster geöffnet ..." %}">
+     {{ link.title }}</a>
+{% else %}
+  <a href="{{ link.url }}">{{ link.title }}</a>
+{% endif %}
+{{ link.size }}
+<div style="margin-left:0%;">
+{{ link.text }}
+</div>
+</li>
+{% endautoescape %}

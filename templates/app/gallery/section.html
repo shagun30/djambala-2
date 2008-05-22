@@ -1,0 +1,12 @@
+{% extends "app/base_section.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block infos %}
+{% for photo in photos %}
+<div style="margin-left:10%">
+  {{ photo }}
+</div>
+{% endfor %}
+{% endblock %}
+{% endautoescape %}

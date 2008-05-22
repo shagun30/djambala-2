@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block html_head_ext %}
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/assets/skins/sam/tabview.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/datatable/assets/skins/sam/datatable.css" />
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/element/element-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/tabview.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo/yahoo.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/event/event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/connection/connection.js"></script>
+<style>
+.yui-content { background-color: #f4f4f4 !important; }
+</style>
+{% endblock %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+{% for obj in objs %}
+{% if obj.header %}<p><b>{{ obj.header }}</b></p>{% endif %}
+<p>
+{{ obj.schul_name }}<br />
+{{ obj.schul_strasse }}<br />
+{{ obj.schul_plz }} {{ obj.schul_ort }}<br />
+</p>
+<p>
+{% trans "Tel" %}: {{ obj.schul_tel }} - {% trans "Fax" %}: {{ obj.schul_fax }}<br />
+{% trans "E-Mail" %}: {{ obj.schul_email }}
+</p>
+{% endfor %}
+<p>
+{% trans "Homepage" %}: {{ schul_homepage }}<br />
+{% if schul_homepage %}
+{% trans "Homepage-2" %}: {{ schul_homepage2 }}<br />
+{% endif %}
+</p>
+<br />
+
+<div class=" yui-skin-sam">
+  <div id="showForm" class="yui-navset">
+    <ul class="yui-nav">
+      <li class="selected"><a href="#tab0"><em>{% trans "Basisdaten" %}</em></a></li>
+      <li><a href="#tab1"><em>{% trans "Profil" %}</em></a></li>
+    </ul>
+    <div class="yui-content">
+      <div id="tab0">
+        <br />
+        <table class="form-table" style="width:100%;">
+          <tr class="bottom-border-ex">
+            <td class="introblock"><b>{% trans "Schultyp" %}</b></td>
+            <td>{{ schul_typ }}</td>
+          </tr>
+          {% if schul_sprfolge %}
+          <tr class="bottom-border-ex">
+            <td class="introblock"><b>{% trans "Sprachenfolge" %}</b></td>
+            <td>
+              <ul>
+              {% for sprache in schul_sprfolge %}
+                <li>{{ sprache }}</li>
+              {% endfor %}
+              </ul>
+            </td>
+          </tr>
+          {% endif %}
+          <tr class="bottom-border-ex">
+            <td class="introblock"><b>{% trans "Besondere Einrichtungen" %}</b></td>
+            <td>
+              <ul>
+              {% for bes in schul_bes_einrichtung %}
+                <li>{{ bes }}</li>
+              {% endfor %}
+              </ul>
+            </td>
+          </tr>
+          <tr class="bottom-border-ex">
+            <td class="introblock"><b>{% trans "Schulformangebote" %}</b></td>
+            <td>
+              <ul>
+              {% for s in schul_sformangebot %}
+                <li>{{ s }}</li>
+              {% endfor %}
+              </ul>
+            </td>
+          </tr>
+          <tr class="bottom-border-ex">
+            <td class="introblock"><b>{% trans "Dienststellennummer" %}</b></td>
+            <td>{{ schul_nr }}</td>
+          </tr>
+          <tr class="bottom-border-ex">
+            <td class="introblock"><b>{% trans "Rechtsstellung" %}</b></td>
+            <td>{{ schul_rechtsstellung }}</td>
+          </tr>
+          <tr class="bottom-border-ex">
+            <td class="introblock"><b>{% trans "Schulamt" %}</b></td>
+            <td>{{ schul_amt }}</td>
+          </tr>
+          <tr class="bottom-border-ex">
+            <td class="introblock"><b>{% trans "Schulträger" %}</b></td>
+            <td>{{ schul_traeger }}</td>
+          </tr>
+        </table>
+      </div>
+      <div id="tab1">
+        {{ schul_profil }}
+      </div>
+    </div>
+  </div>
+  <br />
+</div>
+
+<script>
+ var showTab = new YAHOO.widget.TabView('showForm');
+</script>
+{% endblock %}

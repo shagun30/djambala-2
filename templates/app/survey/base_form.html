@@ -1,0 +1,71 @@
+{% load i18n %}
+
+{% block html_head_ext %}
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/assets/skins/sam/tabview.css" />
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/element/element-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/tabview.js"></script>
+<style>
+.yui-content { background-color: #f4f4f4 !important; }
+</style>
+{% endblock %}
+
+{% autoescape off %}
+
+{% if form_is_active %}
+<p>
+<b>{% trans "Sie können Ihre Daten eingeben." %}</b>
+{{ separator }}
+{% trans "Anzahl der Antworten:" %} {{ count }} / {{ now }}
+</p>
+
+<form name   = "formForm"
+      method = "post"
+      action = "">
+{% else %}
+<p>
+<b>{% trans "Eine Dateneingabe ist momentan nicht möglich." %}</b>
+</p>
+{% endif %}
+
+<div style="right:220px;">
+  <div class=" yui-skin-sam">
+    <div id="formForm" class="yui-navset">
+      <ul class="yui-nav">
+        {% for obj in objs %}
+          <li{% if obj.selected %} class="selected"{% endif %}><a href="#tab{{ obj.tab }}"><em>{{ obj.name }}</em></a></li>
+        {% endfor %}
+      </ul>
+      <div class="yui-content">
+        {% for obj in objs %}
+          <div id="tab{{ obj.tab }}">
+            <p>{% trans "Felder mit einem Sternchen müssen ausgefüllt werden." %}</p>
+            <table class="info-border" border="1" cellspacing="1" cellpadding="3">
+            {% for f in obj.forms %}
+              {{ f }}
+            {% endfor %}
+            </table>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+{% if form_is_active %}
+<p align="right">
+<br />
+<input type="hidden" name="survey_id" value="{{ survey_id }}" />
+<input type="submit" value="{{ submit }}" />
+</p>
+{% endif %}
+
+<script>
+ var formTab = new YAHOO.widget.TabView('formForm');
+</script>
+{% endautoescape %}

@@ -1,0 +1,37 @@
+{% extends "app/base_manage.html" %}
+{% load i18n %}
+
+{% block html_head_ext %}
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/assets/skins/sam/tabview.css" />
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/element/element-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/tabview.js"></script>
+{% endblock %}
+
+{% block frame_left %}{% endblock %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block sub_title %}
+  {% if sub_title %}
+    {{ sub_title }}{% if my_name %} <i>[{{ my_name }}]</i>{% endif %}
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+
+{% if text_intro %}
+  {{ text_intro }}
+{% endif %}
+
+{{ content }}
+
+<script>
+ var editTab = new YAHOO.widget.TabView('infoForm');
+</script>
+{% endblock %}

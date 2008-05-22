@@ -1,0 +1,26 @@
+{% if info %}
+<tr>
+  <td class="introblock" colspan="2">
+  <i>{{ info }}</i>
+  </td>
+</tr>
+{% endif %}
+<tr>
+  {% if no_entries %}
+  <td colspan="2">
+      <p>Zum gewünschten Zeitpunkt sind alle Ressourcen dieser Kategorie ausgebucht.</p>
+  </td>
+  {% else %}
+    {% if header %}
+    <td class="introblock" valign="top" width="30%">
+      {% if required %}<b>{{ header }}&nbsp;*</b>{% else %}{{ header }}{% endif %}
+    </td>
+    {% endif %}
+    <td width="70%">
+      {% for option in options %}
+        <input name="{{ name }}" type="checkbox" value="{{ option.id }}"
+        {% if option.checked %} checked="checked"{% endif %}/>{{ option.name }}<br />
+      {% endfor %}
+    </td>
+  {% endif %}
+</tr>

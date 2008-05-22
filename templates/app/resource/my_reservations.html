@@ -1,0 +1,57 @@
+{% extends "app/base_edit.html" %}
+{% load i18n %}
+
+
+{% autoescape off %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+{% if my_events %}
+<form name   = "formForm"
+      method = "post"
+      action = "{{ next_del }}">
+          <div style="right:220px;">
+            <div class=" yui-skin-sam">
+              <div id="formForm" class="yui-navset">
+                <ul class="yui-nav">
+                    <li class="selected"><a href="#tab1"><em>eigene Reservierungen</em></a></li>
+                </ul>
+      <div class="yui-content">
+        <div id="tab1">
+          <p>Nicht mehr benötigte Reservierungen können Sie hier wieder frei geben (löschen).</p>
+<table id="expand_width_1" class="info-border" border="1" cellspacing="1" cellpadding="3" width="100%">
+
+<tr>
+  <td class="introblock"><b>löschen</b></td>
+  <td class="introblock"><b>Kategorie</b></td>
+  <td class="introblock"><b>Ressource</b></td>
+  <td class="introblock"><b>Reservierung</b></td>
+</tr>
+{% for event in my_events %}
+<tr>
+  <td>
+            {% comment %}
+            {% if event.in_use %}
+            &nbsp;&nbsp;&nbsp;<b>-</b>
+            {% else %}
+              <input name="event" type="checkbox" value="{{ event.id }}"/>
+            {% endif %}
+            {% endcomment %}
+    <input name="event" type="checkbox" value="{{ event.id }}"/>
+  </td><td>{{ event.typedescr }}</td><td>{{ event.resdescr }}</td><td>{{ event.dtstart }}&nbsp; - &nbsp;{{ event.dtend }}</td>
+</tr>
+{% endfor  %}
+</table>
+              </div>
+            </div>
+<p align="right" style="margin-top:0.5em;">
+<input name="submit" type="submit" value="Reservierungen löschen ..." />
+</p>
+          </div>
+</form>
+{% else %}
+<p>Es liegen keine eigenen Reservierungen vor.</p>
+{% endif %}
+<!--<p><a href="{{ next }}">{% trans "Weiter ..." %}</a></p>-->
+{% endblock%}
+{% endautoescape %}

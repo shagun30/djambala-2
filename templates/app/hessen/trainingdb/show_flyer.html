@@ -1,0 +1,147 @@
+{% load i18n %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de"> 
+
+<head lang="de">
+  <meta http-equiv="Content-Type"   content="text/html; charset=utf-8">
+  <title>{% if site.title %}{{ site.tile|safe }} - {% endif %}{{ header_title|safe }}</title>
+
+  <meta name="DC.Subject.Publisher" content="{{ site.title|safe }}">
+  <meta name="DC.Subject.Rights"    content="{{ site.impress_url }}">
+
+  <link rel="stylesheet" media="all" type="text/css"
+         href="{{ site.url }}/dms_media/skin_style/{{site.skin_style}}/css_{{ site.skin_style }}.css">
+  <link href="{{ site.url }}/dms_media/skin_style/base/favicon.ico" rel="shortcut icon">
+  <link rel="alternate" type="application/rss+xml" title="{% trans "RDF-Datei" %}"
+        href="{{ site.url }}/rss_feeds/index.html">
+</head>
+
+<body>
+{% autoescape off %}
+<a name="start_of_page"></a>
+    <a class="no_hightlight" href="{{ site.logo_url }}">
+      <img src="{{ site.logo }}" alt="{% trans "Logo der Web-Site" %}" border="0" 
+          width="{{ site.logo_width }}" height="{{ site.logo_height }}" />
+    </a>
+  <div id="layer_site_title">
+    <div style="margin-top:1em;" class="{{ site.title_class }}">
+      <b>{{ thema }}</b>
+    </div>
+  </div>
+
+<br />
+<br />
+<div style="font-size: 120%">
+{% if veranst_status %}
+<p>
+<br />
+<b>{% trans "Status" %}: {{ veranst_status }}</b>
+</p>
+{% endif %}
+
+<h3>{% trans "Beschreibung/Inhalt" %}</h3>
+
+<p>
+{{ beschreibung }}
+</p>
+
+<table class="form-table" style="width:100%;">
+  <tr class="bottom-border-ex">
+    <td class="introblock" width="20%"><b>Fächer/Berufsfelder</b></td>
+    <td width="80%">{{ faecher }}</td>
+  </tr>
+  <tr class="bottom-border-ex">
+    <td class="introblock" width="20%"><b>Zeitraum</b></td>
+    <td width="80%">
+      {{ zeitraum }}
+      {% if anmeldung %}
+      <br />
+      <b>{% trans "Anmeldeschluss:" %}</b> {{ anmeldung }}
+      {% endif %}
+    </td>
+  </tr>
+  <tr class="bottom-border-ex">
+    <td class="introblock" width="20%"><b>Leistungspunkte</b></td>
+    <td width="80%">{{ veranst_punkte }}</td>
+  </tr>
+  <tr class="bottom-border-ex">
+    <td class="introblock" width="20%"><b>Kosten</b></td>
+    <td width="80%">{{ veranst_kosten }}€</td>
+  </tr>
+  <tr class="bottom-border-ex">
+    <td class="introblock" width="20%"><b>Zielgruppen</b></td>
+    <td width="80%">{{ zielgruppen }}</td>
+  </tr>
+  <tr class="bottom-border-ex">
+    <td class="introblock" width="20%"><b>Schularten</b></td>
+    <td width="80%">{{ schularten }}</td>
+  </tr>
+  <tr class="bottom-border-ex">
+    <td class="introblock" width="20%"><b>Ort</b></td>
+    <td width="80%">{{ veranst_ort }}</td>
+  </tr>
+  <tr class="bottom-border-ex">
+    <td class="introblock" width="20%"><b>Veranstaltungsart</b></td>
+    <td width="80%">{{ veranst_v_art }}</td>
+  </tr>
+  <tr class="bottom-border-ex">
+    <td class="introblock" width="20%"><b>Veranstaltungsnummer</b></td>
+    <td width="80%">{{ veranst_intern_id }} (IQ: {{ veranst_iq_id }})</td>
+  </tr>
+</table>
+
+<h3>{% trans "Zusätzliche Hinweise" %}</h3>
+
+{% if veranst_feste_teilnehmer %}
+<p>
+{{ veranst_feste_teilnehmer }}
+</p>
+{% endif %}
+
+{% if veranst_hinweise %}
+<p>
+{{ veranst_hinweise }}
+</p>
+{% endif %}
+
+{% if veranst_zusatz %}
+<p>
+{{ veranst_zusatz }}
+</p>
+{% endif %}
+
+{% if veranst_leitung %}
+<p>
+{% trans "Leitung:" %} {{ veranst_leitung }};
+{% trans "Dozenten:" %} {{ veranst_dozenten }}
+</p>
+{% endif %}
+
+{% if veranst_url %}
+<p>
+Nähere Informationen: <a href="{{ veranst_url }}">{{ veranst_url }}</a>
+</p>
+{% endif %}
+
+<h3>{% trans "Anbieter" %}</h3>
+
+<p>
+{% if anbieter_url %}
+{{ anbieter_name }}<br />
+{% else %}
+{{ anbieter_name }}<br />
+{% endif %}
+{% if anbieter_person %}{{ anbieter_person }}<br />{% endif %}
+{{ anbieter_strasse }}<br />
+{{ anbieter_plz }} {{ anbieter_ort }}<br />
+{% if anbieter_telefon %}Telefon: {{ anbieter_telefon }}<br />{% endif %}
+{% if anbieter_fax %}Fax: {{ anbieter_fax }}<br />{% endif %}
+{% if anbieter_email %}E-Mail: <a href="mailto:{{ anbieter_email }}">{{ anbieter_email }}</a><br />{% endif %}
+</p>
+</div>
+{% endautoescape %}
+</body>
+
+</html>
+{% autoescape off %}
+{% endautoescape %}

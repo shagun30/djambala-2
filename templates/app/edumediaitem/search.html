@@ -1,0 +1,15 @@
+{% load i18n %}
+
+{% autoescape off %}
+<form name="l_input" method="get" action="./show_search?path={{ path }}" class="form-no-margin">
+<label for="q"></label>
+<input class="startblock" type="text" id="q" name="q" size="18"
+       value="Unterrichtsmaterial"
+       onfocus="if (document.l_input.q.value=='Unterrichtsmaterial'){document.l_input.q.value='';}"
+       onblur="if (document.l_input.q.value!='Unterrichtsmaterial'){document.l_input.q.value='Unterrichtsmaterial';}"
+>
+</form>
+<a href="./show_new?path={{ path }}" class="navLink">{% trans "Neue Ressourcen" %}</a><br />
+<a href="./show_sitemap?path={{ path }}" class="navLink">{% trans "Sitemap" %}</a><br />
+<br />
+{% endautoescape %}

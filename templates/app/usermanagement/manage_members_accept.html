@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block html_head_ext %}
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/datatable/assets/skins/sam/datatable.css" />
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/element/element-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/datasource/datasource-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/datatable/datatable-beta.js"></script>
+{% endblock %}
+
+{% block frame_left %}{% endblock %}
+
+{% block title %} {{title}}{% if sub_title %}: <i>{{sub_title}}</i>{% endif %}{% endblock %}
+
+{% block content %}
+
+<p>
+{% trans "Bitte wählen Sie die entsprechenden Personen aus." %}
+</p>
+
+<form method = "post"
+      action = "{{ next }}">
+  <div id="markup" class="yui-skin-sam">
+  <table id="items" class="form-table" style="width:100%;">
+
+<tbody>
+{% if objs %}
+  {% for obj in objs %}
+  <tr>
+  <td class="bottom-border-ex" width="5%">
+  <input type="checkbox" name="item_{{ obj.id }}" />
+  </td>
+  <td class="bottom-border-ex" width="45%">
+    {{ obj.name }}, <a href="mailto:{{ obj.email }}">{% trans "E-Mail" %}</a>
+  </td>
+  <td class="bottom-border-ex" width="20%">{{ obj.date_joined }}</td>
+  <td class="bottom-border-ex" width="30%">{{ obj.org }}</td>
+  </tr>
+  {% endfor %}
+{% else %}
+  <tr>
+    <td colspan="4">
+    {% trans "Alle Community-Mitglieder sind bereits freigeschaltet." %}
+    </td>
+  </tr>
+{% endif %}
+
+</tbody>
+
+</table>
+</div>
+
+<p align="right" style="margin-top:0.5em;">
+<input name="submit" type="submit" value="{{ submit }}" />
+</p>
+</form>
+
+<script type="text/javascript">
+my_formatDate = function(el, oRecord, oColumn, oData) {
+  var oDate = oData;
+  if(oDate instanceof Date) {
+    el.innerHTML = oDate.getDate() + "." + (oDate.getMonth()+1) + "." + oDate.getFullYear();
+  }
+  else {
+    el.innerHTML = YAHOO.lang.isValue(oData) ? oData : "";
+  }
+};
+
+YAHOO.util.Event.addListener(window, "load", function() {
+    YAHOO.example.EnhanceFromMarkup = new function() {
+        var myColumnDefs = [
+            {key:"check",label:"",sortable:false},
+            {key:"name",label:"Name",sortable:true},
+            {key:"date",label:"Datum",formatter:my_formatDate,sortable:true},
+            {key:"org",label:"Organisation",sortable:true}
+        ];
+
+        this.myDataSource = new YAHOO.util.DataSource(YAHOO.util.Dom.get("items"));
+        this.myDataSource.responseType = YAHOO.util.DataSource.TYPE_HTMLTABLE;
+        this.myDataSource.responseSchema = {
+            fields: [ {key:"check"}, {key:"name"}, {key:"date", parser:YAHOO.util.DataSource.parseDate}, {key:"org"} ]
+        };
+
+        this.myDataTable = new YAHOO.widget.DataTable("markup", myColumnDefs, this.myDataSource,
+                {sortedBy:{key:"date",dir:"desc"}});
+        };
+});
+</script>
+{% endblock %}
+{% endautoescape %}

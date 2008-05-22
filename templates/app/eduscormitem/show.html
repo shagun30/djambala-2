@@ -1,0 +1,258 @@
+{% load i18n %}
+
+{% autoescape off %}
+<hr line size="1" />
+
+<h4>{% trans "Web-Adressen" %}</h4>
+
+<table class="form-table" style="width:100%;">
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Download-Adresse" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ eduobject_url }}
+  </td>
+</tr>
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Beschreibung" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ eduobject_description_url }}
+  </td>
+</tr>
+{% if eduobject_virtual_urls %}
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Einblendung(en)" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+{{ eduobject_virtual_urls }}
+  </td>
+</tr>
+{% endif %}
+</table>
+
+<h4>{% trans "Weitere Informationen" %}</h4>
+
+<table class="form-table" style="width:100%;">
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Art des Materials" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ eduobject_lernrestyp }}
+  </td>
+</tr>
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Fach/Sachgebiet" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ fach_sachgebiet }}
+  </td>
+</tr>
+
+{% if titel_lang %}
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Langtitel" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ titel_lang }}
+  </td>
+</tr>
+{% endif %}
+
+{% if schlagwort %}
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Schlagworte" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ schlagwort }}
+  </td>
+</tr>
+{% endif %}
+
+{% if medienformat %}
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Medienformat" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ medienformat }}
+  </td>
+</tr>
+{% endif %}
+
+{% if zielgruppe %}
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Zielgruppen" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ zielgruppe }}
+  </td>
+</tr>
+{% endif %}
+
+{% if schulstufe %}
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Schulstufen" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ schulstufe }}
+  </td>
+</tr>
+{% endif %}
+
+{% if schulart %}
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Schularten" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ schulart }}
+  </td>
+</tr>
+{% endif %}
+
+{% if lernzeit %}
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Lernzeit" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ lernzeit }}
+  </td>
+</tr>
+{% endif %}
+
+{% if methodik %}
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Methodik" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ methodik }}
+  </td>
+</tr>
+{% endif %}
+
+{% if lehrplan %}
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Lehrplanbezüge" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ lehrplan }}
+  </td>
+</tr>
+{% endif %}
+
+{% if standards_kmk %}
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Standards (KMK)" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ standards_kmk }}
+  </td>
+</tr>
+{% endif %}
+
+{% if standards_weitere %}
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Standards (weitere)" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ standards_weitere }}
+  </td>
+</tr>
+{% endif %}
+
+{% if lernziel %}
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Lernziele" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ lernziel }}
+  </td>
+</tr>
+{% endif %}
+
+{% if autor %}
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Autor/in" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ autor }}
+  </td>
+</tr>
+{% endif %}
+
+{% if herausgeber %}
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Herausgeber" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ herausgeber }}
+  </td>
+</tr>
+{% endif %}
+
+{% if isbn %}
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "ISBN" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ isbn }}
+  </td>
+</tr>
+{% endif %}
+
+{% if preis %}
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Preis" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ preis }}
+  </td>
+</tr>
+{% endif %}
+
+{% if rechte %}
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Rechte/ Nutzungsbedingungen" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ rechte }}
+  </td>
+</tr>
+{% endif %}
+
+{% if anbieter %}
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Anbieter" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ anbieter }}
+  </td>
+</tr>
+{% endif %}
+
+{% if techn_voraus %}
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Techn. Voraussetzungen" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ techn_voraus }}
+  </td>
+</tr>
+{% endif %}
+
+{% if sprache %}
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Sprachen" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ sprache }}
+  </td>
+</tr>
+{% endif %}
+
+</table>
+
+<h4>{% trans "Formale Aspekte" %}</h4>
+
+<table class="form-table" style="width:100%;">
+{% if einrichtung %}
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Einrichtung" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ einrichtung }}
+  </td>
+</tr>
+{% endif %}
+
+{% if einsteller %}
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Einsteller/in" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ einsteller }}
+  </td>
+</tr>
+{% endif %}
+
+<tr>
+  <td class="tabHeaderBg" width="25%"><b>{% trans "Letzte Änderung" %}</b></td>
+  <td class="bottom-border-ex" width="75%">
+  {{ last_modified }}
+  </td>
+</tr>
+
+</table>
+{% endautoescape %}

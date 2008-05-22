@@ -1,0 +1,29 @@
+{% load i18n %}
+
+{% autoescape off %}
+<a href="{{ exibition_url }}?image={{ name }}" target="_extern"
+   title="{% trans "Zur Ausstellung ..." %}"><img 
+   src="{{ image_url }}" alt="{% trans "Bild" %}" /></a>
+<br />
+
+<p>
+  {% trans "Photograph/in" %}:
+  {% if email %}
+    <a href="mailto:{{ email }}" class="navLink">{{ full_name }}</a>,
+  {% else %}
+    {{ full_name }},
+  {% endif %}
+  {% trans "eingestellt" %}: {{ last_modified }}
+</p>
+
+{% if text %}
+<h4>{% trans "Informationen zum Bild" %}</h4>
+
+{{ text }}
+{{ text_more }}
+{% endif %}
+
+<p>
+{{ image_url_big }}
+</p>
+{% endautoescape %}

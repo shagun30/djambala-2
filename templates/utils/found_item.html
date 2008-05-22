@@ -1,0 +1,7 @@
+{% autoescape off %}
+<li>
+{{ data_object }}<a href="{{ item_url }}">{{ folder_path }} - {{ item_name }}</a>
+<br />{{ title }}
+{% if deleted %} ---{% endif %}
+</li>
+{% endautoescape %}

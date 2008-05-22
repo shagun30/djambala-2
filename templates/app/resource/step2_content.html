@@ -1,0 +1,43 @@
+{% load i18n %}
+
+{% autoescape off %}
+
+<form name   = "formForm"
+      method = "post"
+      action = "{{ next }}">
+<div style="right:220px;">
+  <div class=" yui-skin-sam">
+    <div id="formForm" class="yui-navset">
+      <ul class="yui-nav">
+        {% for obj in objs %}
+          <li{% if obj.selected %} class="selected"{% endif %}><a href="#tab{{ obj.tab }}"><em>{{ obj.name }}</em></a></li>
+        {% endfor %}
+      </ul>
+      <div class="yui-content">
+        {% for obj in objs %}
+          <div id="tab{{ obj.tab }}">
+              <!--<p>Bereich für Infos</p>-->
+            <table class="info-border" border="1" cellspacing="1" cellpadding="3">
+            {% for f in obj.forms %}
+              {{ f }}
+            {% endfor %}
+            </table>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+<p align="right" style="margin-top:0.5em;">
+<input name="path" type="hidden" value="{{ path }}" />
+<input name="step" type="hidden" value="3" />
+<input name="datetime_start" type="hidden" value="{{ datetime_start }}" />
+<input name="datetime_end" type="hidden" value="{{ datetime_end }}" />
+<input name="user_id" type="hidden" value="{{ user_id }}" />
+<input name="submit" type="submit" value="{{ submit }} ..." />
+</p>
+</form>
+
+<script>
+ var formTab = new YAHOO.widget.TabView('formForm');
+</script>
+{% endautoescape %}

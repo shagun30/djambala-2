@@ -1,0 +1,18 @@
+{% if info %}
+<tr>
+  <td class="introblock" colspan="2">
+  <i>{{ info }}</i>
+  </td>
+</tr>
+{% endif %}
+<tr>
+  <td class="introblock" valign="top" width="30%">
+    {% if required %}<b>{{ header }}&nbsp;*</b>{% else %}{{ header }}{% endif %}
+  </td>
+  <td width="70%">
+    {% for option in options %}
+      <input name="{{ name }}" type="checkbox" value="{{ option.name }}"
+      {% if option.checked %} checked="checked"{% endif %}/>{{ option.name }}<br />
+    {% endfor %}
+  </td>
+</tr>

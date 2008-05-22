@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block html_head_ext %}
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/datatable/assets/skins/sam/datatable.css" />
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/element/element-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/datasource/datasource-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/datatable/datatable-beta.js"></script>
+<style>
+.yui-content { background-color: #f4f4f4 !important; }
+</style>
+{% endblock %}
+
+{% block frame_left %}{% endblock %}
+
+{% block title %} {{title}}: <i>{{sub_title}}</i> {% endblock %}
+
+{% block content %}
+
+{% blocktrans %}
+<p>
+Mit folgendem Formular können Sie Beiträge/Objekte freigeben oder auf
+unsichtbar schalten. Beachten Sie bitte, dass "unsichtbare" Beiträge/Objekte
+bei Kenntnis der entsprechenden Web-Adresse trotzdem aufgerufen werden können.
+</p>
+
+<p>
+Gelöschte Beiträge/Objekte können im Pflege-Modus "geschreddert"
+und damit endgültig aus der Datenbank entfernt werden.
+</p>
+{% endblocktrans %}
+
+{% if objs %}
+  <form method = "post"
+        action = "{{ next }}">
+<div class="yui-skin-sam">
+  <div id="markup">
+  <table id="items" class="form-table" style="width:100%;">
+    <tbody>
+      {% for obj in objs %}
+      <tr>
+        <td>
+          <input type="checkbox"{% if obj.is_browseable %}checked="checked"{% endif %}  name="visible_{{ obj.id }}" />
+        </td>
+        <td><img src="{{ base_site_url }}/dms_media/image/app/{{ obj.app_name }}.gif" 
+                border="0" title="{{ obj.app_name }}" />
+        </td>
+        <td>{{ obj.title }} &middot;&middot; <a href="{{ obj.url }}"">{% trans "Details" %}</a></td>
+        <td class="bottom-border-ex" width="20%">{{ obj.name }}</td>
+        {% if show_delete_mode %}
+        <td>
+          <input type="checkbox"{% if obj.is_deleted %}checked="checked"{% endif %} name="delete_{{ obj.id }}" />
+        </td>
+        {% endif %}
+        <td>{{ obj.last_modified }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+
+  <p align="right" style="margin-top:0.5em;">
+  <input name="submit" type="submit" value="{% trans "Freigeben/Löschen ..." %}" />
+  </p>
+  </form>
+{% else %}
+  <p>
+    {% trans "Dieser Ordner ist leer bzw. enthält keine eigenen Objekte." %}
+  </p>
+{% endif %}
+
+<script type="text/javascript">
+my_formatDate = function(el, oRecord, oColumn, oData) {
+  var oDate = oData;
+  if(oDate instanceof Date) {
+    el.innerHTML = oDate.getDate() + "." + (oDate.getMonth()+1) + "." + oDate.getFullYear();
+  }
+  else {
+    el.innerHTML = YAHOO.lang.isValue(oData) ? oData : "";
+  }
+};
+</script>
+
+<script type="text/javascript">
+{% if show_delete_mode %}
+YAHOO.util.Event.addListener(window, "load", function() {
+    YAHOO.example.EnhanceFromMarkup = new function() {
+        var myColumnDefs = [
+            {key:"sort",label:"Sichtbar",sortable:true},
+            {key:"typ",label:"Typ",sortable:true},
+            {key:"title",label:"Überschrift",sortable:true},
+            {key:"name",label:"Name",sortable:true},
+            {key:"delete",label:"Löschen",sortable:true},
+            {key:"date",label:"Datum",formatter:my_formatDate,sortable:true}
+        ];
+
+        this.myDataSource = new YAHOO.util.DataSource(YAHOO.util.Dom.get("items"));
+        this.myDataSource.responseType = YAHOO.util.DataSource.TYPE_HTMLTABLE;
+        this.myDataSource.responseSchema = {
+            fields: [ {key:"sort"}, {key:"typ"}, {key:"title"}, {key:"name"}, {key:"delete"},
+                      {key:"date", parser:YAHOO.util.DataSource.parseDate} ]
+        };
+
+        this.myDataTable = new YAHOO.widget.DataTable("markup", myColumnDefs, this.myDataSource,
+                {sortedBy:{key:"date",dir:"desc"}});
+        };
+});
+{% else %}
+YAHOO.util.Event.addListener(window, "load", function() {
+    YAHOO.example.EnhanceFromMarkup = new function() {
+        var myColumnDefs = [
+            {key:"sort",label:"Sichtbar",sortable:true},
+            {key:"typ",label:"Typ",sortable:true},
+            {key:"title",label:"Überschrift",sortable:true},
+            {key:"name",label:"Name",sortable:true},
+            {key:"date",label:"Datum",formatter:my_formatDate,sortable:true}
+        ];
+
+        this.myDataSource = new YAHOO.util.DataSource(YAHOO.util.Dom.get("items"));
+        this.myDataSource.responseType = YAHOO.util.DataSource.TYPE_HTMLTABLE;
+        this.myDataSource.responseSchema = {
+            fields: [ {key:"sort"}, {key:"typ"}, {key:"title"}, {key:"name"},
+                      {key:"date", parser:YAHOO.util.DataSource.parseDate} ]
+        };
+
+        this.myDataTable = new YAHOO.widget.DataTable("markup", myColumnDefs, this.myDataSource,
+                {sortedBy:{key:"date",dir:"desc"}});
+        };
+});
+{% endif %}
+</script>
+{% endblock %}
+

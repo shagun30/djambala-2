@@ -1,0 +1,30 @@
+{% load i18n %}
+{% autoescape off %}
+<tr>
+{% if weekend %}
+<td class="introblock" width="3%" align="right">{% if infos %}<a href="?single_date={{ curr_date }}">{% endif %}{% if is_today %}<span class="red"><b/>{% endif %}{{ day }}{% if is_today %}</b></span>{% endif %}{% if infos %}</a>{% endif %}</td>
+<td class="introblock" width="7%">{% if is_today %}<b/>{% endif %}{{ day_name }}{% if is_today %}</b>{% endif %}</td>
+<td class="introblock" width="90%">
+{% else %}  {# weekend #}
+<td class="selectblock" width="3%" align="right">{% if infos %}<a href="?single_date={{ curr_date }}">{% endif %}{% if is_today %}<span class="red"><b>{% endif %}{{ day }}{% if is_today %}</b></span>{% endif %}{% if infos %}</a>{% endif %}</td>
+<td class="selectblock" width="7%">{% if is_today %}<b>{% endif %}{{ day_name }}{% if is_today %}</b>{% endif %}</td>
+<td class="white" width="90%">
+{% endif %} {# weekend #}
+{% if infos %}
+{% comment %}
+<ul>
+{% for inf in infos %}
+<li>{{ inf.continued }}<a href="{{ inf.url }}">{{ inf.title }}</a>
+</li>
+{% endfor %}
+</ul>
+{% endcomment %}
+{% for inf in infos %}
+{{ inf.continued }}<a href="{{ inf.url }}">{{ inf.title }}</a>{{ inf.cont }}<br />
+{% endfor %}
+{% else %}  {# infos #}
+&nbsp;
+{% endif %} {# infos #}
+</td>
+</tr>
+{% endautoescape %}

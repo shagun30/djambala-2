@@ -1,0 +1,44 @@
+{% load i18n %}
+
+{% autoescape off %}
+<div class="top-bottom-border-ex" style="margin-bottom:0.5em;">
+  <div style="margin-bottom:0.6em;">
+  <a name="anker_{{ name }}"></a>
+  {% if image_url %}
+    {% if image_url_url %}
+      <a href="{{ image_url_url }}"{% if image_extern %} target="_extern"{% endif %}><img 
+        src="{{ image_url }}" alt="{% trans "Schmuckbild" %}" align="left" style="margin-right:0.5em;" /></a>
+    {% else %}
+      <img src="{{ image_url }}" alt="{% trans "Schmuckbild" %}" align="left" style="margin-right:0.5em;" />
+    {% endif %}
+  {% endif %}
+
+  <a class="headerLink" href="{{ name }}">
+  {{ title }}      
+  </a>
+  {% if comments %}
+    / {% trans "Kommentar(e):" %} {{ comments }}
+  {% endif %}
+  </div>
+
+  <div style="margin-left:0%">
+    {% if sub_title %}
+      <p><b>{{ sub_title }}</b></p>
+    {% endif %}
+    <!-- {{ text }} -->
+    <p align="right">
+      {% if more_infos %}
+        {{ more_infos }},
+      {% endif %}
+      {% if email %}
+        <a href="mailto:{{ email }}" class="navLink">{{ user_name }}</a>,
+      {% else %}
+        {{ user_name }},
+      {% endif %}
+      {{ last_modified }},
+      <a href="{{ name }}" class="navLink">{% trans "mehr" %}&nbsp;...</a>
+      <!--<br clear="all">-->
+    </p>
+  </div>
+</div>
+{% endautoescape %}

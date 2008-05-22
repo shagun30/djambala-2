@@ -1,0 +1,1120 @@
+@charset "UTF-8";
+/* 
+  yaml/core/base.css
+*/
+
+/**
+ * "Yet Another Multicolumn Layout" - (X)HTML/CSS Framework
+ *
+ * (en) YAML core stylesheet
+ * (de) YAML Basis-Stylesheet
+ *
+ * Don't make any changes in this file!
+ * Your changes should be placed in any css-file in your own stylesheet folder.
+ *
+ * @copyright       Copyright 2005-2007, Dirk Jesse
+ * @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
+ *                  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
+ * @link            http://www.yaml.de
+ * @package         yaml
+ * @version         3.0.3
+ * @revision        $Revision: 118 $
+ * @lastmodified    $Date: 2007-08-18 16:03:42 +0200 (Sa, 18 Aug 2007) $
+ */
+
+@media all
+{
+ /*
+  @section browser reset
+  @see     http://www.yaml.de/en/documentation/css-components/base-stylesheet.html
+  */
+
+  /* (en) Global reset of paddings and margins for all HTML elements */
+  /** { margin:0; padding: 0 }*/
+  /** { padding: 0 }*/
+
+  /* (en) Correction: margin/padding reset caused too small select boxes. */
+  /*
+  option { padding-left: 0.4em }
+  */
+
+ /**
+  * (en) Global fix of the Italics bugs in IE 5.x and IE 6
+  * (de) Globale Korrektur des Italics Bugs des IE 5.x und IE 6
+  *
+  * @bugfix
+  * @affected   IE 5.x/Win, IE6
+  * @css-for    IE 5.x/Win, IE6
+  * @valid      yes
+  */
+  * html body * { overflow:visible }
+  * html iframe, * html frame { overflow:auto }
+  * html frameset { overflow:hidden }
+
+  html { height: 100%;
+
+    /* (en) Fix for rounding errors when scaling font sizes in older Opera browser */
+    font-size: 100.01%;
+
+    /* (en) Standard values for colors and text alignment */
+    color: #000;
+    background: #fff;
+    text-align: left;
+  }
+
+  /* (en) Clear borders for <fieldset> and <img> elements */
+  fieldset, img { border: 0 solid}
+
+  /* (en) new standard values for lists, blockquote and cite */
+  ul, ol, dl { margin: 0 0 1em 1em; padding: 0 }
+  li { margin-left: 1.5em; line-height: 1.5em; }
+
+  dt { font-weight: bold; }
+  dd { margin: 0 0 1em 2em; }
+
+  blockquote, cite { margin: 0 0 1em 1.5em; font-size: 0.93em; width: auto;}
+
+ /**
+  @section base layout | Basis Layout
+  @see     http://www.yaml.de/en/documentation/css-components/base-stylesheet.html
+  *
+  * |-------------------------------|
+  * | #header                       |
+  * |-------------------------------|
+  * | #col1   | #col3     | #col2   |
+  * | 200 px  | flexible  | 200px   |
+  * |-------------------------------|
+  * | #footer                       |
+  * |-------------------------------|
+  */
+
+  #header {
+    position:relative;
+    color: #000;
+    padding: 83px 0 0 0; 
+  }
+
+  #topnav {
+    position:absolute;
+    top: 0;
+    right: 5px;
+    z-index: 12;
+    /* (en) essential for correct alignment in Opera 6 ! */
+    text-align: right;
+  }
+
+  #nav { clear:both; width: auto }
+  #main { clear:both; width: auto }
+
+  /* (en/de) Standard: 200 Pixel */
+  #col1 { float: left; width: 200px; z-index: 3; }
+  /* (en/de) Standard: 200 Pixel */
+  #col2 { float:right; width: 200px; z-index: 5; }
+  /* (en) Standard: flexible width */
+  #col3 { width:auto; margin: 0 200px; z-index: 1;}
+  #col4 { width:auto; margin: 0 200px; z-index: 1;}
+
+  /* (en) Backup for #footer positioning */
+  #footer {
+    clear:both; display:block;
+    padding-top: 5px;
+    border-top: 3px {{ rgbLightBg }} solid;
+  }
+
+  #col1_content {position:relative; padding: 5px; z-index: 4;}
+  #col2_content {position:relative; padding: 5px; z-index: 6}
+  #col3_content {position:relative; padding: 5px; padding-left: 12px; z-index: 2}
+  #col4_content {position:relative; padding: 5px; padding-left: 12px; z-index: 2}
+
+ /**
+  @section clearing methods
+  @see     http://yaml.de/en/documentation/basics/general.html
+  */
+
+  /* (en) clearfix method for clearing floats */
+  /* (de) Clearfix-Methode zum Clearen der Float-Umgebungen */
+   .clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden
+  }
+
+  /* (en) essential for Safari browser !! */
+  .clearfix { display: block }
+
+  /* (en) overflow method for clearing floats */
+  /* (de) Overflow-Methode zum Clearen der Float-Umgebungen */
+  .floatbox { overflow:hidden }
+
+  /* (en) IE-Clearing: Only used in Internet Explorer, switched on in iehacks.css */
+  #ie_clearing { display: none }
+
+ /**
+  @section hidden elements | Versteckte Elemente
+  @see     http://www.yaml.de/en/documentation/basics/skip-links.html
+  *
+  * (en) skip links and hidden content
+  * (de) Skip-Links und versteckte Inhalte
+  */
+
+  /* (en) classes for invisible elements in the base layout */
+  .skip, .hideme, .print {
+    position: absolute;
+    top: -1000em;
+    left: -1000em;
+    height: 1px;
+    width: 1px;
+  }
+
+  /* (en) make skip links visible when using tab navigation */
+  .skip:focus, .skip:active {
+    position: static;
+    top: 0;
+    left: 0;
+    height: auto;
+    width: auto;
+  }
+}
+
+/*
+  yaml/navigation/nav_shinybuttons.css
+*/
+
+/**
+ * "Yet Another Multicolumn Layout" - (X)HTML/CSS Framework
+ *
+ * (en) Horizontal list navigation "Shiny Buttons"
+ * (de) Horizontale Navigationsliste "Shiny Buttons"
+ *
+ * @copyright       Copyright 2005-2007, Dirk Jesse
+ * @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
+ *                  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
+ * @link            http://www.yaml.de
+ * @package         yaml
+ * @version         3.0.3
+ * @revision        $Revision: 118 $
+ * @lastmodified    $Date: 2007-08-18 16:03:42 +0200 (Sa, 18 Aug 2007) $
+ */
+
+@media all
+{
+  #nav_main {
+    /* (en) containing floats in IE */
+    /* (de) Einfassen der Floats im IE */
+    width: 100%;
+    overflow: hidden;
+    /* (en) containing floats in all other browsers */
+    float: left;
+    display: inline;
+    position: relative; /* ERGAENZT */
+  }
+
+}
+
+/*
+  yaml_dms/screen/basemod.css
+*/
+
+/**
+ * "Yet Another Multicolumn Layout" - (X)HTML/CSS Framework
+ *
+ * (en) Screen layout for YAML examples
+ *
+ * @copyright       Copyright 2005-2007, Dirk Jesse
+ * @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
+ *                  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
+ * @link            http://www.yaml.de
+ * @package         yaml
+ * @version         3.0.3
+ * @revision        $Revision: 118 $
+ * @lastmodified    $Date: 2007-08-18 16:03:42 +0200 (Sa, 18 Aug 2007) $
+ */
+
+@media all
+{
+  /**
+   * (en) Formatting YAML's  basic layout elements
+   * (de) Gestaltung des YAML Basis-Layouts
+   */
+
+  /* (en) Marginal areas & page background */
+  body { padding: 0 0; }
+
+  /* (en) Layout: width, background, borders */
+  #page_margins { margin: 0 auto; text-align:left; }
+  #page{ background: #fff; }
+
+  /* (en) Designing main layout elements */
+
+  #main { background: {{ rgbWhite }}; padding:0 0; }
+
+
+  /**
+   * (en) Formatting content container
+   *
+   * |-------------------------------|
+   * | #header                       |
+   * |-------------------------------|
+   * | #col1   | #col3     | #col2   |
+   * | 25%     | flexible  | 25%     |
+   * |-------------------------------|
+   * | #footer                       |
+   * |-------------------------------|
+   */
+
+
+
+  /**
+   * (en) Modifying "shiny buttons" navigation
+   */
+
+  #nav * { border: 0px none !important;}
+  #nav_main { background: {{ rgbDarkBg }}; }
+}
+
+/*
+  yaml_dms/screen/basemod_faux_columns.css
+*/
+
+/**
+ * "Yet Another Multicolumn Layout" - (X)HTML/CSS Framework
+ *
+ * (en) Variation of screen layout (basemod.css) - graphical backgrounds "3col_faux_columns"
+ *
+ * @copyright       Copyright 2005-2007, Dirk Jesse
+ * @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
+ *                  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
+ * @link            http://www.yaml.de
+ * @package         yaml
+ * @version         3.0.3
+ * @revision        $Revision: 118 $
+ * @lastmodified    $Date: 2007-08-18 16:03:42 +0200 (Sa, 18 Aug 2007) $
+ */
+
+@media screen
+{
+  #page_margins {background: #fff; }
+
+  #main {
+    background-color: transparent;
+    /*background-image:  url(../../yaml_dms_images/bg_col_left.gif);*/
+    background-image:  url({{ url }}bg_color.gif);
+    background-repeat:repeat-y;
+    background-position:left;
+  }
+  #page {
+    background-color: transparent;
+   }
+
+  #col3 {margin-left: 205px; margin-right: 205px; border: 0; }
+  #col4 {margin-left: 0; margin-right: 205px; border: 0; }
+  #col1_content {min-height:420px;}
+}
+
+/*
+  yaml_dms/screen/content.css
+*/
+
+/**
+ * "Yet Another Multicolumn Layout" - (X)HTML/CSS Framework
+ *
+ * (en) Uniform design of standard content elements
+ *
+ * @copyright       Copyright 2005-2007, Dirk Jesse
+ * @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
+ *                  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
+ * @link            http://www.yaml.de
+ * @package         yaml
+ * @version         3.0.3
+ * @revision        $Revision: 118 $
+ * @lastmodified    $Date: 2007-08-18 16:03:42 +0200 (Sa, 18 Aug 2007) $
+ * @appdef yaml
+ */
+
+@media all
+{
+  /**
+   * Fonts
+   * (en) font-family and font-size selection for headings and standard text elements
+   *
+   @section content-fonts
+   */
+
+  /* (en) reset font size for all elements to standard (16 Pixel) */
+  html * { font-size: 100.01% }
+
+  /* (en) base layout gets standard font size 12px */
+  body {
+    font-family: 'Trebuchet MS', Verdana, Helvetica, Arial, sans-serif;
+    color: #000;
+  }
+
+  p { line-height: 1.5em; margin: 0 0 1em 0; }
+
+  /* ### Lists | Listen  #### */
+
+  ul, ol, dl { line-height: 1.5em; margin: 0 0 1em 1em }
+  li { margin-left: 1.5em; line-height: 1.5em }
+
+  dt { font-weight: bold }
+  dd { margin: 0 0 1em 2em }
+
+  /* ### text formatting | Textauszeichnung ### */
+
+  /*cite, blockquote { font-style:italic } */
+  blockquote { margin: 0 0 1em 1.5em }
+
+  strong,b { font-weight: bold }
+  em,i { font-style:italic }
+
+  pre, code { font-family: monospace; font-size: 1.1em; }
+
+  acronym, abbr {
+    letter-spacing: .07em;
+    border-bottom: .1em dashed #c00;
+    cursor: help;
+  }
+
+  /**
+   * Generic Content Classes
+   * (en) standard classes for positioning and highlighting
+   * (de) Standardklassen zur Positionierung und Hervorhebung
+   *
+   @section content-generic-classes
+   */
+
+  .note {background: #dfd; padding: 1em; border-bottom: 1px #bdb dotted; border-bottom: 1px #dbb dotted;}
+  .important {background: #ffd; padding: 1em; border-bottom: 1px #ddb dotted; border-bottom: 1px #dbb dotted;}
+  .warning {background: #fdd; padding: 1em; border-bottom: 1px #dbb dotted; border-bottom: 1px #dbb dotted;}
+
+  .float_left { float: left; display:inline; margin-right: 1em; margin-bottom: 0.15em;  }
+  .float_right { float: right; display:inline; margin-left: 1em; margin-bottom: 0.15em;  }
+  .center { text-align:center; margin: 0.5em auto }
+
+  /**
+   * Tables | Tabellen
+   * (en) Generic classes for table-width and design definition
+   *
+   @section content-tables
+   */
+
+  /*
+  table { width: auto; border-collapse:collapse; margin-bottom: 0.5em; }
+  table.full { width: 100%; }
+  table.fixed { table-layout:fixed }
+
+  th,td { padding: 0.5em; }
+  thead th { background: #444; color: #fff }
+  tbody th { background: #ccc; color: #333 }
+  tbody th.sub { background: #ddd; color: #333 }
+  */
+  
+  /**
+   * Miscellaneous | Sonstiges
+   *
+   @section content-misc
+   */
+
+  hr {
+    color: #fff;
+    background:transparent;
+    margin: 0 0 0.5em 0;
+    padding: 0 0 0.5em 0;
+    border:0;
+    border-bottom: 1px #eee solid;
+  }
+  /*
+  */
+}
+
+
+/*
+  yaml/print/print_003_draft.css
+*/
+
+/**
+ * "Yet Another Multicolumn Layout" - (X)HTML/CSS Framework
+ *
+ * (en) print stylesheet
+ * (de) Druck-Stylesheet
+ *
+ * @copyright       Copyright 2005-2007, Dirk Jesse
+ * @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
+ *                  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
+ * @link            http://www.yaml.de
+ * @package         yaml
+ * @version         3.0.3
+ * @revision        $Revision: 118 $
+ * @lastmodified    $Date: 2007-08-18 16:03:42 +0200 (Sa, 18 Aug 2007) $
+ */
+
+/**
+ * "Yet Another Multicolumn Layout" - (X)HTML/CSS Framework
+ *
+ * (en) YAML core stylesheet - print layout
+ * (de) YAML Core-Stylesheet - Druck Layout
+ *
+ * Don't make any changes in this file!
+ * Your changes should be added to 'print_xyz_draft.css' drafts from 'yaml/print/' folder.
+ *
+ * @copyright       Copyright 2005-2007, Dirk Jesse
+ * @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
+ *                  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
+ * @link            http://www.yaml.de
+ * @package         yaml
+ * @version         3.0.3
+ * @revision        $Revision: 118 $
+ * @lastmodified    $Date: 2007-08-18 16:03:42 +0200 (Sa, 18 Aug 2007) $
+ */
+
+@media print
+{
+  /**
+   @section layout preparation
+   @see     http://www.yaml.de/en/documentation/css-components/layout-for-print-media.html
+   */
+
+  /* (en) Preparing base layout for print */
+  body, #page_margins, #page, #main {margin:0; padding: 0; border: 0;}
+  #page_margins, #page {width: 100% !important; min-width: inherit; max-width: none}
+  #header {height: auto}
+  #layer_top_search {display: none}
+  /*#header {display: none}*/
+  #breadcrumb {display: none}
+  /*#footer {display: none}*/
+  #col1 {display: none}
+  #col2 {display: none}
+
+  /* (en) Hide unneeded container of the screenlayout in print layout */
+  #topnav {display: none}
+  #nav {display:none}
+  #search {display: none}
+
+  /**
+   @section content preparation
+   @see     http://www.yaml.de/en/documentation/css-components/layout-for-print-media.html
+   */
+
+  /* (en) Change font to serif */
+  code, pre { font-family:"Courier New", Courier, mono}
+  body {font-size: 12pt}
+
+  /* (en) Avoid page breaks right after headings */
+  h1,h2,h3,h4,h5,h6 { page-break-after:avoid; }
+
+  /* (en) Format acronyms and abbreviations for print*/
+  abbr[title]:after, acronym[title]:after {content: '(' attr(title) ')'}
+
+  /* (en) Disable background graphics of links  */
+  #page a[href^="http:"], #page a[href^="https:"]
+  {
+    padding-left: 0;
+    background-image: none;
+  }
+
+  /* (en) Enable URL output in print layout */
+  /*
+  a[href]:after {
+    content:" <URL: "attr(href)">";
+    color:#444;
+    background:inherit;
+    font-style:italic;
+  }
+  */
+  /* (en) Preparation for optional column labels */
+  #col1_content:before, #col2_content:before, #col3_content:before, #col4_content:before {
+    content: "";
+    color:#888;
+    background:inherit;
+    display:block;
+    font-weight:bold;
+    font-size:1.5em;
+  }
+
+   /**
+   @section browser fixes for print layouts
+   @see     http://www.yaml.de/en/documentation/css-components/layout-for-print-media.html
+   */
+
+  /**
+   * (en) overflow:hidden Bug in print layouts
+   *
+   * @bugfix
+   * @since     3.0
+   * @affected  FF2.0, IE7
+   * @css-for   all browsers
+   * @valid     yes
+   */
+  
+  .floatbox,
+  .subcolumns, 
+  .subcolums_oldgecko { 
+    overflow:visible; 
+    display: table; 
+  }
+
+}
+
+@media print
+{
+  #col1, #col1_content {float:none; width: 100%; margin: 0; padding: 0; border: 0}
+  #col1_content {page-break-after:always}
+
+  #col2 {display:none}
+
+  #col3, #col3_content {width: 100%; margin:0; padding: 0; border:0}
+  #col4, #col4_content {width: 100%; margin:0; padding: 0; border:0}
+
+  /* Optional Column Labels | Optionale Spaltenauszeichnung
+  #col1_content:before {content:" [ left | middle | right column ]"}
+  #col3_content:before {content:" [ left | middle | right column ]"}
+  #col4_content:before {content:" [ left | middle | right column ]"}
+  */
+}
+
+/*
+  {{site.skin_style}}/css_{{ site.skin_style }}.css
+*/
+
+body {
+  background:{{ rgbBodyBg }}; 
+  color:{{ rgbBody }}; 
+  margin-left:0; margin-right:0;
+  padding:0;
+  {{ cBaseFont }};
+  font-size:{{ arrSize_02 }};
+  text-decoration: none;
+  line-height:1.4em;
+}
+
+/*
+pre, tt, code   { 
+  font-family:'Courier New', monospace; 
+  font-size:120%;
+}
+*/
+/* allgemeine Eigenschaften */
+.invisible { visibility: hidden; }
+.extlink { color:{{rgbExtLink}}; font-weight:bold;}
+ul { list-style-type:square;}
+ul.errorlist { margin:0; padding-left: 1em; }
+a { color:{{ rgbA }}; font-weight:normal; text-decoration:{{ cTextDecoration }}; }
+a:active { color:{{rgbAActive}}; background:{{ rgbAActiveBg }}; }
+a:hover { color:{{ rgbAHover }}; background:{{ rgbAHoverBg }}; }
+a.no_highlight { text-decoration:{{ cTextDecoration }}; }
+a.no_hightlight:hover {color:{{ rgbWhite }}; background:{{ rgbBodyBg }}; }
+a img {  border:none;  color:white; }
+
+/* Header-Eigenschaften */
+h1,h2,h3,h4,h5,h6 {
+  margin-left:0;
+  color:{{rgbHead}};
+  font-weight:bold;
+  padding-top:.25em;
+  padding-bottom:.75em;
+}
+h1 { font-size:{{arrSize_4}}; }
+h2 { font-size:{{arrSize_3}}; }
+h3 { font-size:{{arrSize_2}}; }
+h4 { font-size:{{arrSize_1}}; }
+h5 { font-size:{{arrSize}}; }
+h6 { font-size:{{arrSize}}; font-weight:normal; }
+.head1,.head2 {
+  color:{{rgbHead2}};
+  padding-top:0;
+  padding-bottom:0;
+  line-height:1.1em;
+}
+.head3,.head4,.head5,.head6 {
+  color:{{rgbHead3}};
+  padding-top:0;
+  padding-bottom:0;
+  line-height:1.1em;
+}
+.head1 { font-size:{{arrSize_4}}; }
+.head2 { font-size:{{arrSize_3}}; }
+.head3 { font-size:{{arrSize_2}}; }
+.head4 { font-size:{{arrSize_1}}; }
+.head5 { font-size:{{arrSize}}; }
+.head6 { font-size:{{arrSize}}; font-weight:normal; }
+.headerSym       { color:{{rgbHeaderSym}}; font-weight:bold;}
+.headerSymBg     { background:{{rgbHeaderSymBg}}; font-size:8px;}
+
+/* Basisfarben */
+.white           { background:{{rgbWhite}}; }
+.black           { background:{{rgbBlack}}; }
+.red             { color:{{rgbRed}}; }
+.grey            { color:{{rgbGrey}}; }
+.blue            { color:{{rgbBlue}}; }
+
+/* Top-Navigation */
+.navTop          { color:{{rgbANavTopLink}}; font-weight:normal; } /* Trennungsstriche */
+a.navTopLink { color:{{rgbANavTopLink}}; font-weight:normal; }
+.navTopLinkSelected { color:{{ rgbBlack }}; background-color:{{ rgbAHoverTopBg }}; font-weight:bold;}
+a.navTopLink:hover { color:{{ rgbBlack }}; background:{{ rgbAHoverTopBg }}; }
+a.navTopLinkSelected:hover { color:{{ rgbBlack }}; background:{{ rgbAHoverTopBg }}; }
+
+/* Intros */
+.introblock      { background:{{rgbIntroBlock}}; } /* Intros .. */
+.introblock-outer {  /* mit linkem roten Rand */
+  border-left-style:solid;
+  border-left-color:{{rgbHeaderSymBg}};
+  border-left-width:3px;
+}
+.introblock-inner {  /* hinterlegtes Intro */
+  background:{{rgbIntroBlock}};
+  margin-left:6px; 
+  padding:3px;
+}
+
+/* farbige Hinterlegung */
+.selectblock          { background:{{rgbSelectBlock}}; }
+.headlineBg{ 
+  padding:1px; 
+  /*margin:0px;*/
+  background-color: transparent;
+  background-image:  url({{ url }}bg_headline.png);
+  background-repeat:repeat-y;
+  background-position:left;
+}
+
+/* Tabellenueberschriften */
+.tabHeaderBg {
+  background:{{rgbTabHeaderBg}};
+}
+.tabHeaderText { margin-left:0; color:{{rgbTabHeaderText}}; font-weight:bold; }
+.commandBg { 
+  padding-top:0.05em;
+  padding-bottom:0.05em;
+}
+/* rechter Seitenbereich */
+.frameHeaderBg  {
+  padding:0.05em;
+  border-bottom-width:1px;
+  border-bottom-color:{{rgbFrameHeaderText}};
+  border-bottom-style:solid;
+}
+.frameHeaderText { 
+  margin-left:0; 
+  color:{{rgbFrameHeaderText}}; 
+  font-weight:bold; 
+}
+.frameSymBg    { background:{{rgbFrameSymBg}}; font-size:8px;}
+.frameBg       {
+  background:{{rgbWhite}}; 
+  /*
+  border-width:1px;
+  border-color:{{rgbFrameHeaderText}};
+  border-style:solid;
+  */
+}
+.adminHeaderBg  {
+  padding:0.05em;
+  border-bottom-width:1px;
+  border-bottom-color:{{rgbAdminHeaderText}};
+  border-bottom-style:solid;
+}
+.adminHeaderText { 
+  margin-left:0; 
+  color:{{rgbAdminHeaderText}}; 
+  font-weight:bold; 
+}
+.adminSymBg    { background:{{rgbAdminSymBg}}; font-size:8px;}
+.adminBg       {
+  background:{{rgbWhite}}; 
+  /*
+  border-width:1px;
+  border-color:{{rgbAdminHeaderText}};
+  border-style:solid;
+  */
+}
+a.frameLink { color:{{ rgbANavLink }}; font-weight:normal; }
+a.frameLink:hover { color:{{rgbAHover}}; background:{{rgbAHoverBg}}; }
+
+a.navLink { color:{{ rgbANavLink }}; font-weight:normal; }
+a.navLink:hover { color:{{rgbAHover}}; background:{{rgbAHoverBg}}; }
+
+a.folderLink { color:{{ rgbA }}; font-weight:bold; }
+a.folderLink:hover { color:{{ rgbAHover }}; background:{{ rgbAHoverBg }}; }
+
+a.headerLink { color:{{ rgbA }}; font-weight:bold; }
+a.headerLink:hover { color:{{ rgbAHover }}; background:{{ rgbAHoverBg }}; }
+
+/*
+a.contentLink { color:{{rgbA}}; font-weight:normal; }
+a.contentLink:hover { color:{{rgbAHover}}; background:{{rgbAHoverBg}}; }
+*/
+
+/* Bilder */
+.image-float-right { margin-right:1.5em; margin-bottom:1em; float: left;}
+.image-float-left { margin-left:1.5em; margin-bottom:1em; float: right;}
+
+/* Formulare */
+form { font-size:{{ arrSize }}; }
+form_label       { background:{{rgbIntroBlock}}; }
+form_input       { background:{{rgbWhite}}; font-size:{{arrSize_02}};}
+.form-no-margin  {
+  padding:0;
+  margin-top:0;
+  margin-bottom:0;
+}
+option { background-color:{{rgbOptionBg}}; }
+textarea { border: 1px solid {{rgbTextareaBorder}}; }
+input { border: 1px solid {{rgbInput}}; }
+input[type='checkbox'] { border: 1px solid {{rgbInputCheckboxBg}}; }
+input[type='submit'] {
+  border-width:1px; border-color:{{rgbInputSubmitBorder}}; 
+  background-color:{{rgbInputSubmitBg}}; color:{{rgbInputSubmitColor}}; 
+  font-weight:bold; 
+  cursor:pointer; 
+}
+
+div { margin-left:0; }
+div.item_title { margin-left:5%; margin-top:0.3em; }
+div.item_text  { margin-top:-1em; text-align:right; }
+div.navTopBoxSelected {position:relative; margin-top: -0.2em; float: left;}
+div.prev-next-links {}
+div.portal-table{ margin-right:0; }
+div.tabs {
+    /* Navigational Plone Tabs(tm) .. */
+    background: transparent;
+    border-collapse: collapse;
+    border-bottom-color: {{rgbBlack}};
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    padding: 0.5em 0em 0em 1em;
+    white-space: nowrap;
+}
+div.tabs .plain_text {
+    background: {{rgbWhite}};
+    border-color: {{rgbBlack}};
+    border-width: 1px;
+    border-style: solid solid none solid;
+    color:{{rgbBlack}};
+    font-weight:normal;
+    height: 1.2em;
+    margin-right: 0.5em;
+    padding: 0em 2em;
+}
+div.tabs a {
+    background: {{rgbTabHeaderBg}};
+    border-color: {{rgbBlack}};
+    border-width: 1px;
+    border-style: solid solid none solid;
+    color:{{rgbA}};
+    font-weight:bold;
+    height: 1.2em;
+    margin-right: 0.5em;
+    padding: 0em 1em;
+
+}
+div.tabs a.selected {
+    border-color: {{rgbBlack}};
+    border-bottom-color: {{rgbBlack}};
+    color:{{rgbAHover}};
+    background:{{rgbAHoverBg}};
+}
+div.tabs a:hover {
+    border-color: {{rgbBlack}};
+    border-bottom-color: {{rgbBlack}};
+    color:{{rgbAHover}};
+    background:{{rgbAHoverBg}};
+}
+div.right_logo {
+  z-index:9999;
+  position:absolute;
+  right:{{nWidth_05}}px;
+  width:{{nWidth_10}}px;
+  text-align:center;
+}
+
+.form-table {
+  width:100%;
+  padding:1px;
+  background:{{rgbBodyBg}};
+  border-collapse:collapse;
+  border-width:{{nLInfoBorderWidth}}px;
+  border-color:{{rgbBorderTopLeft}};
+  border-style:solid;
+  border-right-width:{{nRInfoBorderWidth}}px;
+  border-right-color:{{rgbBorderBottomRight}};
+  border-right-style:solid;
+  border-bottom-width:{{nRInfoBorderWidth}}px;
+  border-bottom-color:{{rgbBorderBottomRight}};
+  border-bottom-style:solid;
+  border-left-width:{{nLInfoBorderWidth}}px;
+  border-left-color:{{rgbBorderTopLeft}};
+  border-left-style:solid;
+}
+.info-border {
+  background:{{rgbBodyBg}};
+  border-collapse:collapse;
+  border-top-width:{{nLInfoBorderWidth}}px;
+  border-top-color:{{rgbBorderTopLeft}};
+  border-top-style:solid;
+  border-right-width:{{nRInfoBorderWidth}}px;
+  border-right-color:{{rgbBorderBottomRight}};
+  border-right-style:solid;
+  border-bottom-width:{{nRInfoBorderWidth}}px;
+  border-bottom-color:{{rgbBorderBottomRight}};
+  border-bottom-style:solid;
+  border-left-width:{{nLInfoBorderWidth}}px;
+  border-left-color:{{rgbBorderTopLeft}};
+  border-left-style:solid;
+}
+
+.frame-border {
+  padding:0;
+  background:{{rgbBorderBg}};
+  border-collapse:collapse;  
+  border-width:1px;
+  border-color:{{rgbBreadcumbBg}};
+  border-style:solid;
+}
+.frame-border-header {
+  background:{{rgbTabHeaderBg}};
+  padding:0.05em;
+  border-top-width:{{nLFrameBorderWidth}}px;
+  border-top-color:{{rgbSearchBg}};
+  border-top-style:solid;
+  border-bottom-width:{{nLFrameBorderWidth}}px;
+  border-bottom-color:{{rgbSearchBg}};
+  border-bottom-style:solid;
+}
+.info-frame {
+  padding-left:10px;
+  background:{{rgbBorderBg}};
+}
+.info-frame-header {
+  padding:2px;
+  border-bottom-width:{{nRFrameBorderWidth}}px;
+  border-bottom-color:{{rgbBorderBottomRight}};
+  border-bottom-style:solid;
+}
+
+.header-outer {
+  border-left-style:dotted;
+  border-left-color:{{rgbHead}};
+  border-left-width:3px;
+}
+.edu-base-outer {
+  border-left-style:double;
+  border-left-color:{{rgbHead2}};
+  border-left-width:3px;
+}
+.bottom-border-ex-filled {
+  background:{{rgbNavigationBg}};
+  padding:2px;
+  border-bottom-width:{{nRFrameBorderWidth}}px;
+  border-bottom-color:{{rgbBorderBottomRight}};
+  border-bottom-style:solid;
+}
+.top-bottom-border {
+  border-top-width:{{nLFrameBorderWidth}}px;
+  border-top-color:{{rgbBorderTopLeft}};
+  border-top-style:solid;
+  border-bottom-width:{{nRFrameBorderWidth}}px;
+  border-bottom-color:{{rgbBorderBottomRight}};
+  border-bottom-style:solid;
+}
+.top-bottom-border-ex {
+  padding:0px;
+  border-top-width:0;
+  margin-bottom: 0.5em;
+  overflow: hidden;
+}
+/*
+.top-bottom-border-ex {
+  padding:2px;
+  border-top-width:{{nRFrameBorderWidth}}px;
+  border-top-color:{{rgbBorderBottomRight}};
+  border-top-style:solid;
+  overflow: hidden;
+}
+*/
+.top-border {
+  border-top-width:{{nLFrameBorderWidth}}px;
+  border-top-color:{{rgbBorderTopLeft}};
+  border-top-style:solid;
+}
+.bottom-border-ex {
+  padding:2px;
+  border-bottom-width:{{nRFrameBorderWidth}}px;
+  border-bottom-color:{{rgbBorderBottomRight}};
+  border-bottom-style:solid;
+}
+.bottom-border-light_ex {
+  padding:2px;
+  border-bottom-width:{{nLFrameBorderWidth}}px;
+  border-bottom-color:{{rgbTabHeaderBg}};
+  border-bottom-style:solid;
+}
+.visualBoxBg {
+  position:absolute;
+  width:20em;
+  padding:2px;
+  border-width:1px;
+  border-color:{{rgbBorderTopLeft}};
+  border-style:solid;
+  text-align:center;
+}
+
+#layer-float{ float:right; }
+#layer_top_left_logo{
+  position:absolute; 
+  left:30px; top:5px;
+  z-index:3;
+}
+#layer_site_title {
+  position:absolute; 
+  left:210px; top:.5em; 
+  z-index:10;
+}
+#layer_top_impress{
+  position:absolute; 
+  left:0; top:0; width:100%; height:1.5em; 
+  z-index:3;
+  text-align:right;
+  }
+#layer_top_image {
+  position:absolute;
+  top:0px; right:0;
+  z-index:0;
+}
+#layer_top_search{
+  position:relative;
+  left:0; top:0; margin-right:.2em;
+  height:1.5em;
+  z-index:3;
+  text-align:right;
+  }
+/*
+#layer_top_breadcumb{
+  position:absolute; 
+  left:{{ nWidthExt }}px; top:{{ nTopMain_28 }}px; 
+  height:1.5em;
+  z-index:20;
+  padding-bottom:0;
+}
+*/
+#layer_menu_image {
+  position:absolute; 
+  left:0; top:0;
+  z-index:2;
+}
+#layer_menu_links_main{
+  position:absolute; 
+  left:{{ left_image_margin }}px; top:9px; width:174px; bottom:0; z-index:1;
+  background:{{ rgbBreadcumbBg }};
+  padding:2px;
+}
+#layer_menu_links{
+  position:absolute; 
+  left:{{ left_image_margin }}px; top:30px; width:174px; z-index:11;
+  background:{{ rgbNavigationBg }};
+  padding:2px;
+}
+/*
+#layer_top_main_navigation{
+  position:absolute; 
+  left:0; top:0px; width:100%;
+  z-index:2;
+  padding-top:0.2em;
+  padding-bottom:0.2em;
+  background-color:{{rgbSearchBg}};
+}
+#layer_info_text{
+  position:absolute; 
+  right:{{nWidth}}px; 
+  left:{{nWidthExt}}px; top:{{nTopMain_36}}px;  
+  padding-right:1em;
+  z-index: 15;
+}
+*/
+#layer_lecture_text{
+  position:absolute; 
+  right:{{ nWidth }}px; 
+  left:{{ nWidthExt_2 }}px; top:{{ nTopMain_42 }}px;  
+  padding-right:1em;
+  z-index: 5;
+}
+.layer_lecture_font{ font-size:medium;}
+
+div.comments {
+  background: {{ rgbNavigationBg }};
+  border:1px dashed #acaecc;
+  padding:3px;
+}
+
+/* Bereich nur fuer dem Drucker */
+div.page-footer-print {
+  visibility: hidden;
+  display: none;
+}
+
+div.menu_area {
+  border-left-width:2px; border-left-style:solid; border-left-color:{{ rgbBreadcumbBg }};
+  border-top-width:1px; border-top-style:solid; border-top-color:white;
+  border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:white;
+}
+
+div.menu_border_bottom {
+  border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:white;
+}
+
+@media screen
+{
+#col3_protected { border-top-color: #808080; border-top-style: dashed; border-top-width:1px;
+                  border-right-color: #808080; border-right-style: dashed; border-right-width:1px;
+                  padding-right: 4px; }
+#col4_protected { border-top-color: #808080; border-top-style: dashed; border-top-width:1px;
+                  border-right-color: #808080; border-right-style: dashed; border-right-width:1px;
+                  padding-right: 4px; }
+}
+
+@media print
+{
+  #layer_info_text{
+    position:relative; 
+    left:0; top:0; right:0;
+    margin-left:0; margin-right:0;
+  }
+  #layer_lecture_text{
+    position:relative; 
+    left:0; top:0; right:0;
+    margin-left:0; margin-right:0;
+  }
+  #frame-main { 
+     position: absolute; 
+     top: 0; left: 0; right: 0; 
+  }
+  .layer_lecture_font{ font-size:medium; }
+  div.prev-next-links,
+  div.page-header,
+  div.page-footer,
+  div.right-screen,
+  /*breadcrumb,*/
+  div.left-marginale,
+  div.right-marginale
+  {
+    visibility: hidden;
+  }
+  div.page-footer-print
+  {
+    visibility: visible;
+    display: inline;
+    z-index:999;  position:relative;
+    padding-top:3px; 
+    text-align:left;
+    font-size:x-small;
+  }
+  a { text-decoration: underline; }
+  div.print-only { visibility: visible; }
+  div.info-table  {
+    border-top-style:none;
+    border-bottom-style:none;
+  }
+}
+

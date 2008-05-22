@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block html_head_ext %}
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/assets/skins/sam/tabview.css" />
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/element/element-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/tabview.js"></script>
+
+<script type="text/javascript" src="/dms_media/javascript/overlib/overlib.js-small"></script>
+<style>
+.yui-content { background-color: #f4f4f4 !important; }
+</style>
+{% endblock %}
+
+{% block frame_left %}{% endblock %}
+
+{% block title %}{{title}}{% endblock %}
+{% block sub_title %}{{ sub_title }}{% endblock %}
+
+{% block content %}
+
+<div class=" yui-skin-sam">
+  <div id="menuForm" class="yui-navset">
+    <ul class="yui-nav">
+        <li class="selected"><a href="#tab0"><em>{% trans "Zuordnung" %}</em></a></li>
+        <li><a href="#tab1"><em>{% trans "Neues Menü" %}</em></a></li>
+    </ul>
+    <div class="yui-content">
+        <div id="tab0">
+          <p>
+          {% blocktrans %}
+          Bitte wählen Sie im ersten von zwei Schritten das gewünschte Menü aus:
+          {% endblocktrans %}
+          </p>
+          <ul>
+          {% for menu in menus_left %}
+            <li>
+            <a href="./?name={{ menu.name }}">{{ menu.description }}</a>
+            </li>
+          {% endfor %}
+          </ul>
+        </div>
+        <div id="tab1">
+          <form method = "post"
+                action = ".">
+          {{ content }}
+          <div style="margin-top:0.5em; width:100%;" align="right">
+            <input name="submit" type="submit" value="{% trans "Menü ergänzen ..." %}" />
+          </div>
+        </div>
+    </div>
+  </div>
+  <br />
+</div>
+
+<script>
+  var menuTab = new YAHOO.widget.TabView('menuForm');
+</script>
+{% endblock %}
+{% endautoescape %}

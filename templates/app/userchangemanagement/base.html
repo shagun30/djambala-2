@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block title %} {{ title }} {% endblock %}
+{% block sub_title %} {{ sub_title }} {% endblock %}
+
+{% block content %}
+<p>
+{% trans "Wählen Sie bitte die Option aus, die Sie ändern möchten:" %}
+</p>
+
+<ul>
+<li><a href="">{% trans "E-Mail-Adresse" %}</a></li>
+<li><a href="">{% trans "Kennwort" %}</a></li>
+</ul>
+{% endblock %}
+{% endautoescape %}

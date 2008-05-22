@@ -1,0 +1,11 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans 'Server Fehler (500)' %}{% endblock %}
+
+{% block content %}
+<h3>{% trans 'Server Fehler <em>(500)</em>' %}</h3>
+<p>{% trans "Ein Fehler ist aufgetreten. Der Site-Administrator wurde per E-Mail informiert. Wir hoffen, den Fehler möglichst rasch beheben zu können. Vielen Dank für Ihre Geduld!" %}</p>
+
+{% endblock %}
+

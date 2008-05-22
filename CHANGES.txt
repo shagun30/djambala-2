@@ -1,0 +1,958 @@
+dms - Django content Management System
+
+Hans Rauch
+hans.rauch@gmx.net
+
+*************************************************************************
+
+Themenspeicher:
+
+- Webmaster fuer Schulen einfuehren!!!
+  - Vorname, Nachname, E-Mail-Adresse
+
+- MausWiesel
+  - Anzeige der Inhaltsseite
+  - Umschalten auf Pflegemodus
+
+- User-Profile (Fotos)
+
+- Wiki weiterentwickeln
+  - Sitemap mit und ohne Aenderungsrecht
+  - Welche Seiten zeigen auf diese Seite
+  - Wiki loeschen  -> alle Versionen und Rueckverweise loeschen
+  - [Alle Wiki-Seiten als Liste ("Wiki-Leiste")]
+  - alte Version als aktuelle Seite setzen (min. co_manager)
+  - alte Versionen loeschen (min. co_manager)
+  - Anzeige: Besizer eine Datei, Bildes ...
+  - Wer darf was?
+- Austausch der Scorm-Informationen mit LMS
+- Binnenstruktur fuer Schulen
+- Newsletter mit Selbstein- und -austrag
+- Zurueck-Problem des IE bei E-Mail-Formular, Fragebogen
+- Abo-Funktion fuer Arbeitsgruppen
+- Eingangskorb
+
+- Auswertung der Audit-Datei
+  - Cronjob: Einträge aelter als 30 Tage loeschen
+  - Suche in einem Zeitfenster nach User, Pfaden, Applikationen
+  - Suche auf jeweilige Organisation beschraenken
+
+*************************************************************************
+0.0.7.31  22.05.2008 - alter_min und alter_max bei Lernressourcen
+
+0.0.7.30  21.05.2008 - Schalter fuer Terminkalender etc., damit nur Community-Mitglieder
+                       Ergaenzungen vornehmen koennen
+
+0.0.7.29  20.05.2008 - Raster fuer dmsSchoolmanagement erzeugt
+
+0.0.7.28  19.05.2008 - Weiterarbeit an dmsFolderSchool
+
+0.0.7.27  16.05.2008 - Beginn der Arbeit an dmsFolderSchool
+
+0.0.7.26  15.05.2008 - einheitliche Darstellung von dmsExercise und dmsEduExerciseItem
+                     - eingeblendete Dateien werden korrekt zum Download angeboten
+
+0.0.7.25  14.05.2008 - Beginn der Arbeit an dmsEduExerciseItem
+
+0.0.7.24  13.05.2008 - Loesungen koennen bewertet werden; Note wird nach Punktverteilung erzeugt
+
+0.0.7.23  09.05.2008 - Beginn der Arbeit am Notenspiegel
+
+0.0.7.22  08.05.2008 - bei dmsExerciseFile koennen Dateien hochgeladen werden
+                     - Beschraenkung der Anzeige
+
+0.0.7.21  07.05.2008 - Institutionen koennen einzelne Personen aufnehmen bzw. entfernen
+
+0.0.7.20  06.05.2008 - Webquest mit Inhalten aus Lernarchiv
+
+0.0.7.19  05.05.2008 - Beginn: Webquest mit Inhalten aus Lernarchiv
+
+0.0.7.18  03.05.2008 - erste Version von Mauswiesel
+
+0.0.7.17  02.05.2008 - Einzelmitglieder in Community aufnehmen
+                     - Buchstaben werden bei Vortraegen wieder groesser angezeigt
+
+0.0.7.16  01.05.2008 - dmsWebquest
+                       Beginn der Arbeit am dmsExercise
+                       is_proteced als Funktion der Klasse (in models)
+
+0.0.7.15  30.04.2008 - Gruppenzugehoerigkeit kann geaendert werden
+                     - Primaergruppen koennen geaendert werden
+
+0.0.7.14  29.04.2008 - Checkboxen beim Aendern der Gruppezugehoerigkeit von Usern
+
+0.0.7.13  28.04.2008 - Auswertung der Einsatz-Optionen des Medienfragebogens
+
+0.0.7.12  27.04.2008 - Umstellung auf Change 7477
+
+0.0.7.11  25.04.2008 - Auswertung des Medienfragebogens
+                     - Fortbildungsdatenbank kann auf Anbieter eingeschraenkt werden
+
+0.0.7.10  24.04.2008 - Mitglieder ueber Liste in Community aufnehmen
+
+0.0.7.9   23.04.2008 - Weiterarbeit an der Gruppenverwaltung
+                     - Umlaute
+
+0.0.7.8   22.04.2008 - Beginn der Arbeit an der Zuordnung zu Gruppen
+
+0.0.7.7   21.04.2008 - Gruppennamen können gelöscht werden
+
+0.0.7.6   18.04.2008 - Beginn der Arbeit an DmsUsermanagementOrg
+
+0.0.7.5   17.04.2008 - sync_schulen_dms.py
+
+0.0.7.4   16.04.2008 - "Meine Seiten" im Home-Verzeichnis
+                     - vorlaeufiger Abschluss zum Home-Verzeichnis
+
+0.0.7.3   15.04.2008 - Beginn der Arbeit am Home-Verzeichnis
+
+0.0.7.2   14.04.2008 - Beginn der Arbeit an Quotas
+                     - fileraw und folderraw weitgehend entfernt
+
+0.0.7.1   11.04.2008 - Klemmbrettoperationen fuer dmsFolderFS
+                     - weitere Ajax-Funktionen fuer dmsFolderFS
+                     - dmsFileRaw und dmsFolderRaw sind obsolet und koennen geloescht werden
+
+0.0.7.0   10.04.2008 - Weiterarbeit an dmsFolderFS
+
+0.0.6.38  09.04.2008 - geschuetzte Seiten, Ordner etc. werden optisch hervorgehoben
+                     - #col4, damit IE6 links anfaengt (noch immer nicht fehlerfrei)
+
+0.0.6.37  08.04.2008 - the-manager kann auch mit ic_changeable geschuetzte Objekte loeschen
+                     - Vorbereitung, um dmsFolderProtected zu entfernen
+
+0.0.6.36  07.04.2008 - Integration neuer Icons
+
+0.0.6.35  04.04.2008 - dmsFolderOrg  wieder entfernt
+                     - Fehlerkorrektur linkes Menu
+
+0.0.6.34  03.04.2008 - Container-Objekte zeigen das Datum des aktuellsten Objekts
+
+0.0.6.33  01.04.2008 - Beginn der Arbeiten an den Schul-Plattformen
+
+0.0.6.32  28.03.2008 - Seiten im Aenderungsmodus werden mit einem anderen Schmuckbild versehen
+
+0.0.6.31  25.03.2008 - Menues koennen in Arbeitsgruppen ersetzt werden
+
+0.0.6.30  21.03.2008 - Weiterarbeit am Wiki
+
+0.0.6.29  20.03.2008 - aendern und loeschen wird in DmsAudit protokolliert
+                     - wikiitem_diff
+
+0.0.6.28  19.03.2008 - in E-Mail-Formularen wird gegebenenfalls eine E-Mail an die
+                       eintragende Person gesendet
+
+0.0.6.27  18.03.2008 - Weiterarbeit an den Wiki-Seiten
+
+0.0.6.26  17.03.2008 - Beginn der Arbeit an dmsWikiItem
+
+0.0.6.25  16.03.2008 - Freemind-Player
+
+0.0.6.24  14.03.2008 - Scorm-Pakete werden mit hierarchischer Navigation
+                       angezeigt
+                     - Formular zur Online-Anmeldung umgestellt
+                     - get_possible_roles
+
+0.0.6.23  11.03.2008 - Beginn der Arbeit am Scorm-Player
+
+0.0.6.22  10.03.2008 - Schuldatenbank fuer Regionen
+
+0.0.6.21  07.03.2008 - Einbau der Slot-Funktionalitaet
+
+0.0.6.20  06.03.2008 - Weiterarbeit an Schuldatenbank
+                     - Verfeinerung der Volltextsuche
+
+0.0.6.19  05.03.2008 - Abschlussarbeiten an Fortbildungsdatenbank
+
+0.0.6.18  04.03.2008 - Berücksichtigung der Bildungsregionen
+
+0.0.6.17  03.03.2008 - Langbeschreibung bei Verweisen in Lernarchiven
+                     - vereinfachte Suche nach Fortbildungsveranstaltungen
+
+0.0.6.16  29.02.2008 - Versenden der Online-Anmeldung
+                     - Flyer zu Fortbildungsveranstaltungen
+
+0.0.6.15  28.02.2008 - RSS-Feeds werden bei Aenderungen angezeigt
+                     - Auswahl der Schulen bei Online-Anmeldung zur Fortbildung
+
+0.0.6.14  27.02.2008 - Auswertung von Einzelfragen
+                     - Weiterarbeit: Auswahl der Schule fuer Fortbildungsanmeldung
+
+0.0.6.13  26.02.2008 - Beginn der Auswertung von Einzelfragen
+
+0.0.6.12  25.02.2008 - Einzelauswertung des Fragebogens
+
+0.0.6.11  22.02.2008 - Online-Anmeldeformular
+                     - part_of_id-Fehler behoben
+
+0.0.6.10  21.02.2008 - Anzeige der Fortbildungsveranstaltungen
+
+0.0.6.9   20.02.2008 - Auswahl von Fortbildungsveranstaltungen
+                     - Fehlerkorrektur beim Medienfragebogen
+
+0.0.6.8   19.02.2008 - Weiterfuehrung der Arbeit an der Fortbildungsdatenbank
+                     - Anzeige der hr-Sendungen
+
+0.0.6.7   18.02.2008 - Schuldaten anzeigen
+
+0.0.6.6   15.02.2008 - DmsSite um right_logo .. erweitert
+                     - Domaine verwalten
+
+0.0.6.5   14.02.2008 - Einzelne Schule wird angezeigt
+
+0.0.6.4   13.02.2008 - Auswahl der Schulen (weitgehend) abgeschlossen
+
+0.0.6.3   12.02.2008 - Beginn der Arbeit am Suchformular der Schuldatenbank
+
+0.0.6.2   11.02.2008 - Bereits vorhandene Links in den Lernarchiven koennen direkt
+                       eingeblendet werden
+
+0.0.6.1   09.02.2008 - Beginn der Arbeit an Wikis
+
+0.0.5.32  09.02.2008 - Mini-Fehler beim Fragebogen korrigiert
+                     - Eingaben werden bei einem Erfassungsformular wieder angezeigt
+
+0.0.5.31  08.02.2008 - Farbverlauf bei Ueberschriften von Nachrichten etc.
+
+0.0.5.30  07.02.2008 - schiefgegangene Experimente mit Tabellen etc.
+
+0.0.5.29  06.02.2008 - Alax-Elemente fuer Elixier
+
+0.0.5.28  05.02.2008 - Rundschreiben können versandt werden
+
+0.0.5.27  04.02.2008 - Rueckmeldung beim Versand von Newslettern
+                     - Texte ohne <p> .. </p>
+
+0.0.5.26  01.02.2008 - bei Aufnahme in Arbeitsgruppe wird E-Mail versendet
+
+0.0.5.25  31.01.2008 - Dateien und Ordner koennen in FolderFS geloescht werden
+                     - get_user_groups (fuer Newsletter der Grundschulen)
+
+0.0.5.24  30.01.2008 - correct_href_class zur Korrektur importierter Verweise
+
+0.0.5.23  28.01.2008 - Einbindung von Flash-Dateien mit TinyMCE
+
+0.0.5.22  24.01.2008 - Umstellung des Sendens von HTML-E-Mails
+                     - the-manager kann Zugriff auf Ordner einschraenken
+                     - nicht nur Info ueber nicht eingeloggt, sondern auch Moeglichkeit zum Einloggen
+
+0.0.5.21  23.01.2008 - Auswertung des Fragebogens
+                     - Umstellung der Datenstruktur des Fragebogens
+
+0.0.5.20  22.01.2008 - Beginn der Auswertung des Fragebogens
+
+0.0.5.19  21.01.2008 - E-Mail-Eingaben fuer den Versand "zusammenbauen"
+                     - Fragebogen ueber rechte Leiste steuerbar
+
+0.0.5.18  20.01.2008 - show_next in save_container_values
+
+0.0.5.17  19.01.2008 - Daten in CSV exortieren
+                     - Daten komplett loeschen
+                     - Umstellung des E-Mail-Formulars
+
+0.0.5.16  18.01.2008 - Daten im Fragebogen werden gespeichert
+                     - leere Galerien
+
+0.0.5.15  17.01.2008 - Commuity-Daten werden uebernommen
+                     - Feinschliff an verschiedenen Stellen
+
+0.0.5.14  16.01.2008 - Kontrolle der Vollstaendigkeit der Angaben bei Fragebogen
+
+0.0.5.13  15.01.2008 - Beginn der Arbeit am Fragebogen
+                     - Fragen werden dargestellt
+
+0.0.5.12  14.01.2008 - Raw-File, Raw-Folder werden ergaenzt bzw. angelegt
+
+0.0.5.11  13.01.2008 - Fehler paste_id als Liste korrigiert
+
+0.0.5.10  12.01.2008 - Umlaute bei Anfragen an Google, Yahoo etc.
+
+0.0.5.9   11.01.2008 - "bewegen" im folderfs-Objekt ist moeglich
+                     - Korrekturskript fuer Arbeitsgruppen
+                     - Unicode-Umlaute in Fehlerfeldungen
+                     - Im- und Export von Mitgliedern in userfoldern
+
+0.0.5.8   10.01.2008 - Dateien, Ordner etc. werden per Ajax angezeigt (noch nicht ok!)
+                     - Beim Ausschneiden wird der Staubsauger von Yellow Submarine verhindert
+
+0.0.5.7   09.01.2008 - Beginn der Arbeiten an dmsFolderFS
+                     - Bilder (als Logos) in der Aktionspalte
+                     - Dateien, Ordner etc. werden korrekt angezeigt
+
+0.0.5.6   08.01.2008 - Fehler beim importieren von Ordner-Objekten
+
+0.0.5.5   07.01.2008 - remove_link_icons auf Unicode umgestellt
+
+0.0.5.4   28.12.2007 - geschuetzte Dateien werden per Programm zugaenglich gemacht - 2
+                     - Terminkalender in Arbeitsgruppen
+
+0.0.5.3   27.12.2007 - geschuetzte Dateien werden per Programm zugaenglich gemacht
+
+0.0.5.2   21.12.2007 - DmsUserUrlRole: folder in container umbenannt
+                     - Verfeinerung der Arbeits-/Lerngruppen
+                     - Ansaetze, Termine in Arbeitsgruppen anzuzeigen
+
+0.0.5.1   20.12.2007 - beim Loeschen eines Userfolders werden User-Url-Role-Eintraege geloescht
+                     - overflow: hidden in top-bottom-border-ex
+
+0.0.5.0   19.12.2007 - User werden gegebenenfalls in LDAP gespeichert bzw. geloescht
+                     - Aendern der Navigation in Webquests
+
+0.0.4.37  18.12.2007 - Weiterarbeit an LDAP-Integration
+
+0.0.4.36  17.12.2007 - Weiterarbeit an LDAP-Integration
+
+0.0.4.35  14.12.2007 - Korrektur der LDAP-htaccess-Datei
+
+0.0.4.34  13.12.2007 - Umstellung der Feeds auf autoescape
+
+0.0.4.33  12.12.2007 - Umstellung des Menuesystems auf Unicode-Umlaute
+                     - sortierbare Elixier-Gesamtstatistik
+                     - charset=utf-8 bei Ajax-Funktionen
+
+0.0.4.32  11.12.2007 - Umstellung der HTML-Eintities auf Unicode-Umlaute
+                     - DmsDownloadProtected, DmsExtItem entfernt
+
+0.0.4.31  10.12.2007 - nav_title Vortraegen
+                     - Experimente mit Yui-Tooltips - overlib ist besser
+                     - Erweiterung des Medienfragebogens
+
+0.0.4.30  09.12.2007 - Autocomplete bei der Schlagwort-Suche in Lernarchiven
+
+0.0.4.29  08.12.2007 - Autocomplete bei Aenderung der Dienststelle
+
+0.0.4.28  07.12.2007 - Unicode-Fehler behoben
+
+0.0.4.27  06.12.2007 - Weiterarbeit am Usermanagement
+
+0.0.4.26  05.12.2007 - Sychronisation auth-ldap
+                     - Dokumentation von dms.ini
+                     - Unicode in pdf_confirm, pdf_saved_infos und pdf_save
+
+0.0.4.25  03.12.2007 - Behebung kleinerer Fehler
+                     - Fortfuehrung der Integration von LDAP
+
+0.0.4.24  30.11.2007 - Daten werden korrekt kopiert
+
+0.0.4.23  29.11.2007 - Beginn der Arbeit am Datenexport
+
+0.0.4.22  28.11.2007 - Freigabe mit yui-data-table
+                     - ELIXIER_INST_LOGO zur Kennzeichnung der eigenen Dateien
+                     - Newsletter: Auswahl ist fertig; Zusammenstellung des Textes
+                       sowie der User begonnen
+
+0.0.4.21  27.11.2007 - Umstellung von tabber auf yui ist erfolgt
+                     - Newsletter select_section.html, Auswahl was senden
+
+0.0.4.20  26.11.2007 - Umstellung auf yui
+                     - newsletter select_section.html, Ausewahl der Ausgaben
+
+0.0.4.19  25.11.2007 - Beginn der Integration der Ext-Bibliothek
+
+0.0.4.18  22.11.2007 - vorlaeufiger Abschluss der Arbeiten zu find_items
+                     - Newsletter-Icons, Suche nach Vorlage versenden
+
+0.0.4.17  21.11.2007 - Beginn der Arbeit an find_items
+
+0.0.4.16  20.11.2007 - Lernressourcen koennen neuen Materialtypen
+                       zugeordnet werden
+                     - Mini-Bugs korrigiert
+
+0.0.4.15  19.11.2007 - Beginn der getrennten Sortierung von Lernarchiven
+                       und Lernressourcen
+
+0.0.4.14  18.11.2007 - Umstellungen auf {% autoescape off %}
+
+0.0.4.13  16.11.2007 - Beginn der Arbeit an dmsFolderProtected
+                     - Fehlerkorrekturen beim Medienfragebogen
+
+0.0.4.12  15.11.2007 - Beginn der Integration von LDAP
+                     - aus search_xapian wird searchxapian (wg. Hilfeseite)
+
+0.0.4.11  14.11.2007 - newsletter, newsletteritem hinzugefuegt
+                     - Bugs in FAQ korrigiert
+
+0.0.4.10  13.11.2007 - minimale Fehlerkorrekturen und Aenderungen
+
+0.0.4.09  12.11.2007 - text_more in FAQ-Liste eingebaut
+
+0.0.4.08  10.11.2007 - anonymous erhaelt den Wert 2000
+                     - rekursives Aendern der Zugriffsrechte in Arbeitsgruppen
+                     - Dateien werden beim Umbenennen korrekt nachgefuehrt
+
+0.0.4.07  09.11.2007 - Copyright-Info bei Dateien ...
+
+0.0.4.06  08.11.2007 - Anzeige der Elixier-Beitraege
+                     - Verfeinerung des E-Mail-Formulars
+
+0.0.4.05  07.11.2007 - Navigationszuordnung erfolgt jetzt auch fuer Unterordner
+                     - MP3-Dateien werden zum Download angeboten
+
+0.0.4.04  06.11.2007 - Beginn dmsEmailForm
+                     - Fehlerkorrekturen
+
+0.0.4.03  05.11.2007 - To-Do-Liste
+                     - Korrektur bei delete_total
+                     - Korrekturen bei Arbeitsgruppen
+                     - Zwischentitel bei FAQ-Board
+                     - FAQ-Board-Anzeige wie bei Folder
+                     - FAQ-Boards koennen umgeordnet werden
+                     - FAQ-Item-icon
+
+0.0.4.02  03.11.2007 - beim Anlegen einer Edu-Galerie werden Raeume abgefragt
+                     - Edu-Galerien koennen umgeordnet werden
+
+0.0.4.01  02.11.2007 - Galerie fuer Lernarchive
+
+0.0.3.38  02.11.2007 - Galerien koennen mit unterschiedlichen Hintergruenden angezeigt werden
+                     - Korrektur der linken Menuspalte beim Anlegen der Arbeitsgruppen
+
+0.0.3.37  01.11.2007 - Weiterarbeit am Galerie-Objekt
+
+0.0.3.36  31.10.2007 - Galerie in utils.py deaktiviert wg. Fehlermeldung
+                     - FAQ-icons hinzugefuegt
+                     - Schreibfehler "Lenrnarchiv"
+
+0.0.3.36  01.11.2007 - Weiterarbeit am Galerie-Objekt
+
+0.0.3.35  31.10.2007 - PROJECT_FOLDER
+                     - bei Arbeitsgruppen werden die sections jetzt in der linken Navigationsspalte
+                       korrekt ausgewertet
+
+0.0.3.34  30.10.2007 - Galerie (ohne Anzeige)
+                     - Photos werden in verschiedenen Aufloesungen gespeichert (Anzeige fehlt noch)
+                     - Visualisierung von Ordnern
+
+0.0.3.33  29.10.2007 - alternative Darstellung von Medienpaketen
+                     - "Linke Navigation" nur noch auf der Hauptebene
+                     - sections in FAQ-Liste begonnen (Werner)
+
+0.0.3.32  26.10.2007 - Stylesheet fuer oberes Bild korrigiert (Markus Gnewikow)
+                     - the_base
+
+0.0.2.31  25.10.2007 - diverse Fehlerkorrekturen
+                     - Lernarchive koennen eingeblendet werden
+                     - Edu-Dateien koennen geaendert werden
+
+0.0.2.30  23.10.2007 - Minimale Korrekturen
+
+0.0.2.29  21.10.2007 - Vorbereitung des Relaunch
+
+0.0.2.28  19.10.2007 - Elixier-Beitraege werden gespeichert
+
+0.0.2.27  18.10.2007 - Weiterarbeit an Elixier
+                     - Anzeige bei "Mehr" korrigiert
+
+0.0.2.26  17.10.2007 - permanente Weiterleitung bei Lernarchiven
+                     - Redirects von Lernarchiven werden bei Lernarchiven angezeigt
+
+0.0.3.25  16.10.2007 - Weiterarbeit an Elixier (Ruecksprung mit Beruecksichtigung der Parameter)
+                     - erste Schritte zum Speichern der Elixier-Daten
+
+0.0.3.24  15.10.2007 - seltsamer IE Fehler behoben (relativer Skript-Pfad)
+                     - Ergaenzen/Einfalten in den rechten Aktionsbereich verschoben
+
+0.0.3.23  11.10.2007 - Weiterarbeit an Elixier
+
+0.0.3.22  10.10.2007 - geaenderte Begriffe fuer Webquests
+                     - Bilder koennen mit image-float-left ..-right
+                       Abstand zum Text erhalten
+
+0.0.3.21  09.10.2007 - Beginn der Integration von Elixier in Lernarchive
+
+0.0.3.20  08.10.2007 - Glaettung der Stylesheets
+
+0.0.3.19  07.10.2007 - Feinarbeit an den Stylesheets
+
+0.0.3.18  06.10.2007 - Style-Sheets basieren massgeblich auf Yaml
+
+0.0.3.17  03.10.2007 - action_site fuer Site-Manager
+                     - Informationen zu den Patinnen und Paten
+
+0.0.3.16  02.10.2007 - replace_info_manager wird zu change_owner
+                     - eingeblendete Ressourcen werden gekennzeichnet
+
+0.0.3.15  01.10.2007 - FAQ-Liste
+                     - E-Mail-Adresse in FAQ-Kommentar übernommen
+                     - replace_info_manager
+
+0.0.3.14  28.09.2007 - (Elixier-)Logos der Einrichtungen fuer Lernarchive
+
+0.0.3.13  27.09.2007 - Uebertragung der Online-Lernarchive
+                     - Anzeige der Nachrichten im Lernarchiv
+
+0.0.3.12  26.09.2007 - Umstellung des Suchmaschinenformulars
+                     - Kopieren bei Lernarchiven ausgeschaltet
+
+0.0.3.11  25.09.2007 - Beginn der Arbeit an der Suchmaschine für Lernarchive
+                       bis auf die Auswertung der Schlagworte funktioniert die
+                       Suche
+
+0.0.3.10  24.09.2007 - mit is_exchangeable koennen Edu-Objekte vom Elixier-
+                       Austauschprogramm ausgenommen werden
+                     - Einblendungen in Lernarchiven
+
+0.0.3.9   21.09.2007 - Webquests ueberarbeitet
+
+0.0.3.8   20.09.2007 - eigenes Navigationsmenu fuer Webquests
+                     - "Ansicht"-Block
+
+0.0.3.7   19.09.2007 - is_changeable in DmsItemContainer
+                     - differenzierte Ergaenzungsmoeglichkeiten bei Lernarchiven
+                     - Webquests als Uebersicht zeigen
+
+0.0.3.6   18.09.2007 - Bereinigung der Import-Zeilen
+
+0.0.3.5   17.09.2007 - Webquests koennen angelegt werden
+
+0.0.3.4   14.09.2007 - Kontexthilfe funktioniert
+                     - Fehler bei mehrfachen Klemmbrett-Funktionen korrigiert
+                     - Sitemap-Funktion bei den Lernarchiven
+                     - Neue Lernressourcen
+
+0.0.3.3   13.09.2007 - Arbeit an der Schnittstelle für Hilfesystem
+
+0.0.3.2   12.09.2007 - Medienpakete koennen angelegt und geaendert werden
+                     - header_title in util_form bzw. base.html eingefuehrt
+
+0.0.3.1   11.09.2007 - EduFileItems werden gespeichert und angezeigt
+
+0.0.3.0   10.09.2007 - from dms_ext.extension import *
+                       zur Modifizierung, ohne den Djambala-Kern aendern zu muessen
+                     - is_available in DmsApp (um einzelne Module ausschalten zu koennen)
+                     - Beginn der Umstellung der Ordner-Objekte
+                     - is_top_folder wird korrekt ausgewertet
+
+0.0.2.37  07.09.2007 - Beginn der Arbeit an EduFileItem
+
+0.0.2.36  06.09.2007 - Add-Formular für Edu-Objekte überarbeitet
+
+0.0.2.35  04.09.2007 - Schlagworte bei Edu-Objekten koennen (prinzipiell) in gestemmter 
+                       Version ausgewertet werden
+
+0.0.2.34  30.08.2007 - Add-Formular fuer Edu-Objekte ueberarbeitet
+
+0.0.2.33  29.08.2007 - Edit-Formular fuer Edu-Objekte wird korrekt angezeigt
+                       und gespeichert
+
+0.0.2.32  28.08.2007 - Details von Edu-Objekten werden angezeigt
+
+0.0.2.31  27.08.2007 - Export von Edu-Objekten
+                     - neue Datenstrukturen
+                     - Edu-Objekte werden angezeigt
+
+0.0.2.30  22.08.2007 - integer_3, integer_4, integer_5 ergaenzt
+                     - Indizes fuer string_1, string_2
+                     - dms_app um Edu-Objekte ergaenzt
+
+0.0.2.19  20.07.2007 - Anzeige eines Elixier-Datensatzes
+
+0.0.2.18  19.07.2007 - Beginn der Arbeit zu den statistischen Angaben von Elixier
+                     - Formular zum Auswaehlen der Elixier-Beitraege
+
+0.0.2.17  18.07.2007 - bei neuen Arbeitsgruppen automatisch Pinnwaende anlegen
+                     - erste Anfaenge fuer Elixier-Verwaltungsprogramm
+
+0.0.2.16  17.07.2007 - weitere Fehlerkorrekturen bei Kommentarsystem
+                     - Pinnwand (Sprint Hildesheim)
+
+0.0.2.15  16.07.2007 - Fehlerkorrektur bei Kommentarsystem
+
+0.0.2.14  13.07.2007 - Icons fuer Diskussionsforen
+
+0.0.2.13  12.07.2007 - kleinerer Fehler bei delete_total korrigiert
+                     - Beginn Discussboard
+                     - Sprint Hildesheim: Pinnwand
+
+0.0.2.12  10.07.2007 - Verfeinerung des Formulars fuer die Eingabe von Lernressourcen
+                     - mehrere Edu-Tabellen: u.a. dms_edu_lernrestyp und dms_edu_medienformat
+
+0.0.2.11  09.07.2007 - Beginn der Arbeit am EduLinkItem
+
+0.0.2.10  07.07.2007 - RSS-Feeds koennen angelegt, geloescht und geaendert werden
+
+0.0.2.09  06.07.2007 - Weitere Anpassung fuer Unicode
+                     - Weiterabeit an RSS-Feeds
+
+0.0.2.08  05.07.2007 - Anpassungen fuer Unicode-Django
+
+0.0.2.07  04.07.2007 - Anpassungen bei RSS-Feeds
+
+0.0.2.06  03.07.2007 - Korrekturen: Mozilla/Firefox vs. Internet Explorer
+
+0.0.2.05  02.07.2007 - Mitglieder koennen freigeschaltet werden
+                     - Alte Registrierungen koennen geloescht werden
+                     - Community-Mitglieder koennen ueber Zugangsnamen und E-Mail-Adresse
+                       geloescht werden
+
+0.0.2.04  28.06.2007 - PDF-Dateien werden bei der Registrierung versandt
+                     - Beginn der Arbeit am User-Management
+
+0.0.2.03  27.06.2007  - Beginn: PDF-Generierung
+
+0.0.2.02  26.06.2007  - User koennen sich registrieren
+
+0.0.2.01  27.06.2007  - Aufraeumarbeiten
+
+0.0.1.49  25.06.2007  - User-Registrierung
+
+0.0.1.48  23.06.2007  - Kennwort und E-Mail-Adresse der eigenen Personen
+                        koennen geaendert werden
+
+0.0.1.41  18.06.2007  - Arbeitsgruppen erhalten Ordner
+
+0.0.1.40  16.06.2007  - Zugang zu geschuetzten Bereichen in views_dms integriert
+
+0.0.1.39  15.06.2007  - Beginn der Arbeit an geschlossenen Arbeitsgruppen
+                      - Umbenennung von base_utils und base_help_form
+
+0.0.1.38  14.06.2007  - Weiterabeit am Userfolder
+
+0.0.1.37  13.06.2007  - hessische Bezuege weitgehend entfernt
+
+0.0.1.36  12.06.2007  - Installation von Djambala
+
+0.0.1.35  07.06.2007  - erste Ansaetze zur Integration der Fortbildungsdatenbank
+                        in die Lernarchive
+
+0.0.1.34  06.06.2007  - Beginn der Arbeit an den Lernarchiven
+
+0.0.1.33  04.06.2007  - Import-Funktion aktualisiert
+
+0.0.1.32  03.06.2007  - Top-Navigation besser integriert
+
+0.0.1.31  01.06.2007  - get_folderish_actions ueberarbeitet
+
+0.0.1.30  31.05.2007  - Einblendungen werden entfernt, ohne die eigentliche
+                        zu loeschen
+                      - Aendern von eingeblendeten Objekten
+
+0.0.1.29  30.05.2007  - weiteres Straffen des Codes (utils, queries)
+
+0.0.1.28  29.05.2007  - rekursives Loeschen und Undo
+
+0.0.1.27  28.05.2007  - Korrekturen in userfolder und css_generate
+
+0.0.1.26  24.05.2007  - alle Templates wurden mit "trans" ueberarbeitet
+                      - Templates gestrafft
+
+0.0.1.25  22.05.2007  - Aufraeumarbeiten: parent_item_id
+
+0.0.1.25  21.05.2007  - Aufraeumarbeiten (models -> queries)
+
+0.0.1.24  20.05.2007  - get_base_vars
+
+0.0.1.23  19.05.2007  - DmsText (u.a. fuer robots.txt)
+                      - Top-Navigation wird in Datenbank gespeichert
+
+0.0.1.22  18.05.2006  - Integration des cc-Lizenzmodell (bei Dokumenten)
+
+0.0.1.21  17.05.2007  - Icons bei externen Verweisen werden automatisch gesetzt
+                      - Templates fuer RSS-Feeds korrigiert
+
+0.0.1.20  15.05.2007  - verlaeufiger Abschluss der Arbeiten am Such-Interface
+
+0.0.1.19  14.05.2007  - Verfeinerung der Suchseite
+
+0.0.1.18  13.05.2007  - Beginn der Arbeit an der Suchmaschine Xapian
+
+0.0.1.17  11.05.2007  - Beginn der Arbeit an Link-Items
+
+0.0.1.16  09.05.2007  - Anti-Spam-Fragen
+                      - Beginn der Arbeit an Linklisten
+                      - do_sort nach dmsFolder
+                      - do_manage_browseable nach dmsFolder
+                      - do_manage nach dmsFolder
+
+0.0.1.15  08.05.2007  - Beginn der Arbeiten am Anti-Spam-System
+
+0.0.1.14  07.05-2007  - Ueberarbeitung des Kopierens
+
+0.0.1.13  04.05.2007  - Mehrfach-Checkboxen fuer Medienfragebogen
+
+0.0.1.12  03.05.2007  - Alte Nachrichten
+                      - Seitenbereich kann im Profi-Modus geaendert werden
+
+0.0.1.11  02.05.2007  - SelectToggle bei Mehrfach-Aktionen
+
+0.0.1.10  30.04.2007  - mehrfaches Loeschen
+
+0.0.1.9   27.04.2007  - import_dms
+
+0.0.1.8   26.04.2007  - Site-Objekt wieder auskommentiert - moeglicher Schaden!!!
+
+0.0.1.7   25.04.2007  - Site-Objekt auswaehlen
+
+0.0.1.6   24.04.2007  - Objekte werden gegebenenfalls rekursiv geloescht
+                      - Verwaltung des Nachrichtenbretts
+
+0.0.1.5   23.04.2007  - Daten des Medienfragebogens werden gespeichert
+
+0.0.1.4   20.04.2007  - Medienfragebogen: Formular zeigt Werte an
+
+0.0.1.3   19.04.2007  - Reaktivierung des Admin-Zugangs
+
+0.0.1.2   18.04.2007  - umbenennen komplett ueberprueft
+                      - Pflegeseite optisch neu strukturiert
+                      - Eingabeformular fuer Medienfragebogen (AfL)
+
+0.0.1.1   17.04.2007  - bestimmte Objekte duerfen in bestimmten Modulen nicht
+                        eingefuegt werden
+                      - diverse Erweiterungen fuer form_system, um Fragebogen
+                        abbilden zu koennen
+
+0.0.1.0   16.04.2007  - Datenobjekte koennen meheren Folder-Objekten zugeordnet werden
+
+0.0.0.52  03.04.2007  - Umstellung: Datenobjekte koennen mehreren Folder-Objekten
+                        zugeordnet werden
+
+0.0.0.51  31.03.2007  - RSS-Feeds koennen eingetragen werden
+                      - Freigabe von Beitraegen fuer RSS-Feeds
+
+0.0.0.50  28.03.2007  - Bilderleiste mit vereinfachtem Layout
+                      - Beginn der Arbeit an Materialpools
+
+0.0.0.49  27.03.2007  - Begin  der Arbeit an der Bilderleiste
+
+0.0.0.48  26.03.2007  - Nachrichten koennen kommentiert werden
+                      - Bilder bei Nachrichten anzeigen
+
+0.0.0.47  24.03.2007  - RSS-Feeds eingerichtet
+
+0.0.0.46  23.03.2007  - dmsImage
+                      - dmsImagethumb
+
+0.0.0.45  22.03.2007  - Nachrichten werden angezeigt
+                      - Bilder koennen angelegt werden
+
+0.0.0.44  16.03.2007  - Nachrichtenbrett
+                      - Beginn der Arbeit an Nachrichten
+
+0.0.0.43  15.03.2007  - Navigationsstruktur kann geaendert werden
+                      - Hauptnavigationsstruktur (id=1) kann nur auf der Hauptebene geaendert werden
+
+0.0.0.42  14.03.2007  - linker Navigationsbereich wird ausgewertet
+
+0.0.0.41  13.03.2007  - Beginn der Integration der linken Menuleiste
+
+0.0.0.40  06.03.2007  - Kommentare freigeben und schreddern
+
+0.0.0.39  05.03.2007  - views_comment
+                      - Beginn der Arbeiten zum Verwalten der Kommentare
+
+0.0.0.38  02.03.2007  - allgemeines Kommentarformular nach views
+
+0.0.0.37  28.02.2007  - Datei aendern
+
+0.0.0.36  27.02.2007  - Dateien anzeigen
+                      - Details der Datei zeigen
+
+0.0.0.35  23.02.2007  - Beginn der Arbeit am File-Objekt
+
+0.0.0.34  21.02.2007  - Gruppenkonzept: Jeder User wird eindeutig einer Primaergruppe zugeordnet
+                      - Jeder User kann mehreren Sekundaergruppen zugeornet werden
+                      - Sekundaergruppen sind innerhalb der Institutionen frei waehlbar
+
+0.0.0.33  20.02.2007  - DmsOrg
+                      - DmsSubOrg
+                      - DmsUserOrg
+
+0.0.0.32  19.02.2007  - User auswaehlen und Rolle zuweisen
+                      - User-Rechte werden ausgewertet
+
+0.0.0.31  16.02.2007  - Community-Mitglieder werden zur Auswahl angezeigt
+
+0.0.0.30  14.02.2007  - Community-Mitglieder koennen aus Userfolder geloescht werden
+                      - Liste der Rollen wird angezeigt
+                      - Rollenzuweisung erfolgt
+
+0.0.0.29  13.02.2007  - Liste der eingetragenen Community-Mitglieder
+                      - Sortierung der Liste der Community-Mitglieder
+
+0.0.0.28  12.02.2007  - auth_user_url_role-Tabelle
+                      - einige Eintraege per Hand
+
+0.0.0.27  09.02.2007  - Freigeben von Beitraegen
+                      - utils bei Item-Objekten entfernt
+
+0.0.0.26  08.02.2007  - manage_options_folderish.template
+                      - "Community" bei Aktionen
+
+0.0.0.25  07.02.2007  - Beginn der Arbeit an den Gaestebucheintraegen
+                      - User-Verwaltung vorerst verschoben
+                      - Gaestebucheintraege werden angezeigt
+                      - Die Anordnung der Beitraege muss noch veraendert werden
+
+0.0.0.24  06.02.2007  - User-Verwaltung nach dmsUserManagement ausgelagert
+
+0.0.0.23  05.02.2007  - Komplettansicht der Vortragsfolien
+                      - Schreddern im Management-Modus integriert
+                      - Beginn zum Ergaenzen neuer User
+
+0.0.0.22  04.02.2007  - Vortrag mit has_user_support und is_moderated
+                      - erste Schritte fuer Vortragsfolien (sheet)
+
+0.0.0.21  03.02.2007  - Impressum wird in Site gespeichert
+
+0.0.0.20  02.02.2007  - Experimente mit Subversion unter Apache
+                      - Abgleich
+                      - Testversion
+
+0.0.0.19  01.02.2007  - groessere Vereinheitlichung der Namen
+
+0.0.0.18  29.01.2007  - prev_next
+                      - parent_id muss von "item" nach "folder" = groessere Umstellung
+                      - Beginn der Umstellung auf DmsDirectory (statt DmsFolder)
+
+0.0.0.17  28.01.2007  - weitere Vereinheitlichung
+                      - anstelle allgemeiner Templates gibt es App-Templates
+                      - Beginn: Vortrag
+
+0.0.0.16  27.01.2007  - "Rest" des Sortierens
+                      - memchache eingerichtet
+
+0.0.0.15  26.01.2007  - Sortierung ueber drag&drop
+
+0.0.0.14  24.01.2007  - dmsRedirect
+                      - Beginn der Arbeiten zum Sortieren
+
+0.0.0.13  23.01.2007  - Weiterarbeit am User-Folder
+                      - Problem bei get_nav_bar: das Objekt muss ein Ordner sein
+                      - Beginn der Arbeiten am User-Folder
+
+0.0.0.12  22.01.2007  - Beginn der Arbeiten am User-Folder
+                      - Hauptnavigation enthaelt optische Hinweise ueber den aktuellen Ort
+
+0.0.0.11  21.01.2007  - django.contrib.auth wurde in den Ordner dms uebertragen und angepasst
+                      - Permissions, Group und Message wurden entfernt
+
+0.0.0.10  19.01.2007  - Tabellen zur User-Verwaltung integriert
+                      - Schreibweise der Modelle den Django-Konventionen angepasst
+
+0.0.0.9   18.01.2007  - weitere Ausdifferenzierung des Rollen-Konzeptes
+                      - GetUserEditPerms wird beim Anzeigen der Aktionen
+                        von Ordnern einbezogen
+
+0.0.0.8   17.01.2006  - Rollen und Rechte neu definiert
+                      - require_permission
+
+0.0.0.7   16.01.2007  - Beginn der Arbeit an den Rechten und Rollen
+
+0.0.0.6   15.01.2007  - ext_id eingefuehrt
+                      - Ueberarbeitung der Hilfetexte
+                      - Intro und Intro-Mehr werden jetzt ueber Javascript angezeigt
+                      - allgemeine Fehlerseite
+                      - abfangen beim Anlegen eines Objektes mit gleichem Namen
+
+0.0.0.5   14.01.2007  - Ja/Nein beim Loeschen
+                      - Klemmbrett, das Umbenennen und L&ouml;schen verallgemeinert
+                      - cut und copy werden in sessions gespeichert
+                      - erste Schritte User-Verwaltung
+
+0.0.0.4   13.01.2007  - Dateien koennen in der Verwaltungssicht umbenannt werden
+                      - die Zwischenueberschriften werden jetzt korrekt ausgewertet
+                      - Ordner koennen jetzt angelegt werden
+                      - die Programmteile erhalten jetzt einen einfuehrend Kommentar
+
+0.0.0.3   12.01.2007  - regulaere Ausdruecke fuer dispatch_folders etc. vereinfacht
+                      - Konvertierung der Seitenbloecke vereinfacht
+                      - erstes Anlegen eines neuen Ordners
+
+0.0.0.2   11.01.2007  - Seitenbloecke
+                      - Beginn der wechselseitigen Konvertierungen bei Seitenbloecken
+                      - erstes Abspeichern bei Aenderungen
+                      - korrektes Auswerten von Checkboxen und Select-Konstruktionen
+                      - Teile von settings.py ausgelagert
+
+0.0.0.1   10.01.2007  - Einfuehrung von intro_text_more
+                      - Das Aenderungsformular fuer Ordner wurde in Tabs aufgespalten
+                      - Die Hilfetexte wurden so erweitert, dass bei den Reitern
+                        Informationen angezeigt werden koennen
+                      - Beginn des Arbeitens mit svn
+                      - Vereinfachung der tabbed-Formulare
+
++-------------------------+
+| name                    |
++-------------------------+
+| dmsDiscussboard         | zecomDiscussboard.py
+| dmsDiscussItem          | zecomDiscussItem.py
+| dmsDocument             | zecomDocument.py
+| dmsEduFileItem          |
+| dmsEduFolder            | zecomEduFolder.py
+| dmsEduGalleryItem       | zecomEduGallery.py
+| dmsEduLinkItem          | zecomEduLink.py
+| dmsEduMediaItem         |
+| dmsEduTextItem          | zecomEduDocument.py
+| dmsEduWebquestItem      |
+| dmsElixier              |
+| dmsEventboard           |
+| dmsEventItem            |
+| dmsFAQboard             | zecomFAQboard.py
+| dmsFAQitem              | zecomFAQItem.py
+| dmsFile                 | zecomFile.py
+| dmsFolder               | zecomFolder.py
+| dmsGallery              | zecomGallery.py
+| dmsGuestbook            | zecomGuestbook.py
+| dmsGuestbookItem        | zecomGuestbookItem.py
+| dmsImage                | zecomImage.py
+| dmsImagethumb           | zecomThumb.py
+| dmsLecture              | zecomLecture.py
+| dmsLinkItem             | zecomLinkItem.py
+| dmsLinklist             | zecomLinklist.py
+| dmsMediaSurvey          |
+| dmsNewsboard            | zecomInfoboard.py
+| dmsNewsItem             | zecomInfoItem.py
+| dmsPhoto                | zecomPhoto.py
+| dmsPinboard             |
+| dmsPinItem              |
+| dmsPool                 | zecomPool.py
+| dmsProjectgroup         | zecomProjectGroup.py, zecomLearningGroup.py
+| dmsRedirect             | zecomRedirect.py
+| dmsRssFeed              |
+| dmsRssFeedManager       |
+| dmsSearchXapian         |
+| dmsSheet                | zecomSheet.py
+| dmsSoftlink             |
+| dmsText                 |
+| dmsToDoList             |
+| dmsToDoListItem         |
+| dmsUserChangeManagement |
+| dmsUserFolder           | zecomUserFolder.py
+| dmsUserManagement       |
+| dmsUserRegistration     |
++-------------------------+
+
+Bislang fehlende Objekte
+------------------------
+
+zecomAbo.py
+* zecomAddress.py
+zecomAgenda.py
+* zecomBlock.py
+zecomBlog.py
+zecomBlogItem.py
+zecomCourse.py
+zecomDiscussFile.py
+* zecomEduWordDocument.py
+* zecomEZineItem.py
+* zecomEZine.py
+zecomFollowMe.py
+zecomGlossaryItem.py
+zecomGlossary.py
+zecomMediaBraille.py
+zecomMetaplan.py
+zecomModule.py
+* zecomPortal.py
+* zecomProjectFolder.py
+zecomProjectSurvey.py
+zecomPupilFolder.py
+zecomResource.py
+zecomSchoolFolder.py
+zecomSubCourse.py
+zecomSurvey.py
+* zecomTitle.py
+zecomVersionFile.py
+zecomWebQuestFolder.py
+* zecomWordDocument.py
+
+* werden mit hoher Wahrscheinlichkeit nicht entwickelt

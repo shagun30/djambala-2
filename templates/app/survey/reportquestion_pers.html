@@ -1,0 +1,18 @@
+{% load i18n %}
+
+<div style="margin-left:10%;">
+<h5>{{ header }}</h5>
+
+{% if question %}
+<p>
+<b>{% trans "Frage" %}:</b>  <i>{{ question }}</i>
+</p>
+
+<ul>
+{% for answer in answers %}
+<li><b>{{ answer.value }}</b><br />
+{{ answer.names }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+

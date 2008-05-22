@@ -1,0 +1,18 @@
+{% load i18n %}
+<script type="text/javascript">
+function select_dest_url(dest_webquest) {
+  o_dest_webquest = dest_webquest;
+  window.open("{{ dest_url }}","Webquest","menubar=yes,scrollbars=yes,width=600,height=800,left=0,top=0");
+}
+function set_dest_url(dest_webquest) {
+  document.form_input.dest_webquest.value = dest_webquest;
+}
+//-->
+</script>
+
+<p>
+{% blocktrans %}
+Mit {{ get_eduwebquest }} legen Sie innerhalb der Online-Lernarchive den Webquest fest, den
+Sie an dieser Stelle einfügen möchten.
+{% endblocktrans %}
+</p>

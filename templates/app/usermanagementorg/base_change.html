@@ -1,0 +1,62 @@
+{% load i18n %}
+
+{% autoescape off %}
+
+{% block content %}
+
+<h4>{% trans "Liste der Community-Mitglieder der Basisgruppe" %} "{{ group_name }}" (n={{ user_count }})</h4>
+
+<p>
+{% trans "Folgende Personen können Sie anderen Gruppen zuordnen" %}
+</p>
+
+<table class="form-table" style="width:100%;">
+
+<thead>
+  <tr class="tabHeaderBg">
+  <td width="25%"><b>{% trans "Name" %}</b></td>
+  {% for target in target_groups %}
+    <td><b>{{ target.name }}</b></td>
+  {% endfor %}
+  </td>
+  </tr>
+</thead>
+
+<tbody>
+{% if users %}
+  <form method = "post"
+        action = "{{ next }}">
+  {% for user in users %}
+  <tr class="selectblock" style="border-width:1px; border-color:#000000; border-style:solid;">
+  <td width="25%">
+    {{ user.name }}
+    <input type="hidden" name="user_id" value="{{ user.user_id }}" />
+  </td>
+  {{ user.inputs }}
+  </tr>
+  {% endfor %}
+
+  <tr>
+  <td colspan="5" align="right">
+  <input name="modus_change" type="hidden" value="1" />
+  <input name="submit" type="submit" value="{% trans "Community-Mitglieder zuordnen ..." %}" />
+  </td>
+  </tr>
+  </form>
+
+{% else %}
+<tr>
+<td colspan="5">
+{% trans "Zu dieser Gruppe gibt es in Ihrer Institution keine Community-Mitglieder." %}
+</td>
+</tr>
+{% endif %}
+
+</tbody>
+
+</table>
+
+{% endblock %}
+{% endautoescape %}
+
+

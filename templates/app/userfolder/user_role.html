@@ -1,0 +1,41 @@
+{% load i18n %}
+
+{% autoescape off %}
+<h4>{% blocktrans %}Rollen des Community-Mitglieds 
+    <i>{{ user_name }}</i> ({{ user }}) ändern{% endblocktrans %}</h4>
+
+<form action = "./"
+      method = "POST">
+<table class="form-table" style="width:100%;">
+
+<thead>
+  <tr class="tabHeaderBg">
+  <td width="5%">&nbsp;</td>
+  <td width="75%"><b>{% trans "Rollenbeschreibung" %}</b></td>
+  <td width="20%"><b>{% trans "Kurzname" %}</b></td>
+  </tr>
+</thead>
+
+{% for role in roles %}
+<tr>
+<td class="bottom-border-ex" width="5%">
+<input type="radio" name="role_id" value="{{ role.id }}"
+       {% if role.checked %} checked="checked"{% endif %} />
+</td>
+<td class="bottom-border-ex" width="75%">{{ role.description }}</td>
+<td class="bottom-border-ex" width="75%">{{ role.name }}</td>
+</tr>
+{% endfor %}
+
+<tr>
+<td colspan="3" align="right">
+<input name="edit_user" type="hidden" value="1" />
+<input name="user_id" type="hidden" value="{{ user.id }}" />
+<input name="folder_path" type="hidden" value="{{ folder_path }}" />
+<input name="reset" type="submit" value="{% trans "Abbrechen" %}" />
+<input name="submit" type="submit" value="{% trans "Zugangsberechtigung(en) ändern ..." %}" />
+</td>
+</tr>
+</table>
+</form>
+{% endautoescape %}

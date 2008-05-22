@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block html_head_ext %}<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/assets/skins/sam/tabview.css" />
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/element/element-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/tabview.js"></script>
+<style>
+.yui-content { background-color: #f4f4f4 !important; }
+</style>
+
+<script type="text/javascript" src="{{ site_url }}/dms_media/javascript/overlib/overlib.js-small"></script>
+<script type="text/javascript" src="{{ site_url }}/dms_media/javascript/tool-man/core.js"></script>
+<script type="text/javascript" src="{{ site_url }}/dms_media/javascript/tool-man/events.js"></script>
+<script type="text/javascript" src="{{ site_url }}/dms_media/javascript/tool-man/css.js"></script>
+<script type="text/javascript" src="{{ site_url }}/dms_media/javascript/tool-man/coordinates.js"></script>
+<script type="text/javascript" src="{{ site_url }}/dms_media/javascript/tool-man/drag.js"></script>
+<script type="text/javascript" src="{{ site_url }}/dms_media/javascript/tool-man/dragsort.js"></script>
+<script type="text/javascript" src="{{ site_url }}/dms_media/javascript/tool-man/cookies.js"></script>
+
+<script language="JavaScript" type="text/javascript">
+<!--
+var dragsort = ToolMan.dragsort()
+var junkfolderdrawer = ToolMan.junkdrawer()
+var junkresdrawer = ToolMan.junkdrawer()
+
+window.onload = function() {
+{{ js_head|safe }}
+}
+function saveFolderValues () {
+  var n     = 0;
+  var pat   = "";
+  while ( n <= {{ max_folder_items }} ) {
+    pat = "var_folder_order_by_" + String(n);
+    order_by = junkfolderdrawer.serializeList(document.getElementById("folder_order_by_"+String(n)));
+    document.form_drag_folder_sort[pat].value = order_by;
+    n ++;
+  }
+}
+function verticalFolderOnly(item) { item.toolManDragGroup.verticalOnly() }
+function saveFolderOrder(item) {
+  var group = item.toolManDragGroup
+  var list = group.element.parentNode
+  var id = list.getAttribute("id")
+  if (id == null) return
+  group.register('dragend', function() {
+        ToolMan.cookies().set("folder-list-" + id, junkfolderdrawer.serializeList(list), 365) })
+}
+function saveResValues () {
+  var n     = 0;
+  var pat   = "";
+  while ( n <= {{ max_res_items }} ) {
+    pat = "var_res_order_by_" + String(n);
+    order_by = junkresdrawer.serializeList(document.getElementById("res_order_by_"+String(n)));
+    document.form_drag_res_sort[pat].value = order_by;
+    n ++;
+  }
+}
+function verticalResOnly(item) { item.toolManDragGroup.verticalOnly() }
+function saveResOrder(item) {
+  var group = item.toolManDragGroup
+  var list = group.element.parentNode
+  var id = list.getAttribute("id")
+  if (id == null) return
+  group.register('dragend', function() {
+        ToolMan.cookies().set("res-list-" + id, junkresdrawer.serializeList(list), 365) })
+}
+//-->
+</script>
+{% endblock %}
+
+{% block frame_left %}{% endblock %}
+
+{% block title %}{{title}}{% endblock %}
+{% block sub_title %}{{ sub_title }}{% endblock %}
+
+{% block content %}
+
+  <div class=" yui-skin-sam">
+    <div id="sortForm" class="yui-navset">
+      <ul class="yui-nav">
+          <li class="selected"><a href="#tab0"><em>{% trans "Lernarchive" %}</em></a></li>
+          <li><a href="#tab1"><em>{% trans "Lernressourcen" %}</em></a></li>
+          <li><a href="#tab2"><em>{% trans "Zwischentitel" %}</em></a></li>
+      </ul>
+      <div class="yui-content">
+          <div id="tab0">
+            {% if input_folder_str %}
+              {% blocktrans %}
+              <p>Verschieben Sie die Lernarchive an die gewünschte Position.</p>
+              <p>Lernarchive mit der Kennzeichung '***' gehören zu einem unbekannten Zwischentitel. Dies
+              passiert häufig nach dem Einfügen eines Lernarchivs.
+              </p>
+              {% endblocktrans %}
+              <form method = "post"
+                    name   = "form_drag_folder_sort"
+                    action = "."
+                    onSubmit = "return saveFolderValues()">
+              {{ drag_folder_list }}
+              <div style="margin-top:0.5em; width:100%;" align="right">
+                {{ input_folder_str }}
+                <input name="drag_item_folder_form" type="hidden" value="1" />
+                <input name="submit" type="submit" value="{{ title }} ... " />
+              </div>
+              </form>
+            {% else %}
+              <p>{% trans "Dieses Lernarchiv enthält keine Unterarchive." %}</p>
+            {% endif %}
+          </div>
+          <div id="tab1">
+            {% if input_res_str %}
+              {% blocktrans %}
+              <p>Verschieben Sie die Lernressourcen an die gewünschte Position.</p>
+              </p>
+              {% endblocktrans %}
+              <form method = "post"
+                    name   = "form_drag_res_sort"
+                    action = "."
+                    onSubmit = "return saveResValues()">
+              {{ drag_res_list }}
+              <div style="margin-top:0.5em; width:100%;" align="right">
+                {{ input_res_str }}
+                <input name="drag_item_res_form" type="hidden" value="1" />
+                <input name="submit" type="submit" value="{{ title }} ... " />
+              </div>
+              </form>
+            {% else %}
+              <p>{% trans "Dieses Lernarchiv enthält keine Lernressourcen." %}</p>
+            {% endif %}
+          </div>
+          <div id="tab2">
+            <form method = "post"
+                  action = ".">
+            {{ sec_content }}
+            <div style="margin-top:0.5em; width:100%;" align="right">
+              <input name="sections_form" type="hidden" value="1" />
+              <input name="submit" type="submit" value="{% trans "Liste der Zwischentitel speichern ..." %}" />
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+ var editTab = new YAHOO.widget.TabView('sortForm');
+</script>
+{% endblock %}
+{% endautoescape %}

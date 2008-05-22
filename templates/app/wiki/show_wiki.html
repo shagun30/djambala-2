@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block html_head_ext %}
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/assets/skins/sam/tabview.css" />
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/element/element-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/tabview.js"></script>
+<style>
+.yui-content { background-color: #f4f4f4 !important; }
+</style>
+<style>
+del { background-color: #f47676; }
+ins { background-color: #7ff476; }
+</style>
+
+<script type="text/javascript">
+function showHelp(url) {
+  width = 500
+  left  = screen.width - width;
+  param = "top=0,menubar=yes,scrollbars=yes"
+  winHelp = window.open(url,
+            "_help",
+            "width="+String(width)+",height=600,left="+String(left)+","+param);
+  winHelp.focus();
+}
+</script>
+{% endblock %}
+
+{% autoescape off %}
+{% block title %}
+{{ title }}
+{% if comments %}
+<span class="grey" title="{% trans "Beitrag/Beiträge kommentierbar" %}">&there4;</span>
+{% endif %}
+{% endblock %}
+{% if sub_title %}
+  {% block sub_title %}{{ sub_title }} {% endblock %}
+{% endif %}
+
+{% block content %}
+{{ content }}
+
+{% if wiki.image_url %}
+  {% if wiki.image_url_url %}
+    <a href="{{ wiki.image_url_url }}"{% if wiki.image_extern %} target="_extern"{% endif %}><img 
+      src="{{ wiki.image_url }}" alt="{% trans "Schmuckbild" %}"
+      class="image-float-left" /></a>
+  {% else %}
+    <img src="{{ wiki.image_url }}" alt="{% trans "Schmuckbild" %}"
+      class="image-float-left" />
+  {% endif %}
+{% endif %}
+
+<h4>{{ wiki.title }}</h4>
+{% if wiki.sub_title %}
+<h5>{{ wiki.sub_title }}</h5>
+{% endif %}
+{{ wiki.page }}
+{{ wiki.comments }}
+{% endblock %}
+
+{% endautoescape %}

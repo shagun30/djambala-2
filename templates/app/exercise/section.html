@@ -1,0 +1,42 @@
+{% extends "app/base_section.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block infos %}
+<div style="margin-left:0%;">
+<ul>
+{% for link in links %}
+<li style="margin-top:1em;">
+{% if link.extern %}
+  {{ link.extern_icon }}<a href="{{ link.url }}" target="{{ link.extern }}"
+     title="{% trans "Wird in einem eigenen Fenster geöffnet ..." %}">
+     {{ link.title }}</a>
+{% else %}
+  <a href="{{ link.url }}">{{ link.title }}</a>
+{% endif %}
+{{ link.folder_icon }}
+{{ link.size }}
+{% if link.check_url %}
+  {% if link.check_points %}
+  //
+   {% trans "Punktzahl" %}: {{ link.check_points }}
+  //
+   {% trans "Note" %}: <b>{{ link.check_note }}</b>
+  {% endif %}
+//
+<a href="{{ link.check_url }}">{% trans "bewerten ..." %}</a>
+{% endif %}
+<div style="margin-left:0%;">
+  {{ link.text }}
+</div>
+{% if link.text_more %}
+<div class="comments">
+  {{ link.text_more }}
+</div>
+{% endif %}
+</li>
+{% endfor %}
+</ul>
+</div>
+{% endblock %}
+{% endautoescape %}

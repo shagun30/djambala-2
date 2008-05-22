@@ -1,0 +1,9 @@
+{% load i18n %}
+
+{% autoescape off %}
+<ul>
+{% for group in groups %}
+<li>{{ group.description }}
+{% endfor %}
+</ul>
+{% endautoescape %}

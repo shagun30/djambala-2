@@ -1,0 +1,37 @@
+{% load i18n %}
+
+{% autoescape off %}
+  <div class=" yui-skin-sam">
+    <div id="infoForm" class="yui-navset">
+      <ul class="yui-nav">
+          <li class="selected"><a href="#tab0"><em>{% trans "Namen" %}</em></a></li>
+          <li><a href="#tab1"><em>{% trans "E-Mail-Adressen" %}</em></a></li>
+          <li><a href="#tab3"><em>{% trans "Ressourcen" %}</em></a></li>
+      </ul>
+      <div class="yui-content">
+          <div id="tab0">
+            <ul>
+            {% for link in links %}
+              <li>{{ link }}</li>
+            {% endfor %}
+            </ul>
+          </div>
+          <div id="tab1">
+            {% for email in emails%}
+              {{ email }}<br />
+            {% endfor %}
+          </div>
+          <div id="tab2">
+            <ul>
+            {% for name_url in names_url %}
+              <li>{{ name_url }}</li>
+            {% endfor %}
+            </ul>
+          </div>
+      </div>
+    </div>
+  </div>
+
+{% block infos %}
+{% endblock %}
+{% endautoescape %}

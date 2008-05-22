@@ -1,0 +1,92 @@
+{% extends "base_util_window.html" %}
+{% load i18n %}
+
+{% block title %}{{title}}{% endblock %}
+{% block sub_title %}{{ sub_title }}{% endblock %}
+
+{% block content %}
+
+{% blocktrans %}
+<p>
+Schieben Sie bitte das gewünschte Bild in das passende Eingabefeld Ihres Formulars.
+Alternativ können Sie die entsprechende Web-Adresse in das Eingabeformular kopieren.
+</p>
+
+<p>
+Mit dem Ordner-Symbolen gelangen Sie in höhere oder untergeordnete Bereiche.
+</p>
+{% endblocktrans %}
+
+<table class="form-table" style="width:100%;">
+
+<thead>
+  <tr class="tabHeaderBg">
+  <td width="2%">&nbsp;</td>
+  <td width="2%">
+    <a href="{{ main_obj.url }}/show_images/?sort=type">{% trans "Typ" %}</a>
+  </td>
+  <td>
+    <a href="{{ main_obj.url }}/show_images/?sort=name">{% trans "Name" %}</a>
+  </td>
+  <td>
+    <a href="{{ main_obj.url }}/show_images/?sort=title">{% trans "Überschrift" %}</a>
+  </td>
+  </tr>
+</thead>
+
+<tbody>
+<!-- Kopfzeile zur Objektuebersicht -->
+<tr class="selectblock" style="border-width:1px; border-color:#000000; border-style:solid;">
+<td class="selectblock" width="2%">
+{% if main_obj.top_url %}
+<a class="nav" href="{{ main_obj.top_url }}index.html/show_images/"
+   title="{% trans "Zum übergeordneten Ordner" %}"><img 
+src="{{ site_url }}/dms_media/image/app/{{ main_obj.app_name }}.gif" border="0" /></a>
+{% else %}
+&nbsp;
+{% endif %}
+</td>
+<td class="selectblock" width="2%">
+<td><b>{{ main_obj.name }}</b></td>
+<td><b>{{ main_obj.title }}</b></td>
+</tr>
+
+<!-- hier beginnen die eigentlichen Objekte -->
+{% if objs %}
+  {% for obj in objs %}
+    <tr>
+    <td class="bottom-border-ex" width="2%">&nbsp;</td>
+    <td class="bottom-border-ex" width="2%">
+    {% if obj.is_folderish and not obj.is_userfolder %}
+      <a class="nav" href="{{ obj.url }}/show_images/"
+         title="{% trans "Den Ordner öffnen" %}"><img 
+         src="{{ site_url }}/dms_media/image/app/{{ obj.app_name }}_open.gif" border="0" /></a>
+    {% else %}
+      <img src="{{ site_url }}/dms_media/image/app/{{ obj.app_name }}.gif" border="0" />
+    {% endif %}
+    </td>
+    {% if obj.is_folderish and not obj.is_userfolder %}
+      <td class="bottom-border-ex">{{ obj.name }}</td>
+      <td class="bottom-border-ex">{{ obj.title }}</td>
+    {% else %}
+      <td class="bottom-border-ex" colspan="2">
+        <img src="{{ obj.image_url }}" /><br />
+        {{ obj.image_url }} {{ obj.wh }}
+      </td>
+    {% endif %}
+    </tr>
+  {% endfor %}
+{% else %}
+  <tr>
+  <td colspan="8">
+  {% trans "Dieser Ordner ist leer bzw. enthält keine eigenen Objekte." %}
+  </td>
+  </tr>
+{% endif %}
+
+</tbody>
+
+</table>
+
+{% endblock %}
+

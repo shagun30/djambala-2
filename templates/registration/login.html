@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Überprüfung der Zugangsberechtigung" %}{% endblock %}
+
+{% block sub_title %} {{sub_title}} {% endblock %}
+
+{% block content %}
+{% if form.has_errors %}
+  <p>
+  {% trans "Der Zugangsname und das Kennwort passen nicht zusammen. Bitte versuchen Sie es noch einmal." %}
+  {% trans "Es kann u.U, aber auch sein, dass Sie für diesen Internetauftritt Cookies zulassen müssen." %}
+  </p>
+{% endif %}
+
+<p>
+{% trans "Bitte loggen Sie sich mit Ihren Zugangsdaten ein. Dabei müssen Sie auf Groß/Kleinschreibung achten." %}
+</p>
+
+<form method="post" action=".">
+
+<table class="info-border" border="1" cellspacing="1" cellpadding="3">
+<tr>
+<td class="form_label" width="30%"><label for="id_username"><b>{% trans "Zugangsname" %}</b></label></td>
+<td class="form_input" width="70%">{{ form.username }}</td>
+</tr>
+<tr>
+<td class="form_label" width="30%"><label for="id_password"><b>{% trans "Kennwort" %}</b></label></td>
+<td width="70%">{{ form.password }}</td>
+</tr>
+
+<tr>
+<td class="form_label" width="30%">&nbsp;</td>
+<td class="form_input" width="70%">
+<input type="hidden" name="next" value="{{ next }}" />
+<input type="hidden" name="org_id" value="{{ org_id }}" />
+<input type="submit" value="{% trans "Einloggen ..." %}" />
+</td>
+</tr>
+</table>
+</form>
+
+{% endblock %}

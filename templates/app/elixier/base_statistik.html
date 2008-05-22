@@ -1,0 +1,62 @@
+{% load i18n %}
+
+{% autoescape off %}
+<h4>{{ title }}</h4>
+
+<p>
+{% blocktrans %}
+Die folgende Tabelle beschreibt wichtige statistische Informationen
+der Elixier-Datenbank. Beachten Sie bitte, dass in den Zahlen die
+Beiträge Ihrer eigenen Einrichtung nicht enthalten sind.
+{% endblocktrans %}
+(n={{ total }})
+</p>
+
+<div class="yui-skin-sam">
+<div id="markup">
+<table id="items" class="form-table" style="width:100%;">
+  <tbody>
+  {% for item in items %}
+    <tr>
+      <td>{{ item.info }}</td>
+      <td>{{ item.total }}</td>
+      <td>{{ item.accepted }}</td>
+      <td>{{ item.rejected }}</td>
+      <td>{{ item.unknown }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+</div>
+
+<p>
+{{ next }}
+</p>
+{% endautoescape %}
+<script type="text/javascript">
+YAHOO.util.Event.addListener(window, "load", function() {
+    YAHOO.example.EnhanceFromMarkup = new function() {
+        var myColumnDefs = [
+            {key:"fach", label:"{% trans "Fach/Sachgebiet" %}", sortable:true},
+            {key:"gesamt", label:"{% trans "Gesamt" %}", formatter:YAHOO.widget.DataTable.formatNumber, sortable:true},
+            {key:"verwertet", label:"{% trans "Verwertet" %}", formatter:YAHOO.widget.DataTable.formatNumber, sortable:true},
+            {key:"abgelehnt", label:"{% trans "Abgelehnt" %}", formatter:YAHOO.widget.DataTable.formatNumber, sortable:true},
+            {key:"ungeprueft", label:"{% trans "Ungeprüft" %}", formatter:YAHOO.widget.DataTable.formatNumber, sortable:true}
+        ];
+
+        this.myDataSource = new YAHOO.util.DataSource(YAHOO.util.Dom.get("items"));
+        this.myDataSource.responseType = YAHOO.util.DataSource.TYPE_HTMLTABLE;
+        this.myDataSource.responseSchema = {
+            fields: [ {key:"fach"},
+                      {key:"gesamt", parser:YAHOO.util.DataSource.parseNumber},
+                      {key:"verwertet", parser:YAHOO.util.DataSource.parseNumber},
+                      {key:"abgelehnt", parser:YAHOO.util.DataSource.parseNumber},
+                      {key:"ungeprueft", parser:YAHOO.util.DataSource.parseNumber}, ]
+        };
+
+        this.myDataTable = new YAHOO.widget.DataTable("markup", myColumnDefs, this.myDataSource,
+                                                      {sortedBy:{key:"fach",dir:"asc"}});
+        };
+});
+</script>

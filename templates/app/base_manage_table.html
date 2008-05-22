@@ -1,0 +1,43 @@
+{% load i18n %}
+{% block top_of_table %}{% endblock %}
+
+{% autoescape off %}
+<thead>
+  <tr class="tabHeaderBg">
+    <td colspan="4">&nbsp;</td>
+    <td colspan="3">
+      <a class="navLink" href="{{ main_obj.url }}/manage/?sort=type"><b>{% trans "Typ" %}</b></a>
+    </td>
+    <td>
+      <a class="navLink" href="{{ main_obj.url }}/manage/?sort=name"><b>{% trans "Name" %}</b></a>
+    </td>
+    <td>
+      <a class="navLink" href="{{ main_obj.url }}/manage/?sort=title"><b>{% trans "Überschrift" %}</b></a>
+    </td>
+    <td width="15%">
+      <a class="navLink" href="{{ main_obj.url }}/manage/?sort=date"><b>{% trans "Datum" %}</b></a>
+    </td>
+  </tr>
+</thead>
+
+<tbody>
+<!-- Kopfzeile zur Objektuebersicht -->
+<tr class="selectblock" style="border-width:1px; border-color:#000000; border-style:solid;">
+  <td class="selectblock" width="2%">
+  {% if main_obj.top_url %}
+  <a class="nav" href="{{ main_obj.top_url }}index.html/manage/"
+  title="Zum übergeordneten Ordner"><img 
+  src="{{ base_site_uel }}/dms_media/image/app/{{ main_obj.app_name }}.gif" border="0" /></a>
+  {% else %}
+  &nbsp;
+  {% endif %}
+  </td>
+  <td class="selectblock" width="2%"></td>
+  <td colspan="5"></td>
+  <td><b>{{ main_obj.name }}</b></td>
+  <td><b>{{ main_obj.title }}</b></td>
+  <td width="15%"><b>{{ main_obj.last_modified }}<b></td>
+</tr>
+{% endautoescape %}
+
+{% block end_of_table %}{% endblock %}

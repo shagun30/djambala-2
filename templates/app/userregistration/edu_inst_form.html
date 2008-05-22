@@ -1,0 +1,19 @@
+{% extends "app/base_section.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block infos %}
+<div style="margin-left: 10%;">
+<p>
+{% trans "Wählen Sie bitte die passende Einrichtung aus." %}
+</p>
+
+<ul>
+{% for inst in edu_insts %}
+<li><a href="?inst_contains={{ inst.contains }}">{{ inst.name }}</a></li>
+{% endfor %}
+</ul>
+<br />
+</div>
+{% endblock %}
+{% endautoescape %}

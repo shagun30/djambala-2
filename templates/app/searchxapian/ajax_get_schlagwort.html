@@ -1,0 +1,20 @@
+<script type="text/javascript">
+YAHOO.example.ACXml = new function(){
+    item = "schlagwort"
+    this.oACDS = new YAHOO.widget.DS_XHR("{{ ajax_url }}", [item, "name"]);
+    this.oACDS.responseType = YAHOO.widget.DS_XHR.TYPE_XML;
+    this.oACDS.queryMatchContains = true;
+    // Instantiate AutoComplete
+    this.oAutoComp = new YAHOO.widget.AutoComplete("id_"+item, item+"_container", this.oACDS);
+    //this.oAutoComp.typeAhead = true;
+    this.oAutoComp.useShadow = true;
+    this.oAutoComp.minQueryLength = 1;
+    this.oAutoComp.useIFrame = true;
+    this.oAutoComp.maxResultsDisplayed = 10;
+    // Stub for AutoComplete form validation
+    this.validateForm = function() {
+        // Validation code goes here
+        return true;
+    };
+};
+</script>

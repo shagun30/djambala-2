@@ -1,0 +1,103 @@
+{% load i18n %}
+
+{% block html_head_ext %}
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/assets/skins/sam/tabview.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/datatable/assets/skins/sam/datatable.css" />
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/element/element-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/tabview.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo/yahoo.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/event/event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/connection/connection.js"></script>
+<style>
+.yui-content { background-color: #f4f4f4 !important; }
+</style>
+{% endblock %}
+
+{% autoescape off %}
+<h4>{{ title }}</h4>
+
+<p>
+{% blocktrans %}
+Bitte wählen Sie in der Spalte "Beschreibung ..." den Beitrag aus, den
+Sie sichten möchten. Die Beiträge sind nach dem Datum der letzten Änderung geordnet.
+{% endblocktrans %}
+</p>
+
+<div style="right:220px;">
+  <div class=" yui-skin-sam">
+    <div id="manageForm" class="yui-navset">
+      <ul class="yui-nav">
+          <li class="selected"><a href="#tab1"><em>{% trans "Unbearbeitet" %}</em></a></li>
+          <li><a href="#tab2"><em>{% trans "Angenommen" %}</em></a></li>
+          <li><a href="#tab3"><em>{% trans "Abgelehnt" %}</em></a></li>
+      </ul>
+      <div class="yui-content">
+          <div id="tab1">
+            <div id="slot_unknown"></div>
+          </div>
+          <div id="tab2">
+            <div id="slot_ok"></div>
+          </div>
+          <div id="tab3">
+            <div id="slot_rejected"></div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+
+<p>
+<br />
+<b>{{ next }}</b>
+</p>
+
+<script type="text/javascript">
+function getCallback(e) {
+  return {
+            success: function(o) {
+                        if(o.responseText !== undefined) {
+                          e.innerHTML = o.responseText;
+                        }
+                     },
+            failure: function(o) {
+                        if(o.responseText !== undefined) {
+                          e.innerHTML = "HTTP Status: " + o.status + " / " + o.statusText;
+                        }
+                     },
+            argument: {},
+            timeout: 20000
+         };
+}
+function getData(f) {
+  var baseUrl = "{{ ajax_url }}";
+  var param = "{{ ajax_param }}";
+  var e = document.getElementById('slot_'+f);
+  var callback = new getCallback(e);
+  e.innerHTML = '<p><img src="{{ base_site_url}}/dms_media/image/loading.gif" /> ' +
+                '{% trans "Lade Daten ..." %}</p>';
+  /*alert(baseUrl + "elixier_ajax_get_" + f + "/" + param);*/
+  YAHOO.util.Connect.asyncRequest('POST', baseUrl + "elixier_ajax_get_" + f + "/" + param, callback);
+}
+getData('unknown');
+getData('ok');
+getData('rejected');
+</script>
+
+<script>
+ var addTab = new YAHOO.widget.TabView('addForm');
+ var manageTab = new YAHOO.widget.TabView('manageForm');
+</script>
+
+{% endautoescape %}
+

@@ -1,0 +1,12 @@
+{% load i18n %}
+
+{% autoescape off %}
+<tr class="introblock">
+  <td>&nbsp;</td>
+  {% for header in headers %}
+  <td>
+    <b>{{ header }}</b>
+  </td>
+  {% endfor %}
+</tr>
+{% endautoescape %}

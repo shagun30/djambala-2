@@ -1,0 +1,22 @@
+{% load i18n %}
+
+{% autoescape off %}
+<p>
+{% if prev_url %}
+  <a href="{{ prev_url }}" class="navLink">{{ prev_info }}</a>
+  <span class="grey">&laquo;|</span>
+{% else %}
+  {{ prev_info }}
+{% endif %}
+<i>
+<a href="{{ complete_url }}" class="navLink">komplett</a>
+</i>
+{% if next_url %}
+  <span class="grey">|&raquo;</span>
+  <a href="{{ next_url }}" title="{% trans "Alle Folien auf einer Seite" %}" 
+     class="navLink">{{ next_info }}</a>
+{% else %}
+  {{ next_info }}
+{% endif %}
+</p>
+{% endautoescape %}

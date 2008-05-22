@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<h4>{% trans "Ergebnisse der einzelnen Personen" %}</h4>
+
+<ul>
+{% for user in survey_users %}
+<li><a href="?show_user_survey={{ user.pers_id }}">{{ user.pers_name }}</li>
+{% endfor %}
+</ul>
+{% endblock %}

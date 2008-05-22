@@ -1,0 +1,95 @@
+{% load i18n %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de"> 
+
+<head lang="de">
+<title>Linke Navigation</title>
+  <link rel="stylesheet" media="all" type="text/css"
+         href="{{ site.url }}/dms_media/skin_style/{{site.skin_style}}/css_{{ site.skin_style }}.css">
+  <link rel="stylesheet" type="text/css" 
+      href="{{ site.url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+  <link rel="stylesheet" type="text/css" 
+      href="{{ site.url }}/dms_media/javascript/yui/build/treeview/assets/treeview.css" />
+  <link rel="stylesheet" type="text/css" href="{{ site.url }}/dms_media/javascript/yui/examples/treeview/assets/css/folders/tree.css">
+
+<script type="text/javascript" 
+        src="{{ site.url }}/dms_media/javascript/yui/build/yahoo/yahoo.js"></script>
+<script type="text/javascript" 
+        src="{{ site.url }}/dms_media/javascript/yui/build/event/event.js"></script>
+<script type="text/javascript" 
+        src="{{ site.url }}/dms_media/javascript/yui/build/treeview/treeview.js"></script>
+<style>
+.yui-content { background-color: #f4f4f4 !important; }
+</style>
+
+<!-- Some custom style for the expand/contract section-->
+<style>
+#expandcontractdiv {border:1px dotted #dedede; margin:0 0 .5em 0; padding:0.4em;}
+#treeDiv1 { background: #fff; margin-top:1em; }
+</style>
+
+</head>
+<body>
+
+<p>
+  <a class="no_hightlight" href="{{ site.logo_url }}">
+    <img src="{{ site.logo }}" alt="{% trans "Logo der Web-Site" %}" border="0" 
+          width="{{ site.logo_width }}" height="{{ site.logo_height }}" />
+  </a>
+</p>
+
+<div style="margin-left:.5em;">
+<h3>{{ title }}</h3>
+</div>
+
+<p>
+{{ nav_left }}
+</p>
+
+<div id="treeDiv1"></div>
+
+<div id="expandcontractdiv">
+<br /><br /><br />
+<a id="collapse" href="#">&gt;&gt;&middot;&middot;&lt;&lt;</a> ||
+<a id="expand" href="#">&lt;&lt;&middot;&middot;&gt;&gt;</a>
+</div>
+
+<script type="text/javascript">
+//an anonymous function wraps our code to keep our variables
+//in function scope rather than in the global namespace:
+(function() {
+  var tree;
+{{ vars }}
+
+  function treeInit() {
+    YAHOO.util.Event.on("expand", "click", function(e) {
+          tree.expandAll();
+          YAHOO.util.Event.preventDefault(e);
+    });
+    YAHOO.util.Event.on("collapse", "click", function(e) {
+          tree.collapseAll();
+          YAHOO.util.Event.preventDefault(e);
+    });
+    buildTextNodeTree();
+    tree.expandAll();
+  }
+  function createMenu(node, url, name) {
+    return new YAHOO.widget.TextNode('<a href="{{ scorm_base }}' + url + '" target="main">' +
+                                     name + "</a>", node, false);
+  }
+  function buildTextNodeTree() {
+    tree = new YAHOO.widget.TreeView("treeDiv1");
+{{ function_calls }}
+    tree.draw();
+  }
+  YAHOO.util.Event.onDOMReady(treeInit);
+})();//anonymous function wrapper closed; () notation executes function
+</script>
+
+<noframes>
+  <p>Dieses Projekt verwendet aus technischen Gründen Frames.</p>
+</noframes>
+
+</body>
+</html>
+

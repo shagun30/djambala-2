@@ -1,0 +1,10 @@
+{% load i18n %}
+  {% if reset_option %}
+  <a href="{{ path }}index.html/export_csv/" class="frameLink" 
+     title="{% trans "Daten als CSV-Datei exportieren ..." %}">{% trans "CSV-Export ..." %}</a><br />
+  <a href="{{ path }}index.html/reset/" class="frameLink" 
+     title="{% trans "ALLE Daten löschen ..." %}">{% trans "Daten löschen ..." %}</a><br />
+  {% else %}
+  <a href="{{ path }}index.html/export_csv/" class="frameLink" 
+     title="{% trans "Aktuelle Daten als CSV-Datei exportieren ..." %}">{% trans "Zwischenstand exportieren ..." %}</a><br />
+  {% endif %}

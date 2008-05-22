@@ -1,0 +1,75 @@
+{% load i18n %}
+
+{% autoescape off %}
+<div class="top-bottom-border-ex" style="margin-bottom:0.5em;">
+  <div style="margin-bottom:0.6em;">
+  <a name="anker_{{ name }}"></a>
+  {% if image_url %}
+    {% if image_url_url %}
+      <a href="{{ image_url_url }}"{% if image_extern %} target="_extern"{% endif %}><img 
+        src="{{ image_url }}" alt="{% trans "Schmuckbild" %}"
+        class="float-image-left" /></a>
+    {% else %}
+      <img src="{{ image_url }}" alt="{% trans "Schmuckbild" %}"
+        class="float-image-left" />
+    {% endif %}
+  {% endif %}
+
+  {{ link }}
+  {% if comments %}
+    / {% trans "Kommentar(e):" %} {{ comments }}
+  {% endif %}
+  </div>
+
+  <div style="margin-left:0%">
+    {% if sub_title %}
+      <p><b>{{ sub_title }}</b></p>
+    {% endif %}
+  
+    {{ text }}
+    {% if text_more %}
+      <script type="text/javascript">
+      function do_show_more_{{ id }} () {
+        document.getElementById("show_more_{{ id }}").style.display="none";
+        document.getElementById("text_more_{{ id }}").style.display="inline";
+        document.getElementById("show_less_{{ id }}").style.display="inline";
+      }
+      function do_hide_more_{{ id }} (id) {
+        document.getElementById("text_more_{{ id }}").style.display="none";
+        document.getElementById("show_less_{{ id }}").style.display="none";
+        document.getElementById("show_more_{{ id }}").style.display="inline";
+      }
+      </script>
+      <p>
+        <a id="show_more_{{ id }}" class="navLink" 
+          href="javascript:void(0)" onClick="do_show_more_{{ id }}()"
+          title="{% trans "Weitere Informationen ..." %}"><img
+          src="{{ base_site_url }}/dms_media/image/action/more_icon.gif" 
+          title="{% trans "Ein/Ausblende-Symbol" %}" />&nbsp;{% trans "Mehr ..." %}</a>
+        <a id="show_less{{ id }}" class="navLink" style="display:none"
+          href="javascript:void(0)" onClick="do_hide_more_{{ id }}()"
+          title="{% trans "Zusammenfalten ..." %}"><img
+          src="{{ base_site_url }}/dms_media/image/action/more_icon.gif" 
+          title="{% trans "Ein/Ausblende-Symbol" %}" />&nbsp;{% trans "Weniger ..." %}</a>
+      </p>
+      <div id="text_more_{{ id }}" style="display:none;">
+      {{ text_more }}
+      </div>
+    {% endif %}
+
+    <p align="right">
+      {% if email %}
+        <a class="navLink" href="mailto:{{ email }}">{{ user_name }}</a>,
+      {% else %}
+        {% if user_name %}
+          {{ user_name }},
+        {% endif %}
+      {% endif %}
+      {{ last_modified }},
+      <a class="navLink" href="{{ show_item }}">{% trans "mehr" %}&nbsp;...</a>
+      <!-- <br clear="all"> -->
+      <div id="ie_clearing">&nbsp;</div>
+    </p>
+  </div>
+</div>
+{% endautoescape %}

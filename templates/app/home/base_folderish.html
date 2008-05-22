@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% if is_sortable_table %}
+{% block html_head_ext %}
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/element/element-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo/yahoo.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/event/event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/connection/connection.js"></script>
+{% endblock %}
+{% endif %}
+
+{% autoescape off %}
+{% block title %}
+{{ title }} 
+{% if comments %}
+<span class="grey" title="{% trans "Beitrag/Beiträge kommentierbar" %}">&there4;</span>
+{% endif %}
+{% endblock %}
+{% block sub_title %} {{ sub_title }} {% endblock %}
+
+{% block content %} 
+<div id="slot_events"></div>
+
+{{ content }} 
+
+<script type="text/javascript">
+function getCallback(e) {
+  return {
+            success: function(o) {
+                        if(o.responseText !== undefined) {
+                          e.innerHTML = o.responseText;
+                        }
+                     },
+            failure: function(o) {
+                        if(o.responseText !== undefined) {
+                          e.innerHTML = "HTTP Status: " + o.status + " / " + o.statusText;
+                        }
+                     },
+            argument: {},
+            timeout: 20000
+         };
+}
+function getData(f) {
+  var baseUrl = "{{ ajax_url }}";
+  var e = document.getElementById('slot_'+f);
+  var callback = new getCallback(e);
+  /*
+  e.innerHTML = '<p><img src="{{ base_site_url}}/dms_media/image/loading.gif" /> ' +
+                '{% trans "Lade Daten ..." %}</p>';
+  */
+  YAHOO.util.Connect.asyncRequest('POST', baseUrl + "eventboard_ajax_get_" + f + "/", callback);
+}
+getData('events');
+</script>
+{% endblock %}
+{% endautoescape %}

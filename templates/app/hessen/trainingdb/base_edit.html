@@ -1,0 +1,31 @@
+{% extends "app/base_edit.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block content %}
+
+{% if text_intro %}
+  {{ text_intro }}
+{% endif %}
+
+<p>
+{% trans "Anzahl der akkreditierten Fortbildungsveranstaltungen:" %} {{ count }}
+</p>
+
+<form method="post"
+      name  ="form_input"
+      action="{{ next }}">
+{{ content }}
+
+<p align="right" style="margin-top:0.5em;">
+<input name="path" type="hidden" value="{{ path }}" />
+<input name="submit" type="submit" value="{{ submit }} ..." />
+</p>
+</form>
+
+<script>
+ var editTab = new YAHOO.widget.TabView('editForm');
+</script>
+{{ ajax }}
+{% endblock %}
+{% endautoescape %}

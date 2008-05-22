@@ -1,0 +1,12 @@
+{% extends "app/base_section.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block infos %}
+{% for pin in pinitems %}
+<div style="margin-left:10%">
+  {{ pin }}
+</div>
+{% endfor %}
+{% endblock %}
+{% endautoescape %}

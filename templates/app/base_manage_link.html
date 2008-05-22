@@ -1,0 +1,60 @@
+{% extends "app/base_manage_table.html" %}
+{% load i18n %}
+
+{% block top_of_table %}
+
+<form name="form_link" method="post" action="{{ main_obj.url }}/link_multiple/">
+<table class="form-table" style="width:100%;">
+{% endblock %}
+
+{% block end_of_table %}
+{% if objs %}
+  {% for obj in objs %}
+    {% if not obj.is_deleted %}
+      {% if obj.is_changeable %}
+        {% if obj.is_renameable %}
+{% autoescape off %}
+        <tr>
+          <td class="bottom-border-ex" width="2%">&nbsp;</td>
+          <td class="bottom-border-ex" colspan="3">
+            <input type="checkbox" name="link_{{ obj.id }}" />
+          </td>
+          <td class="bottom-border-ex" width="2%"><img 
+          src="{{ site_url }}/dms_media/image/app/{{ obj.app_name }}.gif" border="0" title="{{ obj.app_name }}" />
+          </td>
+          <td class="bottom-border-ex" width="2%">&nbsp;</td>
+          <td class="bottom-border-ex" width="2%">&nbsp;</td>
+          <td class="bottom-border-ex">
+          <b>{{ obj.name }}</b>
+          </td>
+          <td class="bottom-border-ex">
+            <a href="{{ obj.url }}" title="Objekt anzeigen">{{ obj.title }}</a>
+          </td>
+          <td class="bottom-border-ex" width="20%">{{ obj.last_modified }}</td>
+        </tr>
+{% endautoescape %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% else %}
+  <tr>
+    <td colspan="11">
+    {% trans "Dieser Ordner ist leer bzw. enthält keine Objekte zum Einblenden." %}
+    </td>
+  </tr>
+{% endif %}
+</tbody>
+</table>
+
+<p align="right">
+{% autoescape off %}
+<input name="setLinkButton" type="submit" value="{% trans "Alles auswählen ..." %}"
+       onClick="setLinkSelect(); return false">
+<input name="resetLinkButton" type="submit" value="{% trans "Alles abwählen ..." %}"
+       onClick="resetLinkSelect(); return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input name="op_link" type="submit" value="{% trans "Einblenden ..." %}" />
+{% endautoescape %}
+</p>
+</form>
+{% endblock %}

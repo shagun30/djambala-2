@@ -1,0 +1,14 @@
+{% load i18n %}
+
+{% autoescape off %}
+<p>
+{% trans "Wählen Sie bitte im ersten Schritt die passende Gruppe Ihrer Institution aus:" %}
+</p>
+
+<ul>
+  <li><a href="./?org_id={{ org_id }}&inst_group=-1">{% trans "Alle Mitglieder der eigenen Institution" %}</a>
+  {% for group in groups %}
+    <li><a href="./?org_id={{ org_id }}&inst_group={{ group.id }}">{{ group.description }}</a></li>
+  {% endfor %}
+</ul>
+{% endautoescape %}

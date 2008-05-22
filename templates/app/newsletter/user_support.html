@@ -1,0 +1,10 @@
+{% load i18n %}
+
+{% autoescape off %}
+  <a href="{{ path }}index.html/add/newsletteritem/" class="frameLink" 
+     title="{% trans "Neuen Beitrag ergänzen ..." %}">{% trans "Neuer Beitrag ..." %}</a>
+  {% if manage_site_mode %}
+    <br />
+    <a href="{{ path }}index.html/select_section/" class="frameLink" title="{% trans "Newsletter versenden ..." %}">{% trans "Infos versenden ..." %}</a><br />
+  {% endif %}
+{% endautoescape %}

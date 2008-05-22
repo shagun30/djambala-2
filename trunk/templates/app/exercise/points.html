@@ -1,0 +1,43 @@
+{% load i18n %}
+
+{% autoescape off %}
+<table style="padding:3px; border-collapse:collapse;">
+<tr>
+  <td style="border:1px solid #000; width: 5em;">{% trans "Noten" %}</td>
+  {% for header in headers %}
+  <td style="border:1px solid #000; width: 5em;" align="center">{{ header }}</td>
+  {% endfor %}
+</tr>
+{% if points %}
+<tr>
+  <td style="border:1px solid #000; width: 5em;">{% trans "Punkte" %}</td>
+  {% for point in points %}
+  <td style="border:1px solid #000;" align="center">{{ point }}</td>
+  {% endfor %}
+</tr>
+{% endif %}
+{% if points_curr %}
+<tr>
+  <td style="border:1px solid #000; width: 5em;">{% trans "Anzahl" %}</td>
+  {% for value in values %}
+  <td style="border:1px solid #000;" align="center">{{ value }}</td>
+  {% endfor %}
+</tr>
+{% endif %}
+</table>
+
+{% if max_points %}
+  <p>
+  <br />
+  {% trans "Punktzahl maximal" %}: {{ max_points }}
+  {% if points_curr %}
+  <br />
+  {% trans "MW" %}: {{ points_curr }} ({% trans "P" %})
+  / {{ notes_curr }} ({% trans "Z" %})
+  &nbsp;&nbsp;
+  (n={{ n_curr }})
+  {% endif %}
+  </p>
+{% endif %}
+
+{% endautoescape %}

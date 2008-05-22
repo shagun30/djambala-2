@@ -1,0 +1,10 @@
+{% load i18n %}
+
+{% autoescape off %}
+<hr />
+<p>
+  Dieser Newsletter wurde versandt von:
+  {{ name }} / <a href="mailto:{{ mail }}">{{ mail }}</a>
+</p>
+<p>URL: <a href="{{ infos }}">{{ infos }}</a></p>
+{% endautoescape %}

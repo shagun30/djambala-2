@@ -1,0 +1,65 @@
+{% extends "app/base_manage_table.html" %}
+{% load i18n %}
+
+{% block top_of_table %}
+<script type="text/javascript">
+<!--
+function setUndoSelect() {
+  for (i = 0; i < document.form_undo.length; i++)
+    document.form_undo.elements[i].checked = true ;
+  return false;
+}
+function resetUndoSelect() {
+  for (i = 0; i < document.form_undo.length; i++)
+    document.form_undo.elements[i].checked = false ;
+  return false;
+}
+//-->
+</script>
+
+<form name="form_undo" method="post" action="{{ main_obj.url }}/undo_multiple/">
+<table class="form-table" style="width:100%;">
+{% endblock %}
+
+{% block end_of_table %}
+{% if objs %}
+  {% for obj in objs %}
+    {% if obj.is_deleted %}
+      <tr>
+        <td class="bottom-border-ex" width="2%">&nbsp;</td>
+        <td class="bottom-border-ex" colspan="3">
+          <input type="checkbox" name="undo_{{ obj.id }}" />
+        </td>
+        <td class="bottom-border-ex" width="2%"><img 
+        src="{{ site_url }}/dms_media/image/app/{{ obj.app_name }}.gif" border="0" title="{{ obj.app_name }}" />
+        </td>
+        <td class="bottom-border-ex" width="2%">&nbsp;</td>
+        <td class="bottom-border-ex" width="2%">&nbsp;</td>
+        <td class="bottom-border-ex"><b>{{ obj.name }}</b></td>
+        <td class="bottom-border-ex">
+        <a href="{{ obj.url }}" title="Objekt anzeigen">{{ obj.title }}</a>
+        </td>
+        <td class="bottom-border-ex" width="20%">{{ obj.last_modified }}</td>
+      </tr>
+    {% endif %}
+  {% endfor %}
+{% else %}
+  <tr>
+    <td colspan="8">
+    {% trans "Dieser Ordner ist leer bzw. enthält keine eigenen Objekte." %}
+    </td>
+  </tr>
+{% endif %}
+</tbody>
+
+</table>
+
+<p align="right">
+<input name="setUndoButton" type="submit" value="{% trans "Alles auswählen ..." %}"
+       onClick="setUndoSelect(); return false">
+<input name="resetUndoButton" type="submit" value="{% trans "Alles abwählen ..." %}"
+       onClick="resetUndoSelect(); return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input name="op_undo" type="submit" value="{% trans "Undo ..." %}" />
+</p>
+</form>
+{% endblock %}

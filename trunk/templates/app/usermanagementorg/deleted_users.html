@@ -1,0 +1,26 @@
+{% load i18n %}
+
+{% autoescape off %}
+
+{% block content %}
+
+<h4>{% trans "Gelöschte Community-Mitglieder" %}</h4>
+
+<p>
+{% trans "Die folgenden Personen wurden Sie aus der Community entfernt:" %}
+</p>
+
+<ul>
+{% for user in users %}
+  <li>{{ user.name }}</li>
+{% endfor %}
+</ul>
+
+<p>
+<a href="{{ next }}">{% trans "Weiter ..." %}</a>
+</p>
+
+{% endblock %}
+{% endautoescape %}
+
+

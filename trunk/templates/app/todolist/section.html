@@ -1,0 +1,12 @@
+{% extends "app/base_section.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block infos %}
+<div style="margin-left:10%;">
+{% for link in links %}
+  {{ link }}
+{% endfor %}
+</div>
+{% endblock %}
+{% endautoescape %}

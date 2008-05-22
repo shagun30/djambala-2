@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<p>
+{% blocktrans %}
+{{ feedback }}
+{% endblocktrans %}
+</p>
+
+<p><a href="{{ next }}">{% trans "Weiter ..." %}</a></p>
+{% endblock%}
+{% endautoescape %}

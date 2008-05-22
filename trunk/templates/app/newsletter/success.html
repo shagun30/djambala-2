@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<p>
+{% blocktrans %}
+<i>Insgesamt wurden {{ count }} E-Mails zum Versand bereitgestellt. - Alle 5-Minuten
+werden bis zu 200 E-Mails zugestellt.</i>
+{% endblocktrans %}
+</p>
+
+<p><a href="{{ next }}">{% trans "Weiter ..." %}</a></p>
+{% endblock%}
+{% endautoescape %}

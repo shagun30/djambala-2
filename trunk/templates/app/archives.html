@@ -1,0 +1,13 @@
+{% load i18n %}
+
+{% autoescape off %}
+{% if archives %}
+  <h4>{{ title }}</h4>
+
+  <ul>
+  {% for archive in archives %}
+    <li>{{ archive }}</li>
+  {% endfor %}
+  </ul>
+{% endif %}
+{% endautoescape %}

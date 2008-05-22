@@ -1,0 +1,21 @@
+{% load i18n %}
+
+{% autoescape off %}
+{% if section %}
+<div class="bottom-border-ex" style="margin-bottom:0.6em;width:80%;">
+<span class="headerSymBg"><img src="{{ site_url }}/dms_media/skin_style/base/leer.gif" width="10" height="10" 
+  alt="{% trans "Markierung für Rubriken" %}" /></span>&nbsp;
+<b>{{ section|safe }}</b>{{ to_top_of_page }}
+</div>
+{% endif %}
+{% if title %}
+<div class="bottom-border-ex" style="margin-bottom:0.6em;width:80%;">
+<span class="headerSymBg"><img src="{{ site_url }}/dms_media/skin_style/base/leer.gif" width="10" height="10" 
+  alt="{% trans "Markierung für Rubriken" %}" /></span>&nbsp;
+<b>{{ title|safe }}{% if single_date %}: {{ single_date }}{% endif %}</b>
+</div>
+{% endif %}
+
+{% block infos %}
+{% endblock %}
+{% endautoescape %}

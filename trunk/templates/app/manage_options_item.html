@@ -1,0 +1,62 @@
+{% load i18n %}
+
+{% autoescape off %}
+{% if authenticated %}
+
+  {% if show_mode %}
+    <a href="{{ path }}" class="frameLink"
+       title="{% trans "Seite anzeigen" %}">
+    {% trans "Anzeigen ..." %}</a><br />
+  {% endif %}
+
+  {% if edit_mode %}
+    <a href="{{ path }}/edit/" class="frameLink"
+       title="{% trans "Eigenschaften anpassen" %}">
+    {% trans "Ändern ..." %}</a><br />
+  {% endif %}
+
+  {% if image_mode %}
+    <script type="text/javascript">
+    <!--
+    function show_images ( rUrl ) {
+      nWidth = 700
+      nLeft  = screen.width - nWidth;
+      cParam = "top=0,scrollbars=yes,"
+      win = window.open(rUrl,
+            "_images",
+            "width="+String(nWidth)+",height=600,left="+String(nLeft)+","+cParam);
+      win.focus();
+    }
+    //-->
+    </script>
+    <a href="JavaScript:show_images('{{ path }}/show_images/');" class="frameLink" 
+       title="{% trans "Bilderleiste anzeigen" %}">
+    {% trans "Bilderleiste ..." %}</a><br />
+  {% endif %}
+
+  {% if export_mode %}
+    <a href="{{ path }}/add/export/" class="frameLink"
+       title="{% trans "Datum im XML-Format exportieren" %}">
+    {% trans "Exportieren ..." %}</a><br />
+  {% endif %}
+
+  {% if manage_site_mode %}
+    <a href="{{ path }}/change_owner/" class="frameLink"
+       title="{% trans "Besitzer ändern" %}">
+    {% trans "Besitzrechte ..." %}</a><br />
+  {% endif %}
+
+  {% if rss_mode %}
+    <a href="{{ path }}/add_rss/" class="frameLink"
+       title="{% trans "Eintrag in RSS-Feed vornehmen" %}">
+    {% trans "RSS-Feed ..." %}</a><br />
+  {% endif %}
+
+  {% if manage_comments_mode %}
+    <a href="{{ path }}/manage_comments/" class="frameLink"
+       title="{% trans "Kommentare verwalten" %}">
+    {% trans "Kommentare freigeben ..." %}</a><br />
+    <br />
+  {% endif %}
+{% endif %}
+{% endautoescape %}

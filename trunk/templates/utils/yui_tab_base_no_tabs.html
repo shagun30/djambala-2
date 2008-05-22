@@ -1,0 +1,13 @@
+{% load i18n %}
+
+{% autoescape off %}
+{% if top_of_form %}
+{{ top_of_form }}
+{% endif %}
+{% for tab in tabs %}
+  <div id="{{ tab.tab_id }}">
+    {{ tab.info }}
+    {{ tab.content }}
+  </div>
+{% endfor %}
+{% endautoescape %}

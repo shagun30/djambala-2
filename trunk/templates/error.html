@@ -1,0 +1,18 @@
+{% extends "app/base_manage.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+{{ content }}
+<ul>
+{% if login_url %}
+<li>
+{% trans "Falls Sie berechtigt sind, können Sie sich " %}<a href="{{ login_url }}">{% trans "einloggen ..." %}</a>
+</li>
+{% endif %}
+<li><a href="javascript:history.back()">{% trans "Zurück ..." %}</a></li>
+</ul>
+{% endblock%}
+{% endautoescape %}

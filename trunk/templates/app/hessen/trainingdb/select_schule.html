@@ -1,0 +1,65 @@
+{% extends "base_util_window.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block html_head_ext %}
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/assets/skins/sam/tabview.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/datatable/assets/skins/sam/datatable.css" />
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/element/element-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/tabview.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo/yahoo.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/event/event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/connection/connection.js"></script>
+<script type="text/javascript" 
+      src="{{ site.url }}/dms_media/javascript/overlib/overlib.js-small"></script>
+<style>
+.yui-content { background-color: #f4f4f4 !important; }
+</style>
+
+<script type="text/javascript">
+<!--
+function update(no, name, ort, telefon) {
+  if ( no > -1 ) {
+    opener.set_school_no(no, name, ort, telefon);
+  }
+  close();
+}
+//-->
+</script>
+{% endblock %}
+
+{% block title %}{% trans "Schule auswählen" %}{% endblock %}
+
+{% block content %}
+{% if schul_form %}
+<form onsubmit = ""
+      name   = "form_dlg"
+      method = "POST">
+<br />
+{{ schul_form }}
+<p align="right">
+<input type="submit" value="{{ submit }}" />
+</p>
+</form>
+{% else %}
+<ul>
+{% for schule in schulen %}
+<!--<li><a href="?school_op=school_no&school_no={{ schule.school_no }}">{{ schule.name }}</li>-->
+<li><a href="JavaScript:update( '{{ schule.no }}', '{{ schule.name }}', '{{ schule.ort }}', '{{ schule.telefon }}' )">{{ schule.name }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
+
+{% endautoescape %}

@@ -1,0 +1,25 @@
+{% load i18n %}
+
+{% autoescape off %}
+<p>
+{% if prev %}
+... {{ prev }}
+{% endif %}
+[{% trans "Lernarchive" %} {{ start }}-{{ max }} {% trans "von" %} {{ count }}]
+{% if next %}
+{{ next }} ...
+{% endif %}
+</p>
+
+{{ links }}
+
+<p>
+{% if prev %}
+... {{ prev }}
+{% endif %}
+[{% trans "Lernarchive" %} {{ start }}-{{ max }} {% trans "von" %} {{ count }}]
+{% if next %}
+{{ next }} ...
+{% endif %}
+</p>
+{% endautoescape %}

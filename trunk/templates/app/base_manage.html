@@ -1,0 +1,263 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block html_head_ext %}
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/assets/skins/sam/tabview.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/datatable/assets/skins/sam/datatable.css" />
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/element/element-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/tabview.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo/yahoo.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/event/event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/connection/connection.js"></script>
+<style>
+.yui-content { background-color: #f4f4f4 !important; }
+</style>
+{% endblock %}
+
+{% block frame_left %}{% endblock %}
+
+{% block title %} {{ title }}: <i>{{ this_title }}</i> {% endblock %}
+{% block content %}
+{% if add_ons_0 %}
+  <script type="text/javascript">
+  function do_show_more () {
+    document.getElementById("text_more").style.display="inline";
+    document.getElementById("show_more_a").style.display="none";
+    document.getElementById("show_less_a").style.display="inline";
+  }
+  function do_hide_more () {
+    document.getElementById("text_more").style.display="none";
+    document.getElementById("show_less_a").style.display="none";
+    document.getElementById("show_more_a").style.display="inline";
+  }
+  </script>
+<script type="text/javascript">
+<!--
+function do_show_rename(id) {
+  document.getElementById("a_rename_"+id).style.display="none";
+  document.getElementById("div_rename_"+id).style.display="inline";
+  document.eval("form_rename_"+id).new_name.focus();
+}
+function do_hide_rename(id) {
+  document.getElementById("div_rename_"+id).style.display="none";
+  document.getElementById("a_rename_"+id).style.display="inline";
+}
+function do_show_delete(id) {
+  document.getElementById("a_delete_"+id).style.display="none";
+  document.getElementById("div_delete_"+id).style.display="inline";
+}
+function do_hide_delete(id) {
+  document.getElementById("div_delete_"+id).style.display="none";
+  document.getElementById("a_delete_"+id).style.display="inline";
+}
+function do_show_delete_total(id) {
+  document.getElementById("a_delete_total_"+id).style.display="none";
+  document.getElementById("div_delete_total_"+id).style.display="inline";
+}
+function do_hide_delete_total(id) {
+  document.getElementById("div_delete_total_"+id).style.display="none";
+  document.getElementById("a_delete_total_"+id).style.display="inline";
+}
+function setDeleteSelect() {
+  for (i = 0; i < document.form_delete.length; i++)
+    document.form_delete.elements[i].checked = true ;
+  return false;
+}
+function resetDeleteSelect() {
+  for (i = 0; i < document.form_delete.length; i++)
+    document.form_delete.elements[i].checked = false ;
+  return false;
+}
+function setCopySelect() {
+  for (i = 0; i < document.form_copy.length; i++)
+    document.form_copy.elements[i].checked = true ;
+  return false;
+}
+function resetCopySelect() {
+  for (i = 0; i < document.form_copy.length; i++)
+    document.form_copy.elements[i].checked = false ;
+  return false;
+}
+function setCutSelect() {
+  for (i = 0; i < document.form_cut.length; i++)
+    document.form_cut.elements[i].checked = true ;
+  return false;
+}
+function resetCutSelect() {
+  for (i = 0; i < document.form_cut.length; i++)
+    document.form_cut.elements[i].checked = false ;
+  return false;
+}
+function setDeleteTotalSelect() {
+  for (i = 0; i < document.form_delete_total.length; i++)
+    document.form_delete_total.elements[i].checked = true ;
+  return false;
+}
+function resetDeleteTotalSelect() {
+  for (i = 0; i < document.form_delete_total.length; i++)
+    document.form_delete_total.elements[i].checked = false ;
+  return false;
+}
+function setLinkSelect() {
+  for (i = 0; i < document.form_link.length; i++)
+    document.form_link.elements[i].checked = true ;
+  return false;
+}
+function resetLinkSelect() {
+  for (i = 0; i < document.form_link.length; i++)
+    document.form_link.elements[i].checked = false ;
+  return false;
+}
+//-->
+</script>
+
+<div style="margin-top:-2em;">
+  <div id="text_more" style="display:none;">
+  <h4 style="margin:0; margin-bottom:0;"><b>{% trans "Web-Objekte ergänzen ..." %}</b></h4>
+
+  <div class=" yui-skin-sam">
+    <div id="addForm" class="yui-navset">
+      <ul class="yui-nav">
+          <li class="selected"><a href="#tab0"><em>{% trans "Häufig benötigt" %}</em></a></li>
+          <li><a href="#tab1"><em>{% trans "Seltener benötigt" %}</em></a></li>
+          <li><a href="#tab2"><em>"{% trans "Der Rest" %}"</em></a></li>
+    {% if add_ons_3 %}
+          <li><a href="#tab3"><em>"{% trans "Site-Objekte" %}</em></a></li>
+    {% endif %}
+      </ul>
+      <div class="yui-content">
+          <div id="tab0">
+            <ul>
+            {% for line in add_ons_0 %}
+            <li><a href="{{ line.url }}" class="navLink">{{ line.info }}</a></li>
+            {% endfor %}
+            </ul>
+          </div>
+          <div id="tab1">
+            <ul>
+            {% for line in add_ons_1 %}
+            <li><a href="{{ line.url }}" class="navLink">{{ line.info }}</a></li>
+            {% endfor %}
+            </ul>
+          </div>
+          <div id="tab2">
+            <ul>
+            {% for line in add_ons_2 %}
+            <li><a href="{{ line.url }}" class="navLink">{{ line.info }}</a></li>
+            {% endfor %}
+            </ul>
+          </div>
+          <div id="tab3">
+            <ul>
+            {% for line in add_ons_3 %}
+            <li><a href="{{ line.url }}" class="navLink">{{ line.info }}</a></li>
+            {% endfor %}
+            </ul>
+          </div>
+      </div>
+    </div>
+    <br />
+  </div>
+
+</div>
+{% endif %}
+
+<div style="right:220px;">
+  <div class=" yui-skin-sam">
+    <div id="manageForm" class="yui-navset">
+      <ul class="yui-nav">
+          <li class="selected"><a href="#tab10"><em>{% trans "Standard" %}</em></a></li>
+          <li><a href="#tab11"><em>{% trans "Löschen" %} (+)</em></a></li>
+          <li><a href="#tab12"><em>{% trans "Undo" %} (+)</em></a></li>
+          <li><a href="#tab13"><em>{% trans "Schreddern" %} (+)</em></a></li>
+          <li><a href="#tab14"><em>{% trans "Ausschneiden" %} (+)</em></a></li>
+    {% if allow_copy %}
+          <li><a href="#tab15"><em>{% trans "Kopieren" %} (+)</em></a></li>
+    {% endif %}
+          <li><a href="#tab16"><em>{% trans "Einblenden" %} (+)</em></a></li>
+      </ul>
+      <div class="yui-content">
+          <div id="tab10">
+            <div id="slot_standard"></div>
+          </div>
+          <div id="tab11">
+            <div id="slot_delete"></div>
+          </div>
+          <div id="tab12">
+            <div id="slot_undo"></div>
+          </div>
+          <div id="tab13">
+            <div id="slot_delete_total"></div>
+          </div>
+          <div id="tab14">
+            <div id="slot_cut"></div>
+          </div>
+    {% if allow_copy %}
+          <div id="tab15">
+            <div id="slot_copy"></div>
+          </div>
+    {% endif %}
+          <div id="tab16">
+            <div id="slot_link"></div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+</div> <!-- margin-top -->
+</div> <!-- margin-right -->
+
+<script type="text/javascript">
+function getCallback(e) {
+  return {
+            success: function(o) {
+                        if(o.responseText !== undefined) {
+                          e.innerHTML = o.responseText;
+                        }
+                     },
+            failure: function(o) {
+                        if(o.responseText !== undefined) {
+                          e.innerHTML = "HTTP Status: " + o.status + " / " + o.statusText;
+                        }
+                     },
+            argument: {},
+            timeout: 20000
+         };
+}
+function getData(f) {
+  var baseUrl = "{{ ajax_url }}";
+  var e = document.getElementById('slot_'+f);
+  var callback = new getCallback(e);
+  e.innerHTML = '<p><img src="{{ base_site_url}}/dms_media/image/loading.gif" /> ' +
+                '{% trans "Lade Daten ..." %}</p>';
+  /*alert ( baseUrl + "folder_ajax_get_" + f + "/");*/
+  YAHOO.util.Connect.asyncRequest('POST', baseUrl + "folder_ajax_get_" + f + "/", callback);
+}
+getData('standard');
+getData('delete');
+getData('undo');
+getData('delete_total');
+getData('cut');
+{% if allow_copy %}
+getData('copy');
+{% endif %}
+getData('link');
+</script>
+
+<script>
+ var addTab = new YAHOO.widget.TabView('addForm');
+ var manageTab = new YAHOO.widget.TabView('manageForm');
+</script>
+
+{% endblock %}

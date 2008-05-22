@@ -1,0 +1,40 @@
+{% load i18n %}
+
+<div style="margin-left:10%;">
+<h5>{{ header }}</h5>
+
+{% if question %}
+<p>
+<b>{% trans "Frage" %}:</b>  <i>{{ question }}</i>
+</p>
+{% endif %}
+
+{% if this_input %}
+  <p>
+  {{ this_input }}
+  </p>
+{% else %}
+  {% if this_text %}
+    <p>
+    {{ this_text }}
+    </p>
+  {% else %}
+    <table class="info-border" border="1" cellspacing="1" cellpadding="3">
+      <tr>
+        <td class="introblock" width="40%"><b>Option</b></td>
+        <td class="introblock" width="10%"><b>Anzahl</b></td>
+        <td class="introblock" width="10%"><b>Prozent</b></td>
+        <td class="introblock" width="40%"><b>Grafik</b></td>
+      </tr>
+    {% for d in data %}
+      <tr>
+        <td class="introblock" width="40%">{{ d.option }}</td>
+        <td width="10%" align="right">{{ d.count }}</td>
+        <td width="10%" align="right">{{ d.percent }}%</td>
+        <td class="introblock" width="40%" align="left"><tt>{{ d.visual }}</tt></td>
+      </tr>
+    {% endfor %}
+    </table>
+  {% endif %}
+{% endif %}
+</div>

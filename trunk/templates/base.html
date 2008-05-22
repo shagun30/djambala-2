@@ -1,0 +1,323 @@
+{% extends "base_base.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block html_head %}
+  <title>{% if site.title %}{{ site.title|safe }} - {% endif %}{{ header_title|safe }}</title>
+
+  <meta name="DC.Subject.Publisher" content="{{ site.title|safe }}">
+  <meta name="DC.Subject.Rights"    content="{{ site.impress_url }}">
+
+  <link rel="stylesheet" media="all" type="text/css"
+         href="{{ site.url }}/dms_media/skin_style/{{site.skin_style}}/css_{{ site.skin_style }}.css">
+  <link href="{{ site.url }}/dms_media/skin_style/base/favicon.ico" rel="shortcut icon">
+  <link rel="alternate" type="application/rss+xml" title="{% trans "RDF-Datei" %}"
+        href="{{ site.url }}/rss_feeds/index.html">
+<!--[if lte IE 7]>
+  <link href="{{ site.url }}/dms_media/skin_style/patches/3columns.css"
+       rel="stylesheet" type="text/css" />
+<![endif]-->
+<!--[if lte IE 6]>
+<script type="text/javascript" src="{{ site.url }}/dms_media/skin_style/patches/minmax.js"></script>
+<![endif]-->
+{% if content_div_style %}
+<style>
+  #col3 {margin-left: 0;}
+  #main {background-image: url();}
+  th,td { padding: 1px; }
+</style>
+{% endif %}
+{% endblock %}
+
+{% block meta_navigation %}
+  {% if not no_top_main_navigation and not in_edit_mode %}
+  {{ site.master_links }}
+  <span class="red"><i><b>::</b></i></span>
+  {% endif %}
+  <a href="{{ site.impress_url }}" class="navLink" 
+    title="{% trans "Impressum der Web-Site" %}">Impressum</a> 
+  <span class="red"><i><b>::</b></i></span>
+  <a href="{{ site.help_url }}" class="navLink" 
+    title="{% trans "Hilfen zum Umgang mit der Web-Site" %}">Hilfe</a>
+{% endblock %}
+
+{% block top_of_page %}
+  <div id="overDiv" style="position:absolute;visibility:hidden;z-index:1000;"></div>
+
+  <div id="layer_top_image">
+    {% if in_edit_mode %}
+    <img src="{{ base_site_url }}/dms_media/skin_style/{{site.skin_style}}/image_{{site.skin_style}}_edit.jpg" 
+         alt="{% trans "Schmuckbild" %}" />
+    {% else %}
+      {% if is_protected %}
+      <img src="{{ base_site_url }}/dms_media/skin_style/{{site.skin_style}}/image_{{site.skin_style}}_locked.jpg" 
+          alt="{% trans "Schmuckbild" %}" />
+      {% else %}
+      <img src="{{ base_site_url }}/dms_media/skin_style/{{site.skin_style}}/image_{{site.skin_style}}.jpg" 
+          alt="{% trans "Schmuckbild" %}" />
+      {% endif %}
+    {% endif %}
+  </div>
+  <div id="layer_top_left_logo">
+    <a class="no_hightlight" href="{{ site.logo_url }}">
+      <img src="{{ site.logo }}" alt="{% trans "Logo der Web-Site" %}" border="0" 
+           width="{{ site.logo_width }}" height="{{ site.logo_height }}" />
+    </a>
+  </div>
+  <div id="layer_site_title">
+    {% if this_site_title %}
+    <div style="margin-top:0.5em;" class="{{ site.title_class }}">
+      <b>{{ this_site_title }}</b>
+    </div>
+    {% else %}
+    <div style="margin-top:0.5em;" class="{{ site.title_class }}">
+       <b>{{ site.title }}</b><br />
+    </div>
+    <div style="margin-top:0.5em;">
+       <span class="head3">{{ site.sub_title }}</span>
+    </div>
+    {% endif %}
+  </div>
+  <div style="position:relative; bottom:-.25em;">
+    {% if not no_top_main_navigation and not in_edit_mode %}
+      {{ site.search_form }}
+    {% else %}
+      <div id="layer_top_search"></div>
+      <br />
+    {% endif %}
+    <div class="page-footer-print"><br /></div>
+  </div>
+{% endblock %}
+
+{% block top_navigation %}
+    <div style="margin-left:32px; margin-top:1px; margin-bottom:.2em; height:1.4em;">
+      <div>
+        {% if no_top_main_navigation or in_edit_mode %}
+          {% if is_protected %}
+          <div id="layer-float">
+            <img src="{{ base_site_url }}/dms_media/image/action/lock_icon.gif" title="Geschützt-Symbol" />
+          </div>
+          {% endif %}
+        {% else %}
+          <div style="float:left;">
+              {{ navigation_top }}
+          </div>
+          <div id="layer-float">
+          {% if authenticated %}
+            <a href="{{ base_site_url }}/logout/?next={{ url_path }}"
+              class="navTopLink"
+              title="{{ user_name }}: {{ user_perms.roles }}">{% trans "Ausloggen ..." %}</a>&nbsp;&nbsp;
+            <a href="{{ home_url }}"><img
+              src ="{{ base_site_url }}/dms_media/image/action/home_icon.gif" 
+              title="{% trans "Home Verzeichnis" %}" /></a>
+          {% else %}
+            <a href="{{ base_site_url }}/login/?next={{ url_path }}&org_id={{ site.org_id }}"
+              class="navTopLink"
+              title="Beim Server anmelden">{% trans "Einloggen ..." %}</a>&nbsp;&nbsp;
+          {% endif %}
+          {% if is_protected %}
+            <img src="{{ base_site_url }}/dms_media/image/action/lock_icon.gif" title="Geschützt-Symbol" />
+          {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+{% endblock %}
+
+{% block frame_left %}
+  {% if site.left_image_url %}
+  <div id="layer_menu_image">
+    <img src="{{ site.left_image_url }}"
+        width="{{ site.left_image_width }}" height="{{ site.left_image_height }}" 
+        alt="{% trans "Schmuckbild" %}" />
+  </div>
+  {% endif %}
+  <div  id="layer_menu_links">
+    {{ navigation_left }}
+    {{ site.navigation_bottom_image }}
+  </div>
+{% endblock %}
+
+{% block frame_right %}
+<!-- Rechter Info- und Aktionsbereich -->
+  {% if site.right_logo %}
+  <div>
+    <a class="no_hightlight" href="{{ site.right_logo_url }}">
+      <img src="{{ site.right_logo }}" alt="{% trans "Logo der Organisation" %}" border="0" 
+           width="{{ site.right_logo_width }}" height="{{ site.right_logo_height }}" />
+    </a>
+  </div>
+  {% endif %}
+  <div>
+  {{ slot_right_info }}
+  </div>
+  <a name="actions"></a>
+  {% if view_options %}
+    <div>
+      <br />
+      <div class="info-frame-header" style="width:95%;">
+        <span class="frameSymBg"><img src="{{ site.url }}/dms_media/skin_style/base/leer.gif"
+        width="10" height="10" alt="{% trans "Markierung fuer Befehlsrubriken" %}" /></span>
+        <span class="frameHeaderText">{% trans "Ansicht" %}</span>
+      </div>
+      <div class="frameBg">
+        {{ view_options }}
+        <br /><br />
+      </div>
+    </div>
+  {% endif %}
+  {% if action_block %}
+    <div>
+      <br />
+      <div class="info-frame-header" style="width:95%;">
+        <span class="frameSymBg"><img src="{{ site.url }}/dms_media/skin_style/base/leer.gif"
+        width="10" height="10" alt="{% trans "Markierung fuer Befehlsrubriken" %}" /></span>
+        <span class="frameHeaderText">
+        {% if action_block_title %}{{ action_block_title }} {% else %}{% trans "Optionen" %}{% endif %}</span>
+      </div>
+      <div class="frameBg">
+        {{ action_block }}
+        <br /><br />
+      </div>
+    </div>
+  {% endif %}
+  {% if user_support %}
+    <div>
+      <div class="info-frame-header" style="width:95%;">
+        <span class="frameSymBg"><img src="{{ site.url }}/dms_media/skin_style/base/leer.gif"
+        width="10" height="10" alt="{% trans "Markierung fuer Befehlsrubriken" %}" /></span>
+        <span class="frameHeaderText">
+        {% if user_support_header %}
+          {{ user_support_header }}
+        {% else %}
+          {% trans "Community" %}
+        {% endif %}
+        </span>
+      </div>
+      <div class="frameBg">
+        {{ user_support }}
+        <br /><br />
+      </div>
+    </div>
+  {% endif %}
+  {% if action %}
+    <div>
+      <br />
+      <div class="info-frame-header" style="width:95%;">
+        <span class="adminSymBg"><img src="{{ site.url }}/dms_media/skin_style/base/leer.gif"
+        width="10" height="10" alt="{% trans "Markierung fuer Befehlsrubriken" %}" /></span>
+        <span class="adminHeaderText">{% trans "Administration" %}</span>
+      </div>
+      <div class="adminBg">
+        {{ action }}
+      </div>
+    </div>
+  {% endif %}
+  {% if action_site %}
+    <div>
+      <br />
+      <div class="info-frame-header" style="width:95%;">
+        <span class="adminSymBg"><img src="{{ site.url }}/dms_media/skin_style/base/leer.gif"
+        width="10" height="10" alt="{% trans "Markierung fuer Befehlsrubriken" %}" /></span>
+        <span class="adminHeaderText">{% trans "Für Manager ..." %}</span>
+      </div>
+      <div class="adminBg">
+        {{ action_site }}
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block intro %}
+<div class="floatbox">
+{% if image_url %}
+  <div style="float:left;">
+  {% if image_url_url %}
+    <a href="{{ image_url_url }}"{% if image_extern %} target="_extern"{% endif %}><img 
+       src="{{ image_url }}" alt="{% trans "Schmuckbild" %}"
+       class="image-float-right" /></a>
+  {% else %}
+    <img src="{{ image_url }}" alt="{% trans "Schmuckbild" %}"
+       class="image-float-right" />
+  {% endif %}
+  </div>
+{% endif %}
+{% if text or moderated_text or text_bottom %}
+  {% if is_wide %}
+    {% if is_important %}
+      <div class="introblock-inner">
+    {% else %}
+      <div>
+    {% endif %}
+  {% else %}
+    {% if width %}
+      {% if is_important %}
+        <div class="introblock-inner" style="margin-left:{{ width }}">
+      {% else %}
+        <div style="margin-left:{{ width }}">
+      {% endif %}
+    {% else %}
+      {% if is_important %}
+        <div class="introblock-inner" style="margin-left:180px;">
+      {% else %}
+        <div style="margin-left:180px;">
+      {% endif %}
+    {% endif %}
+  {% endif %}
+  {{ moderated_text }}
+  {{ text }}
+  </div>
+  {% if text_more %}
+    <script type="text/javascript">
+    function do_show_more () {
+      document.getElementById("show_more").style.display="none";
+      document.getElementById("text_more").style.display="inline";
+      document.getElementById("show_less").style.display="inline";
+    }
+    function do_hide_more (id) {
+      document.getElementById("text_more").style.display="none";
+      document.getElementById("show_less").style.display="none";
+      document.getElementById("show_more").style.display="inline";
+    }
+    </script>
+    <p>
+      <a id="show_more" class="navLink" 
+         href="javascript:void(0)" onClick="do_show_more()"
+         title="{% trans "Weitere Informationen ..." %}"><img
+         src="{{ base_site_url }}/dms_media/image/action/more_icon.gif" 
+         title="{% trans "Ein/Ausblende-Symbol" %}" />&nbsp;{% trans "Mehr ..." %}</a>
+      <a id="show_less" class="navLink" style="display:none"
+         href="javascript:void(0)" onClick="do_hide_more()"
+         title="{% trans "Zusammenfalten ..." %}"><img
+         src="{{ base_site_url }}/dms_media/image/action/more_icon.gif" 
+         title="{% trans "Ein/Ausblende-Symbol" %}" />&nbsp;{% trans "Weniger ..." %}</a>
+    </p>
+    <div id="text_more" style="display:none">
+    {{ text_more }}
+    </div>
+  {% endif %}
+  {{ text_bottom }}
+{% endif %}
+</div>
+{% endblock %}
+
+{% block more %}
+  {% if more_url %}
+    <p>
+      {{more_url}}
+    </p>
+  {% endif %}
+{% endblock %}
+
+{% block bottom_of_page %}
+  <div style="float:left;">
+  {{ footer_left }}
+  </div>
+  <div style="text-align:right;">
+    <img src="{{ base_site_url }}/dms_media/image/action/mail_icon.gif" 
+         title="{% trans "E-Mail-Symbol" %}" />&nbsp;{{ footer_email }}, {{ last_modified }}
+    <br />
+    {{ license }}
+  </div>
+{% endblock %}
+{% endautoescape %}

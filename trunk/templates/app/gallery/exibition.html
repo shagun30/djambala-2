@@ -1,0 +1,42 @@
+{% load i18n %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de"> 
+
+<head lang="de">
+  <title>{{ site.tile }} - {{ header_title }}</title>
+
+  <meta name="DC.Subject.Publisher" content="{{ site.title|safe }}">
+  <meta name="DC.Subject.Rights"    content="{{ site.impress_url }}">
+
+  <link href="{{ site.url }}/dms_media/skin_style/base/favicon.ico" rel="shortcut icon">
+  <link rel="alternate" type="application/rss+xml" title="{% trans "RDF-Datei" %}"
+        href="{{ site.url }}/rss_feeds/index.html">
+</head>
+<style>
+  body {
+    font-family: 'Trebuchet MS', Verdana, Helvetica, Arial, sans-serif;
+    background-color:{{ bg_color }};
+    color: {{ text_color }};
+  }
+  a { color:#715d9b; font-weight:normal; text-decoration:none; }
+  a:hover { color:#fff; background:#bad8e3; }
+  a.frameLink { color:#715d9b; font-weight:normal; }
+  a.frameLink:hover { color:#fff; background:#bad8e3; }
+
+  h1,h2,h3,h4,h5,h6 {
+    margin-left:0;
+    color:#1F669D;
+    font-weight:bold;
+    padding-top:-4em;
+    padding-bottom:.75em;
+  }
+</style>
+
+<body>
+
+{% autoescape off %}
+{{ content }}
+{% endautoescape %}
+
+</body>
+</html>

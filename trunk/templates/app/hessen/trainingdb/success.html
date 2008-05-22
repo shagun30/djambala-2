@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<p>
+{% blocktrans %}
+Vielen Dank für Ihre Anmeldung!
+Die Daten Ihrer Online-Anmeldung wurden an den betreffenden Anbieter gesendet.
+Eine Kopie ging an Ihre eigene Adresse.
+{% endblocktrans %}
+</p>
+
+{{ content }}
+<p><a href="{{ next }}">{% trans "Weiter ..." %}</a></p>
+{% endblock%}
+{% endautoescape %}

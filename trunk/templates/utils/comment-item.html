@@ -1,0 +1,15 @@
+{% load i18n %}
+
+{% autoescape off %}
+<div class="bottom-border-ex" style="margin-bottom:0.6em;width:70%;">
+<span class="headerSymBg"><img 
+  src="/dms_media/skin_style/base/leer.gif" width="10" height="10" 
+  alt="{% trans "Markierung für Rubriken" %}" /></span>&nbsp;<b>{{ title }}</b> /
+{{ email }}
+/ {{ last_modified }}
+</div>
+
+<div style="margin-left:5%;">
+{{ text }}
+</div>
+{% endautoescape %}

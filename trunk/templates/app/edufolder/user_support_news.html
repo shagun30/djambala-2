@@ -1,0 +1,8 @@
+{% load i18n %}
+
+{% autoescape off %}
+  <br />
+  <a href="{{ path }}{{ news_name }}/index.html/add/newsitem/" class="frameLink" 
+     title="{% trans "Nachricht ergänzen ..." %}"
+     >{% trans "Neue Nachricht ..." %}</a><br />
+{% endautoescape %}

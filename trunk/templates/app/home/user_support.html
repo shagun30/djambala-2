@@ -1,0 +1,12 @@
+{% load i18n %}
+
+{% autoescape off %}
+  <a href="{{ path }}index.html/add/document/" class="frameLink" 
+     title="{% trans "Informationsseite ergänzen ..." %}">{% trans "Informationsseite" %}</a><br />
+{% if not quota_exceeded %}
+  <a href="{{ path }}index.html/add/file/" class="frameLink" 
+     title="{% trans "Datei ergänzen ..." %}">{% trans "Datei" %}</a><br />
+{% endif %}
+  <a href="{{ path }}index.html/add/folder/" class="frameLink" 
+     title="{% trans "Ordner ergänzen ..." %}">{% trans "Ordner" %}</a><br />
+{% endautoescape %}

@@ -1,0 +1,21 @@
+{% load i18n %}
+
+{% autoescape off %}
+<h4>{%trans "CSV-Liste dieses Bereichs" %}</h4>
+
+<p>
+Bitte speichern Sie die folgende Liste in einer normalen Textdatei <tt>{{ name }}.csv</tt> ab.
+Die Länge der Liste ist auf 5000 begrenzt 
+</p>
+
+<pre>
+{% for u in users %}
+{{ u.user.username }};{{ u.role.name }}
+{% endfor %}
+</pre>
+
+<p>
+<a href="">{% trans "Zur Übersichtsseite ..." %}</a>
+</p>
+
+{% endautoescape %}

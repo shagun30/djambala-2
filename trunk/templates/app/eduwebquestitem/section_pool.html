@@ -1,0 +1,35 @@
+{% load i18n %}
+
+{% autoescape off %}
+{% if section %}
+<div class="bottom-border-ex" style="margin-bottom:0.6em; margin-left:10%;">
+<span class="headerSymBg"><img src="/dms_media/skin_style/base/leer.gif" width="10" height="10" 
+  alt="{% trans "Markierung für Rubriken" %}" /></span>&nbsp;
+<b>{{ section }}</b>
+</div>
+{% endif %}
+
+{% block infos %}
+<div style="margin-left:10%;">
+<ul>
+{% for link in links %}
+<li style="margin-top:1em;">
+{% if link.extern %}
+  {{ link.extern_icon }}<a class="navLink" href="{{ link.url }}" 
+  target="{{ link.extern }}"
+  title="{% trans "Wird in einem eigenen Fenster geöffnet ..." %}">
+  {{ link.title }}</a>
+{% else %}
+  <a class="navLink" href="{{ link.url }}">{{ link.title }}</a>
+{% endif %}
+{{ link.folder_icon }}
+{{ link.size }}
+<div style="margin-left:0%;">
+  {{ link.text }}
+</div>
+</li>
+{% endfor %}
+</ul>
+</div>
+{% endblock %}
+{% endautoescape %}

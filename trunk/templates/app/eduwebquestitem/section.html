@@ -1,0 +1,13 @@
+{% load i18n %}
+
+{% autoescape off %}
+<div class="bottom-border-ex">
+<h4>{{ title }}</h4>
+</div>
+
+{% block infos %}
+<div style="margin-left:5%;">
+{{ text }}
+</div>
+{% endblock %}
+{% endautoescape %}

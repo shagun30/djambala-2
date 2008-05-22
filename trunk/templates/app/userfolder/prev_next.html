@@ -1,0 +1,17 @@
+{% load i18n %}
+
+{% autoescape off %}
+{% if prev_url %}
+  <a href="{{ prev_url }}" class="navLink">{{ prev_info }}</a>
+  <span class="grey">&laquo;|</span>
+{% else %}
+  {{ prev_info }}
+{% endif %}
+{{ current_items }}
+{% if next_url %}
+  <span class="grey">|&raquo;</span>
+  <a href="{{ next_url }}" class="navLink">{{ next_info }}</a>
+{% else %}
+  {{ next_info }}
+{% endif %}
+{% endautoescape %}

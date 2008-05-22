@@ -1,0 +1,14 @@
+{% load i18n %}
+
+{% autoescape off %}
+<p>
+{% trans "Ihre Zugangsdaten für die Community des Bildungsservers Hessen lauten:" %}
+</p>
+<ul>
+<li>{% trans "Ihr Zugangsname" %}: {{ username }}</li>
+<li>{% trans "Kennwort" %}: {{ password }}</li>
+</ul>
+<p>
+{% trans "Wir wünschen Ihnen viel Erfolg bei Ihrer Arbeit auf dem Bildungsserver!" %}
+</p>
+{% endautoescape %}

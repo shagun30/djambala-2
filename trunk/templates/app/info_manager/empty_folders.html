@@ -1,0 +1,36 @@
+{% extends "app/base_edit.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block frame_left %}{% endblock %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block sub_title %}
+
+{% if sub_title %}
+{{ sub_title }}{% if my_name %} <i>[{{ my_name }}]</i>{% endif %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+{% if text_intro %}
+{{ text_intro }}
+{% endif %}
+
+{% if results %}
+  <h4>{% trans "Leere Ordner " %}</h4>
+
+<p>( {{ count }} / n={{ total }} )</p>
+
+  <ul>
+  {% for result in results %}
+    <li>{{ result }}</li>
+  {% endfor %}
+  </ul>
+
+<p>( {{ count }} / n={{ total }} )</p>
+
+{% endif %}
+{% endblock %}
+{% endautoescape %}

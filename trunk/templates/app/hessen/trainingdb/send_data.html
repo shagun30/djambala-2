@@ -1,0 +1,114 @@
+{% load i18n %}
+
+{% autoescape off %}
+<table border="1">
+<!--
+<table class="frame-border" border="1" cellspacing="1" cellpadding="2">
+-->
+<tr>
+<td colspan="2"><b>Absender</b></td>
+</tr>
+
+<tr>
+<td width="20%">Name</td>
+<td class="white">{{ nachname }}</td>
+</tr>
+
+<tr>
+<td width="20%">Vorname</td>
+<td class="white">{{ vorname }}</td>
+</tr>
+
+<tr>
+<td width="20%">Personalnummer</td>
+<td class="white">{{ personalnummer }}</td>
+</tr>
+
+<tr>
+<td width="20%">Straße</td>
+<td class="white">{{ strasse }}</td>
+</tr>
+
+<tr>
+<td width="20%">PLZ Wohnort</td>
+<td class="white">{{ plz }} {{ ort }}</td>
+</tr>
+
+<tr>
+<td width="20%">Telefon</td>
+<td class="white">{{ telefon }}</td>
+</tr>
+
+<tr>
+<td width="20%">E-Mail</td>
+<td class="white">{{ email }}</td>
+</tr>
+
+<tr>
+<td colspan="2"><b>Dienststelle</b></td>
+</tr>
+
+<tr>
+<td width="20%">Dienststellennummer</td>
+<td class="white">{{ school_no }}</td>
+</tr>
+
+<tr>
+<td width="20%">Dienststelle</td>
+<td class="white">{{ school_name }}</td>
+</tr>
+
+<tr>
+<td width="20%">Dienstort</td>
+<td class="white">{{ school_ort }}</td>
+</tr>
+
+<tr>
+<td width="20%">Telefon</td>
+<td class="white">{{ school_telefon }}</td>
+</tr>
+
+<tr>
+<td colspan="2"><b>Veranstaltung</b></td>
+</tr>
+
+<tr>
+<td width="20%">Veranstaltung</td>
+<td class="white">{{ v_intern_id }} (IQ: {{ v_iq_id }})</td>
+</tr>
+
+<tr>
+<td width="20%">Titel</td>
+<td class="white">{{ v_thema }}</td>
+</tr>
+
+<tr>
+<td width="20%">Termin(e)</td>
+<td class="white">{{ v_datum }}</td>
+</tr>
+
+<tr>
+<td width="20%">Anmeldeadresse</td>
+<td class="white"><a href="mailto:{{ anmelde_email }}">{{ anmelde_email }}</a></td>
+</tr>
+
+<tr>
+<td colspan="2"><b>Zusatzangaben</b></td>
+</tr>
+
+<tr>
+<td width="20%">Zusatzangaben</td>
+<td class="white">{{ zusatz }}</td>
+</tr>
+
+<tr>
+<td width="20%">Übernachtung</td>
+<td class="white">{% if uebernachtung %}ja{% else %}nein{% endif %}</td>
+</tr>
+
+</table>
+
+<p>
+<b>Die Genehmigung zur Teilnahme an der Tagung habe ich eingeholt.</b>
+</p>
+{% endautoescape %}

@@ -1,0 +1,101 @@
+{% extends "app/exercisefolder/mauswiesel/base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+        <tr>
+          <td width="11" align="right" valign="top" bgcolor="#dbdbdb"><img src="{{ base_site_url }}/dms_media/image/exercisefolder/mauswiesel/left.jpg" alt="" width="11" height="26" /></td>
+          <td align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td align="left" valign="top"><img src="{{ base_site_url }}/dms_media/image/exercisefolder/mauswiesel/wissen_001.jpg" /></td>
+            </tr>
+            <tr>
+              <td align="left" valign="top"><table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td width="200" height="1%" align="left" valign="top" background="{{ base_site_url }}/dms_media/image/exercisefolder/mauswiesel/wissen_003.gif"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td width="45"><img src="{{ base_site_url }}/dms_media/image/exercisefolder/mauswiesel/wissen_002.gif" width="45" height="128" /></td>
+                      <td background="{{ base_site_url }}/dms_media/image/exercisefolder/mauswiesel/wissen_004.jpg">&nbsp;</td>
+                    </tr>
+                  </table></td>
+                  <td rowspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td height="375" align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                          <td width="318">&nbsp;</td>
+                          <td width="40">&nbsp;</td>
+                          <td width="318">&nbsp;</td>
+                          <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td width="318" background="{{ base_site_url }}/dms_media/image/exercisefolder/mauswiesel/uebersicht_01.jpg"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                              <td width="75" class="uebersicht"><img src="{{ base_site_url }}/dms_media/image/exercisefolder/mauswiesel/pixel.gif" width="5" height="54" /></td>
+                              <td class="uebersicht"><a href="../" class="uebersicht">{{ title }}<br /></td>
+                            </tr>
+                          </table></td>
+                          <td width="40">&nbsp;</td>
+                          <td width="318">&nbsp;</td>
+                          <td>&nbsp;</td>
+                        </tr>
+
+                        <tr>
+                          <td width="318"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                              <td width="75">&nbsp;</td>
+                              <td><ul id="MenuBar1" class="MenuBarVertical">
+                                <!--
+                                <li><a class="MenuBarItemSubmenu" href="#">Wissen</a>
+                                    <ul>
+                                      <li><a href="wissen_03.html">Wissen 03</a></li>
+                                      <li><a href="#">Element 1.2</a></li>
+                                      <li><a href="#">Element 1.3</a></li>
+                                    </ul>
+                                </li>
+                                -->
+                                {% for item in sub_items %}
+                                <li><a href="{{ item.link }}/">{{ item.title }}</a></li>
+                                {% endfor %}
+                              </ul>
+                              </td>
+                            </tr>
+                          </table></td>
+                          <td width="40">&nbsp;</td>
+                          <td width="318">&nbsp;</td>
+                          <td>&nbsp;</td>
+                        </tr>
+
+                      </table>
+                        <p>&nbsp;</p>
+                        </td>
+                    </tr>
+{% endblock %}
+
+{% block end_of_page %}
+                    <tr>
+                      <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+              <td align="left" valign="bottom"><img src="{{ base_site_url }}/dms_media/image/exercisefolder/mauswiesel/dots_01.jpg" alt="" width="20" height="20" /></td>
+              <td><div align="right" class="copy-text"><img src="{{ base_site_url }}/dms_media/image/action/mail_icon.gif" 
+         title="{% trans "E-Mail-Symbol" %}" />&nbsp;{{ footer_email|safe }}, {{ last_modified }} // {{ site.title }}<br />
+                          </div></td>
+                          <td width="25" align="right" valign="bottom"><img src="{{ base_site_url }}/dms_media/image/exercisefolder/mauswiesel/dots_02.jpg" alt="" width="20" height="20" /></td>
+                        </tr>
+                      </table></td>
+                    </tr>
+                  </table></td>
+                </tr>
+                <tr>
+                  <td height="99%" align="left" valign="bottom" background="{{ base_site_url }}/dms_media/image/exercisefolder/mauswiesel/{{ main }}_003.gif"><img src="{{ base_site_url }}/dms_media/image/exercisefolder/mauswiesel/{{ main }}_anima.gif" width="200" height="233" /></td>
+                </tr>
+              </table></td>
+            </tr>
+            
+          </table></td>
+          <td width="11" align="left" valign="top" bgcolor="#dbdbdb"><img src="{{ base_site_url }}/dms_media/image/exercisefolder/mauswiesel/right.jpg" alt="" width="11" height="26" /></td>
+        </tr>
+      </table>
+    </div></td>
+    <td>&nbsp;</td>
+  </tr>
+{% endblock %}

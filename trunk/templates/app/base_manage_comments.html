@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block html_head_ext %}
+<script type="text/javascript" src="{{ base_site_url }}/dms_media/javascript/overlib/overlib.js-small"></script>
+{% endblock %}
+
+{% block frame_left %}{% endblock %}
+
+{% block title %} {{title}}: <i>{{sub_title}}</i> {% endblock %}
+
+{% block content %}
+
+{% if my_item.text %}{{ my_item.text }}{% endif %}
+{% if my_item.text_more %}{{ my_item.text_more }}{% endif %}
+
+<form action = '{{ next }}'
+      method = "post">
+<table class="form-table" style="width:100%;" border="1">
+{% if show_header %}
+<thead>
+  <tr class="tabHeaderBg">
+    <td width="5%"><b>{% trans "Sichtbar" %}</b></td>
+    <td width="90%"><b>{% trans "Kommentar(e)" %}</b></td>
+    <td width="5%"><b>{% trans "Schreddern" %}</b></td>
+  </tr>
+</thead>
+{% endif %}
+
+<tbody>
+{{ manage_comments }}
+</tbody>
+
+</table>
+<p align="right">
+<input name="submit" type="submit" value="{{ title }} ..." />
+</p>
+
+</form>
+
+{% endblock %}
+

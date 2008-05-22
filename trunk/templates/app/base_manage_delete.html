@@ -1,0 +1,62 @@
+{% extends "app/base_manage_table.html" %}
+{% load i18n %}
+
+{% block top_of_table %}
+
+<form name="form_delete" method="post" action="{{ main_obj.url }}/delete_multiple/">
+<table class="form-table" style="width:100%;">
+{% endblock %}
+
+{% block end_of_table %}
+{% if objs %}
+  {% for obj in objs %}
+    {% if not obj.is_deleted %}
+      {% if obj.is_changeable %}
+{% autoescape off %}
+        <tr>
+          <td class="bottom-border-ex" width="2%">&nbsp;</td>
+          <td class="bottom-border-ex" colspan="3">
+            <input type="checkbox" name="delete_{{ obj.id }}"
+            {% if obj.is_deleted %}checked="checked"{% endif %} />
+          </td>
+          <td class="bottom-border-ex" width="2%"><img 
+          src="{{ base_site_url }}/dms_media/image/app/{{ obj.app_name }}.gif" border="0" title="{{ obj.app_name }}" />
+          </td>
+          <td class="bottom-border-ex" width="2%">&nbsp;</td>
+          <td class="bottom-border-ex" width="2%">&nbsp;</td>
+          <td class="bottom-border-ex">
+          {% if obj.is_renameable %}
+            <b>{{ obj.name }}</b>
+          {% else %}
+            {{ obj.name }}
+          {% endif %}
+          </td>
+          <td class="bottom-border-ex">
+            <a href="{{ obj.url }}" title="Objekt anzeigen">{{ obj.title }}</a>
+          </td>
+          <td class="bottom-border-ex" width="20%">{{ obj.last_modified }}</td>
+        </tr>
+{% endautoescape %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% else %}
+<tr>
+  <td colspan="11">
+  {% trans "Dieser Ordner ist leer bzw. enthält keine eigenen Objekte." %}
+  </td>
+</tr>
+{% endif %}
+</tbody>
+
+</table>
+
+<p align="right">
+<input name="setDeleteButton" type="submit" value="{% trans "Alles auswählen ..." %}"
+       onClick="setDeleteSelect(); return false">
+<input name="resetDeleteButton" type="submit" value="{% trans "Alles abwählen ..." %}"
+       onClick="resetDeleteSelect(); return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input name="op_delete" type="submit" value="{% trans "Löschen ..." %}" />
+</p>
+</form>
+{% endblock %}

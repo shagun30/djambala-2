@@ -1,0 +1,14 @@
+{% extends "app/base_section_headline.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block infos %}
+<div class="floatbox">
+  <div style="float:left;"><img src="{{ image_url }}" /></div>
+  <div style="margin-left:{{ width }};">
+    {{ content }}
+  </div>
+  <!-- <br clear="all" /> -->
+</div>
+{% endblock %}
+{% endautoescape %}

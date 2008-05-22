@@ -1,0 +1,56 @@
+{% extends "app/base_section.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block infos %}
+
+<div style="margin-left: 10%;">
+<p>
+{% blocktrans %}
+Bitte füllen Sie eines der Eingabefelder aus und klicken Sie anschließend
+auf das zugehörige Suchen-Schaltfläche. - Bei 'Ort' und 'Schulname'
+genügt der Anfang des Namens.
+{% endblocktrans %}
+</p>
+
+<table class="info-border" border="1" cellspacing="1" cellpadding="3" style="width:100%;">
+<form method="post" action="?school_town">
+<tr>
+  <td class="introblock" width="30%"><label for="id_town"><b>{% trans "Ort" %}</b></label></td>
+  <td>
+    <input name="town" value="" maxlength="60" type="text" id="id_town" size="30" />
+  </td>
+  <td>
+    <input name="submit" type="submit" value="{% trans "Suchen ..." %}" />
+  </td>
+</tr>
+</form>
+
+<form method="post" action="?school_name">
+<tr>
+  <td class="introblock" width="30%"><label for="id_name"><b>{% trans "Schulname" %}</b></label></td>
+  <td>
+    <input name="name" value="" maxlength="60" type="text" id="id_name" size="30" />
+  </td>
+  <td>
+    <input name="submit" type="submit" value="{% trans "Suchen ..." %}" />
+  </td>
+</tr>
+</form>
+
+<form method="post" action="?school_number">
+<tr>
+  <td class="introblock" width="30%"><label for="id_number"><b>{% trans "Schulnummer" %}</b></label></td>
+  <td>
+    <input name="number" value="" maxlength="10" type="text" id="id_number" size="5" />
+  </td>
+  <td>
+    <input name="submit" type="submit" value="{% trans "Suchen ..." %}" />
+  </td>
+</tr>
+</form>
+</table>
+<br />
+</div>
+{% endblock %}
+{% endautoescape %}

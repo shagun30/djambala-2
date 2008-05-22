@@ -1,0 +1,63 @@
+{% load i18n %}
+
+{% autoescape off %}
+{% if items %}
+<p>
+{% trans "Anzahl der angenommenen Beiträge" %}: {{ item_count }}
+</p>
+
+<form action = ""
+      method = "post">
+<table class="info-border" border="1" cellspacing="1" cellpadding="3">
+
+  <thead>
+    <tr class="tabHeaderBg">
+      <td><b>{% trans "Aufheben" %}</b></td>
+      <td><b>{% trans "Beschreibung des Datensatzes" %}</b></td>
+      <td><b>{% trans "Original-Daten" %}</b></td>
+      <td><b>{% trans "Meta-Daten" %}</b></td>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for item in items %}
+    <tr>
+      <td>
+        <input type="checkbox" name="unknown_id" value="{{ item.id_local }}" />
+      </td>
+      <td>
+        <a href="./elixier.html?elixier_op=fach_beitraege&item_id={{ item.id }}{{ params }}">{{ item.titel }}</a>
+      </td>
+      <td>
+        {% if item.url_ressource %}
+          <a href="{{ item.url_ressource }}" target="_extern">URL</a>
+        {% else %}
+          -
+        {% endif %}
+      </td>
+      <td>
+        <a href="{{ item.url_datensatz }}" target="_extern">Meta-URL</a>&nbsp;/&nbsp;{{ item.quelle_id }}
+      </td>
+    </tr>
+    {% endfor %}
+    </tr>
+  </tbody>
+
+</table>
+<br />
+<p align="right">
+<input type="hidden" name="do_unknown" value="1" />
+<input type="hidden" name="fach_sachgebiet" value="{{ fach_sachgebiet }}" />
+<input type="hidden" name="quelle" value="{{ quelle }}" />
+<input type="hidden" name="bildungsebene" value="{{ bildungsebene }}" />
+<input type="hidden" name="medienformat" value="{{ medienformat }}" />
+<input type="hidden" name="schlagwort" value="{{ schlagwort }}" />
+<input type="submit" name="submit" value="{% trans "Als unbearbeitet markieren" %}" />
+</p>
+</form>
+{% else %}
+<p>
+Es gibt keine angenommenen Beiträge.
+</p>
+{% endif %}
+{% endautoescape %}

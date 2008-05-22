@@ -1,0 +1,20 @@
+{% load i18n %}
+
+{% autoescape off %}
+<h4>{{ title }}</h4>
+
+<p>
+{% trans "Bitte klicken Sie auf die gewünschte Einrichtung:" %}
+</p>
+
+<table class="info-border" border="1" cellspacing="1" cellpadding="3" style="width:100%;">
+{% for item in items %}
+  <tr>
+  <td class="introblock" width="60%">
+    <a href="?show_add_form=1&org_id={{ item.org_id }}">{{ item.organisation }}</a>
+  </td>
+  <td width="40%">{{ item.town }}</td>
+  </tr>
+{% endfor %}
+</table>
+{% endautoescape %}

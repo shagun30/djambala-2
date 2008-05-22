@@ -1,0 +1,140 @@
+{% load i18n %}
+
+<p>
+{% if main_obj.space_available %}
+  <a id="show_file" javascript:void(0)" onClick="do_file()"><img
+      src="{{ site_url }}/dms_media/image/action/new_file_icon.gif"
+      alt="{% trans "Neue-Datei-Symbol" %}" border="0"></a>
+  
+  <a id="show_folder" javascript:void(0)" onClick="do_folder()"><img
+      src="{{ site_url }}/dms_media/image/action/new_folder_icon.gif"
+      alt="{% trans "Neuer-Ordner-Symbol" %}" border="0"></a>
+  {% if main_obj.paste_mode %}
+  &nbsp;&nbsp;&nbsp;
+  <a href="JavaScript:pasteData('file_table', '?rel_path={{ main_obj.rel_path }}')"><img
+      src="{{ site_url }}/dms_media/image/manage/paste.gif"
+      alt="{% trans "Einfügen-Symbol" %}" border="0"></a>
+  &nbsp;&nbsp;&nbsp;
+  {% endif %}
+  {% trans "Belegt:" %} {{ main_obj.space }}%
+  &nbsp;&nbsp;&nbsp;
+{% else %}
+  {% trans "Der für Sie bereitgestellte Speicherplatz ist voll ausgeschöpft!" %}<br />
+{% endif %}
+<b>{% trans "Pfad:" %}</b> ./{{ main_obj.rel_path }}
+</p>
+
+<div id="file_form" style="display:none">
+<form method="post"
+      id="file_input_form"
+      action="{{ main_obj.add_file_url }}"
+      enctype= "multipart/form-data">
+  <img
+      src="{{ site_url }}/dms_media/image/action/file_icon.gif"
+      alt="{% trans "Datei-Symbol" %}" border="0"> &nbsp;&nbsp;
+  <input id="id_fname" type="file" name="fname" size="30" />
+  <input type="hidden" name="rel_path" value="{{ main_obj.rel_path }}" id="id_rel_path" />
+  <input type="submit" name="submit" value="{% trans "Datei anlegen ..." %}" />
+</form>
+<br />
+</div>
+<div id="folder_form" style="display:none">
+<form method="post"
+      id="folder_input_form"
+      action="JavaScript:addFolder('file_table', '{{ main_obj.parent_path }}')">
+  <img
+      src="{{ site_url }}/dms_media/image/action/folder_icon.gif"
+      alt="{% trans "Ordner-Symbol" %}" border="0"> &nbsp;&nbsp;
+  <input id="id_name" maxlength="60" type="text" name="name" size="20" />
+  <input type="hidden" name="rel_path" value="{{ main_obj.rel_path }}" id="id_rel_path" />
+  <input type="submit" name="submit" value="{% trans "Ordner anlegen ..." %}" />
+</form>
+<br />
+</div>
+
+{% if objs or main_obj.parent_path %}
+<div class="yui-skin-sam">
+  <div id="markup">
+  <table id="items" class="form-table" style="width:100%;">
+    <tbody>
+      {% if main_obj.parent_path %}
+      <tr>
+        <td>
+        <a href="JavaScript:getData('file_table', '{{ main_obj.parent_path }}', 'show', '')">
+        <img src="{{ site_url }}/dms_media/image/app/dmsFolderRaw.gif" border="0"
+             title="{% trans "Ordner-Symbol" %}" />
+        </a>
+        </td>
+        <td class="bottom-border-ex" width="20%">&middot;&middot;</td>
+        <td></td>
+        <td>{{ main_obj.last_modified }}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      {% endif %}
+      {% for obj in objs %}
+      <tr>
+        {% if obj.is_file %}
+          <td>
+          <a href="{{ obj.url }}">
+            <img src="{{ site_url }}/dms_media/image/app/dmsFileRaw.gif" border="0"
+                 title="{% trans "Datei-Symbol" %}" />
+          </a>
+          </td>
+          <td>{{ obj.name }}</td>
+          <td>{{ obj.size }}</td>
+          <td>{{ obj.last_modified }}</td>
+          <td>
+            <a href="JavaScript:cutData('file_table', '?rel_path={{ main_obj.rel_path }}', '{{ obj.id}}')"><img
+               src="{{ site_url }}/dms_media/image/manage/cut.gif"
+               alt="{% trans "Ausschneiden-Symbol" %}" border="0"></a>
+          </td>
+          <td>
+            <a href="JavaScript:copyData('file_table', '?rel_path={{ main_obj.rel_path }}', '{{ obj.id}}')"><img
+               src="{{ site_url }}/dms_media/image/manage/copy.gif"
+               alt="{% trans "Kopieren-Symbol" %}" border="0"></a>
+          </td>
+          <td>
+            <a href="JavaScript:delData('file_table', '?rel_path={{ main_obj.rel_path }}', '{{ obj.id}}')"><img
+               src="{{ site_url }}/dms_media/image/manage/delete.gif"
+               alt="{% trans "Löschen-Symbol" %}" border="0"></a>
+          </td>
+        {% else %}
+          <td>
+          <a href="JavaScript:getData('file_table', '{{ obj.rel_path }}', 'show', '')">
+            <img src="{{ site_url }}/dms_media/image/app/dmsFolderRaw_open.gif" border="0"
+                 title="{% trans "Ordner-Symbol" %}" />
+          </a>
+          </td>
+          <td>{{ obj.name }}</td>
+          <td>0</td>
+          <td>{{ obj.last_modified }}</td>
+          <td>
+            <a href="JavaScript:cutData('file_table', '?rel_path={{ main_obj.rel_path }}', '{{ obj.id}}')"><img
+               src="{{ site_url }}/dms_media/image/manage/cut.gif" 
+               alt="{% trans "Ausschneiden-Symbol" %}" border="0"></a>
+          </td>
+          <td>
+            <a href="JavaScript:copyData('file_table', '?rel_path={{ main_obj.rel_path }}', '{{ obj.id}}')"><img
+               src="{{ site_url }}/dms_media/image/manage/copy.gif" 
+               alt="{% trans "Kopieren-Symbol" %}" border="0"></a>
+          </td>
+          <td>
+            <a href="JavaScript:delData('file_table', '?rel_path={{ main_obj.rel_path }}', '{{ obj.id}}')"><img
+               src="{{ site_url }}/dms_media/image/manage/delete.gif" 
+               alt="{% trans "Löschen-Symbol" %}" border="0"></a>
+          </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+{% else %}
+  <p>
+    {% trans "Dieser Ordner ist leer bzw. enthält keine eigenen Objekte." %}
+  </p>
+{% endif %}
+

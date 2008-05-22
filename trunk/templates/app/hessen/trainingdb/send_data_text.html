@@ -1,0 +1,33 @@
+{% load i18n %}
+
+{% autoescape off %}
+** Absender **
+Name: {{ nachname }}
+Vorname: {{ vorname }}
+Personalnummer: {{ personalnummer }}
+Straße: {{ strasse }}
+PLZ Wohnort: {{ plz }} {{ ort }}
+Telefon: {{ telefon }}
+E-Mail: {{ email }}
+
+** Dienststelle **
+
+Dienststellennummer: {{ school_no }}
+Dienststelle: {{ school_name }}
+Dienstort: {{ school_ort }}
+Telefon: {{ school_telefon }}
+
+** Veranstaltung **
+
+Veranstaltung: {{ v_intern_id }} (IQ: {{ v_iq_id }})
+Titel: {{ v_thema }}
+Termin(e): {{ v_datum }}
+Anmeldeadresse: {{ anmelde_email }}
+
+** Zusatzangaben **
+
+Zusatzangaben: {{ zusatz }}
+Übernachtung: {% if uebernachtung %}ja{% else %}nein{% endif %}
+
+*** Die Genehmigung zur Teilnahme an der Tagung habe ich eingeholt. ***
+{% endautoescape %}

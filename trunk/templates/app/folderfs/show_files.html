@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block html_head_ext %}
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/datatable/assets/skins/sam/datatable.css" />
+<!--
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/menu/assets/skins/sam/menu.css" />
+-->
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/element/element-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/datasource/datasource-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/datatable/datatable-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/connection/connection.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/container/container_core.js"></script>
+<!--
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/menu/menu.js"></script>
+-->
+<style>
+.yui-content { background-color: #f4f4f4 !important; }
+</style>
+{% endblock %}
+
+{% block title %} {{title}}: <i>{{sub_sub_title}}</i> {% endblock %}
+
+{% block content %}
+
+<div class="yui-content">
+  <div id="slot_file_table"></div>
+</div>
+
+<!-- Ajax-Schnittstelle -->
+<script type="text/javascript">
+my_formatDate = function(el, oRecord, oColumn, oData) {
+  var oDate = oData;
+  if(oDate instanceof Date) {
+    el.innerHTML = oDate.getDate() + "." + (oDate.getMonth()+1) + "." + oDate.getFullYear();
+  }
+  else {
+    el.innerHTML = YAHOO.lang.isValue(oData) ? oData : "";
+  }
+};
+
+function getCallback(e) {
+  return {
+          success: function(o) {
+                if(o.responseText !== undefined) {
+                  e.innerHTML = o.responseText;
+                  YAHOO.example.EnhanceFromMarkup = new function() {
+                      var myColumnDefs = [
+                          {key:"type",label:"Typ",sortable:true},
+                          {key:"name",label:"Name",sortable:true},
+                          {key:"size",label:"Größe",formatter:YAHOO.widget.DataTable.formatNumber,sortable:true},
+                          {key:"date",label:"Datum",formatter:my_formatDate,sortable:true},
+                          {key:"cut",label:" ",sortable:false},
+                          {key:"copy",label:" ",sortable:false},
+                          {key:"delete",label:" ",sortable:false}
+                      ];
+
+                      this.myDataSource = new YAHOO.util.DataSource(YAHOO.util.Dom.get("items"));
+                      this.myDataSource.responseType = YAHOO.util.DataSource.TYPE_HTMLTABLE;
+                      this.myDataSource.responseSchema = {
+                          fields: [ {key:"type"}, 
+                                    {key:"name"}, {key:"size", parser:YAHOO.util.DataSource.parseNumber},
+                                    {key:"date", parser:YAHOO.util.DataSource.parseDate},
+                                    {key:"cut"}, {key:"copy"}, {key:"delete"} ]
+                      };
+
+                      this.myDataTable = new YAHOO.widget.DataTable("markup", myColumnDefs, this.myDataSource,
+                              {sortedBy:{key:"type",dir:"asc"}});
+                      };
+                }
+              },
+            failure: function(o) {
+                        if(o.responseText !== undefined) {
+                          e.innerHTML = "HTTP Status: " + o.status + " / " + o.statusText;
+                        }
+                     },
+            argument: {},
+            timeout: 20000
+         };
+}
+function getData(f, relPath, op, obj_id) {
+  var baseUrl = "{{ ajax_url }}";
+  var e = document.getElementById('slot_'+f);
+  var callback = new getCallback(e);
+  e.innerHTML = '<p><img src="{{ base_site_url }}/dms_media/image/loading.gif" /> ' +
+                '{% trans "Lade Daten ..." %}</p>';
+  if (relPath == '') {
+    relPath = relPath + '?'
+  } else {
+    relPath = relPath + '&'
+  }
+  relPath = relPath + 'mode=' + op + '&obj=' + obj_id
+  /*alert (baseUrl + "folderfs_ajax_get_" + f + "/" + relPath);*/
+  YAHOO.util.Connect.asyncRequest('POST', baseUrl + "folderfs_ajax_get_" + f + "/" + relPath, callback);
+}
+function delData(f, relPath, delId) {
+  getData(f, relPath, 'del', delId);
+}
+function cutData(f, relPath, cutId) {
+  getData(f, relPath, 'cut', cutId)
+}
+function copyData(f, relPath, copyId) {
+  getData(f, relPath, 'copy', copyId)
+}
+function pasteData(f, relPath) {
+  getData(f, relPath, 'paste', '')
+}
+
+getData('file_table', '{{ rel_path }}', 'show', '');
+
+function putFileObject(f, relPath, op, formId, isFile) {
+  var baseUrl = "{{ ajax_url }}";
+  var e = document.getElementById('slot_'+f);
+  var callback = new getCallback(e);
+  var formObject = document.getElementById(formId);
+  YAHOO.util.Connect.setForm(formObject, isFile);
+  e.innerHTML = '<p><img src="{{ base_site_url }}/dms_media/image/loading.gif" /> ' +
+                '{% trans "Lade Daten ..." %}</p>';
+  if (relPath == '') {
+    relPath = relPath + '?'
+  } else {
+    relPath = relPath + '&'
+  }
+  relPath = relPath + 'mode=' + op
+  /*alert (baseUrl + "folderfs_ajax_get_" + f + "/" + relPath);*/
+  YAHOO.util.Connect.asyncRequest('POST', baseUrl + "folderfs_ajax_get_" + f + "/" + relPath, callback);
+}
+function addFolder(f, relPath) {
+  putFileObject(f, relPath, 'add_folder', 'folder_input_form', false)
+}
+function addFile(f, relPath) {
+  putFileObject(f, relPath, 'add_file', 'file_input_form', true)
+}
+</script>
+
+<!-- Menusystem -->
+<script type="text/javascript">
+/*
+  YAHOO.util.Event.onContentReady("file_ops", function () {
+    var oMenuBar = new YAHOO.widget.MenuBar("file_ops", {
+                             autosubmenudisplay: true, hidedelay: 750, lazyload: true });
+    oMenuBar.render();
+  });
+*/
+</script>
+
+<!-- Datei oder Ordner ergaenzen -->
+<script type="text/javascript">
+function do_file() {
+  document.getElementById("show_file").style.display="none";
+  document.getElementById("show_folder").style.display="inline";
+  document.getElementById("folder_form").style.display="none";
+  document.getElementById("file_form").style.display="inline";
+}
+function do_folder() {
+  document.getElementById("show_folder").style.display="none";
+  document.getElementById("show_file").style.display="inline";
+  document.getElementById("folder_form").style.display="inline";
+  document.getElementById("file_form").style.display="none";
+}
+</script>
+
+{% endblock %}

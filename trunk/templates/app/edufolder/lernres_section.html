@@ -1,0 +1,38 @@
+{% load i18n %}
+
+{% autoescape off %}
+<a name="anker_{{ id }}"></a>
+<div class="floatbox">
+<div class="item_title">
+  {{ title }}
+  {% if sub_title %}
+  - {{ sub_title }}
+  {% endif %}
+  <div class="bottom-border-light_ex"; style="margin-left:5%;">
+  {% if image_url %}
+    {% if image_url_url %}
+      <a href="{{ image_url_url }}" target="_extern"><img 
+      src="{{ image_url }}" alt="{% trans "Mini-Bild" %}"
+      class="image-float-right" /></a>
+    {% else %}
+      <img src="{{ image_url }}" alt="{% trans "Mini-Bild" %}"
+        class="image-float-right" />
+    {% endif %}
+  {% endif %}
+  {{ text }}
+  <!--<br clear="all" />-->
+  {% if edu_object_url %}
+  <div class="item_text">
+    {% if is_data_object %}
+      <a href="{{ edu_object_url }}?show_all=1">Mehr ...</a>
+    {% else %}
+      &raquo;
+      <a href="{{ edu_object_url }}?show_all=1"
+         title="{% trans "Sprung Original-Lernresource" %}">Mehr ...</a>
+    {% endif %}
+  </div>
+  {% endif %}
+  </div>
+</div>
+</div>
+{% endautoescape %}

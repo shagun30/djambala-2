@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block html_head_ext %}
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/assets/skins/sam/tabview.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/datatable/assets/skins/sam/datatable.css" />
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/element/element-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/tabview.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo/yahoo.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/event/event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/connection/connection.js"></script>
+<script type="text/javascript" 
+      src="{{ site.url }}/dms_media/javascript/overlib/overlib.js-small"></script>
+<style>
+.yui-content { background-color: #f4f4f4 !important; }
+</style>
+{% endblock %}
+
+{% block title %}{{ thema }}{% endblock %}
+
+{% block content %}
+<div style="right:220px;">
+  <div class=" yui-skin-sam">
+    <div id="trainingForm" class="yui-navset">
+      <ul class="yui-nav">
+          <li class="selected"><a href="#tab1"><em>{% trans "Veranstaltung" %}</em></a></li>
+          <li><a href="#tab2"><em>{% trans "Online-Anmeldung" %}</em></a></li>
+          <li><a href="#tab3"><em>{% trans "Flyer" %}</em></a></li>
+      </ul>
+      <div class="yui-content">
+          <div id="tab1">
+            {{ details }}
+          </div>
+          <div id="tab2">
+            {{ anmeldeformular }}
+          </div>
+          <div id="tab3">
+            {{ flyer }}
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var trainingTab = new YAHOO.widget.TabView('trainingForm');
+  var editTab = new YAHOO.widget.TabView('editForm');
+</script>
+{% endblock %}

@@ -1,0 +1,110 @@
+{% load i18n %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de"> 
+
+<head lang="de">
+  <meta http-equiv="Content-Type"   content="text/html; charset=utf-8">
+  {% block html_head %} {% endblock %}
+  {% block html_head_ext %} {% endblock %}
+</head>
+
+<body>
+{% autoescape off %}
+<a name="start_of_page"></a>
+<div id="page_margins">
+  <div id="page">
+    <div id="header">
+      <div id="topnav">
+        <!-- start: skip link navigation -->
+        <a class="skip" href="#content"  accesskey="T"
+           >{% trans "Navigation: Inhalt" %}</a><span class="hideme">.</span>
+        <a class="skip" href="#navigation"  accesskey="N"
+           >{% trans "Navigation: Hauptnavigation" %}</a><span class="hideme">.</span>
+        <a class="skip" href="#navigation_left"  accesskey="L"
+           >{% trans "Navigation: Linke Navigation" %}</a><span class="hideme">.</span>
+        <a class="skip" href="#actions"  accesskey="K"
+           >{% trans "Navigation: Aktionsbereich" %}</a><span class="hideme">.</span>
+        <a class="skip" href="#end_of_page"  accesskey="U"
+           >{% trans "Navigation: Seitenende" %}</a><span class="hideme">.</span>
+        <!-- end: skip link navigation -->
+        {% block meta_navigation %}{% endblock %}
+      </div>
+    {% block top_of_page %}{% endblock %}
+    </div>
+    <!-- begin: main navigation #nav -->
+    <div id="nav">
+      <a id="navigation" name="navigation"></a>
+      <!-- skiplink anchor: navigation -->
+      <div id="nav_main">
+        {% block top_navigation %}{% endblock %}
+      </div>
+    </div>
+    <!-- end: main navigation -->
+
+    <!-- begin: main content area #main -->
+    <div id="main">
+      <!-- begin: #col1 - first float column -->
+      {% if not content_div_style %}
+      <div id="col1">
+        <a id="navigation_left" name="navigation_left"></a>
+        <div id="col1_content" class="clearfix">
+          {% block frame_left %}{% endblock %}
+        </div>
+      </div>
+      {% endif %}
+      <!-- end: #col1 -->
+      <!-- begin: #col2 second float column -->
+      <div id="col2">
+        <a id="actions" name="actions"></a>
+        <div id="col2_content" class="clearfix">
+         {% block frame_right %}{% endblock %}
+        </div>
+      </div>
+      <!-- end: #col2 -->
+      <!-- begin: #col3 static column -->
+      <div id="col{% if content_div_style %}4{% else %}3{% endif %}">
+        <div id="col{% if content_div_style %}4{% else %}3{% endif %}_content" class="clearfix">
+          <a id="content" name="content"></a>
+          <!-- skiplink anchor: Content -->
+          {% if not no_breadcrumb %}
+          <!-- breadcrumb -->
+          <div style="margin-bottom:1em; margin-top:-.2em;">
+            {{ breadcrumb|safe }}
+          </div>
+          {% endif %}
+          <!-- begin of text -->
+          <!--<div{% if is_protected %} id="col3_protected"{% endif %}>-->
+          {% if title %}
+            <h3>{% block title %}{{ title }}{% endblock %}</h3>
+          {% endif %}
+          {% if sub_title %}
+            <h4>{% block sub_title|safe %}{{ sub_title }}{% endblock %}</h4>
+          {% endif %}
+          {% if title_info %}
+            <p style="margin-top:-2em;">{{ title_info|safe }}</p>
+          {% endif %}
+          {% block intro %}{% endblock %}
+          {% block content %}{% endblock %}
+          {% block more %}{% endblock %}
+          <!--</div>-->
+        </div>
+        <div id="ie_clearing">&nbsp;</div>
+        <!-- End: IE Column Clearing -->
+      </div>
+      <!-- end: #col3 -->
+    </div>
+    <!-- end: #main -->
+  </div>
+  <!-- begin: #footer -->
+  <div id="footer">
+    <a id="end_of_page" name="end_of_page"></a>
+    {% block bottom_of_page %}{% endblock %}
+  </div>
+  <!-- end: #footer -->
+</div>
+{% block expand_tabs %}{% endblock %}
+
+{% endautoescape %}
+</body>
+
+</html>

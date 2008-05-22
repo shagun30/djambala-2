@@ -1,0 +1,29 @@
+{% load i18n %}
+
+{% autoescape off %}
+<p>
+{% blocktrans %}
+Mit diesem Formular importieren Sie eine CSV-Datei mit den Mitglieder und ihren Rollen. Jede Zeile hat
+folgenden Aufbau:<br /><br /><b><tt>zugangsname;rolle</tt></b><br /><br />In den Zeilen dürfen 
+<b>keine Anführungszeichen</b> enthalten sein.
+{% endblocktrans %}
+</p>
+<form method = "post"
+      action = ""
+      enctype= "multipart/form-data">
+<table class="form-table" style="width:100%;">
+<tr class="selectblock" style="border-width:1px; border-color:#000000; border-style:solid;">
+<td class="selectblock" width="30%"><label for="fname"><b>{% trans "CSV-Importdatei" %}</b></label></td>
+<td width="70%">
+<input id="id_fname" type="file" name="fname" size="50" />
+</td>
+</tr>
+<tr class="selectblock" style="border-width:1px; border-color:#000000; border-style:solid;">
+<td class="selectblock" colspan="2" align="right">
+<input name="mode" type="hidden" value="import" />
+<input name="submit" type="submit" value="{% trans "Community-Mitglieder aus der CSV-Datei eintragen ..." %}" />
+</td>
+</tr>
+</table>
+</form>
+{% endautoescape %}

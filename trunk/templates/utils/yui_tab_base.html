@@ -1,0 +1,26 @@
+{% load i18n %}
+
+{% autoescape off %}
+{% if top_of_form %}
+{{ top_of_form }}
+{% endif %}
+<div class=" yui-skin-sam">
+  <div id="editForm" class="yui-navset">
+    <ul class="yui-nav">
+      {% for head in headers %}
+        <li{% if head.selected %} class="selected"{% endif %}>
+          <a href="#{{ head.tab_id }}"><em>{{ head.text }}</em></a>
+        </li>
+      {% endfor %}
+    </ul>
+    <div class="yui-content">
+      {% for tab in tabs %}
+        <div id="{{ tab.tab_id }}">
+          {{ tab.info }}
+          {{ tab.content }}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endautoescape %}

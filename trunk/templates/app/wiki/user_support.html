@@ -1,0 +1,41 @@
+{% load i18n %}
+
+<script type="text/javascript">
+<!--
+function show_pages(url) {
+  nWidth = 700
+  nLeft  = screen.width - nWidth;
+  cParam = "top=0,scrollbars=yes,"
+  win = window.open(url,
+        "_sitemap",
+        "width="+String(nWidth)+",height=600,left="+String(nLeft)+","+cParam);
+  win.focus();
+}
+//-->
+</script>
+
+{% autoescape off %}
+  <a href="{{ path }}index.html" class="frameLink" 
+     title="{% trans "Zur Wiki-Startseite ..." %}">{% trans "Startseite ..." %}</a><br />
+  {% if not no_sitemap %}
+  <a href="{{ path }}index.html?show_sitemap=1" class="frameLink" 
+       title="{% trans "Liste aller Wiki-Seiten anzeigen ..." %}">
+    {% trans "Sitemap ..." %}</a><br />
+  {% endif %}
+  <br />
+  {% if not no_version %}
+  <a href="{{ path }}{{ wiki_page}}.html/diff/" class="frameLink" 
+     title="{% trans "Versionen der Wiki-Seite vergleichen ..." %}">{% trans "Versionen ..." %}</a><br />
+  {% endif %}
+  {% if not no_edit %}
+  <a href="{{ path }}{{ wiki_page}}.html/edit/" class="frameLink" 
+     title="{% trans "Wiki-Seite ändern ..." %}">{% trans "Ändern ..." %}</a><br />
+  <br />
+  {% endif %}
+  {% if not no_new_items %}
+  <a href="{{ path }}index.html/add/image/" class="frameLink" 
+     title="{% trans "Bild, Grafik ergänzen ..." %}">{% trans "Neues Bild ..." %}</a><br />
+  <a href="{{ path }}index.html/add/file/" class="frameLink" 
+     title="{% trans "Datei ergänzen ..." %}">{% trans "Neue Datei ..." %}</a><br />
+  {% endif %}
+{% endautoescape %}

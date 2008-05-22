@@ -1,0 +1,42 @@
+{% extends "base_util_window.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block html_head_ext %}
+<script type="text/javascript">
+<!--
+function update() {
+  curr = -1;
+  for (i=0; i<=document.form_dlg.folder_new.length-1; i++) {
+    if ( document.form_dlg.folder_new[i].checked ) {
+      curr = i;
+    }
+  }
+  if ( curr > -1 ) {
+    path = document.form_dlg.folder_new[curr].value;
+    opener.set_dest_url(path);
+    document.cookie = "elixier_dest_folder=" + path;
+  }
+  close();
+}
+//-->
+</script>
+{% endblock %}
+
+{% block title %}{% trans "Zielordner für Elixier-Import" %}{% endblock %}
+
+{% block content %}
+<form onsubmit = "JavaScript:update()"
+      name   = "form_dlg"
+      method = "POST">
+
+<h4>{% trans "Hierarchie der Lernarchive" %}</h4>
+
+{{ edufolders }}
+<br />
+
+<br />
+<input type="submit" value="{% trans "Zielordner setzen ..." %}" />
+</form>
+{% endblock %}
+{% endautoescape %}

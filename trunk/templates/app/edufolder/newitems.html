@@ -1,0 +1,29 @@
+{% load i18n %}
+
+<p>
+{% trans "Die neuen bzw.geänderten Ressourcen der letzten 30 Tage sind nach der Aktualität sortiert." %}
+</p>
+
+{% autoescape off %}
+<p>
+{% if prev %}
+... {{ prev }}
+{% endif %}
+[{% trans "Lernressourcen" %} {{ start }}-{{ max }} {% trans "von" %} {{ count }}]
+{% if next %}
+{{ next }} ...
+{% endif %}
+</p>
+
+{{ links }}
+
+<p>
+{% if prev %}
+... {{ prev }}
+{% endif %}
+[{% trans "Lernressourcen" %} {{ start }}-{{ max }} {% trans "von" %} {{ count }}]
+{% if next %}
+{{ next }} ...
+{% endif %}
+</p>
+{% endautoescape %}

@@ -1,0 +1,39 @@
+{% extends "app/base_edit.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block title %} {{ title }} {% endblock %}
+{% block sub_title %} {{ sub_title }} {% endblock %}
+
+{% block intro %}{% endblock %}
+
+{% block content %}
+
+<p>
+{% trans "Der eingegebene Verweis existiert bereits:" %}
+</p>
+
+<ul>
+{% for link in edu_links %}
+<li>
+  {{ link.link }}<br />
+  {{ link.url }}
+</li>
+{% endfor %}
+</ul>
+
+
+<h4>{% trans "Mögliche Reaktionen:" %}</h4>
+
+<ul>
+<li>{% trans "Sie gehen eine Seite zurück und korrigieren den Verweis." %}</li>
+{% if data_obj %}
+  <li>
+    <a class="nav" href="{{ obj_url }}/link_copy/?id={{ data_obj.id }}&base_url={{ obj_url }}"
+          title="Einblenden">{% trans "Sie blenden den betreffenden Verweis hier ein ..." %} </a>
+  </li>
+{% endif %}
+</ul>
+
+{% endblock %}
+{% endautoescape %}

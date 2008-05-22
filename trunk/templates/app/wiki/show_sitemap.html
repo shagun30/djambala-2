@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block html_head_ext %}
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/datatable/assets/skins/sam/datatable.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/assets/skins/sam/tabview.css" />
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/element/element-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/datasource/datasource-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/datatable/datatable-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/tabview.js"></script>
+<script type="text/javascript">
+function showImage(url) {
+  width = 500
+  left  = screen.width - width;
+  param = "top=0,menubar=yes,scrollbars=yes"
+  winHelp = window.open(url,
+            "_help",
+            "width="+String(width)+",height=600,left="+String(left)+","+param);
+  winHelp.focus();
+}
+</script>
+<style>
+.yui-content { background-color: #f4f4f4 !important; }
+</style>
+{% endblock %}
+
+{% block title %}
+{{title}}
+{% if comments %}
+<span class="grey" title="{% trans "Beitrag/Beiträge kommentierbar" %}">&there4;</span>
+{% endif %}
+{% endblock %}
+{% block sub_title %}{{ sub_title }}{% endblock %}
+
+{% block content %}
+{% if objs %}
+<div class="yui-skin-sam">
+<div id="markup">
+<table id="items" class="form-table" style="width:100%;">
+  <tbody>
+  {% for obj in objs %}
+    <tr>
+      {% if obj.is_wiki %}
+        <td><b>{{ obj.wiki_page }}</b></td>
+        <td>{{ obj.title }}</td>
+        <td>
+          <img src="{{ site_url }}/dms_media/image/app/{{ obj.app_name }}.gif"
+              border="0" title="{{ obj.app_name }}" />
+        </td>
+        <td>{{ obj.last_modified }}</td>
+        <td><a href="?wiki_page={{ obj.wiki_page }}"><img 
+              src="{{ site_url }}/dms_media/image/manage/view.gif"
+              border="0" title="{% trans "Zeigen" %}" /></a>
+        </td>
+        <td><a href="{{ obj.url }}/diff/"><img 
+              src="{{ site_url }}/dms_media/image/manage/version.gif"
+              border="0" title="{% trans "Versionen" %}" /></a>
+        </td>
+      {% else %}
+        <td>{{ obj.wiki_page }}</td>
+        <td>{{ obj.title }}</td>
+        <td>
+          <img src="{{ site_url }}/dms_media/image/app/{{ obj.app_name }}.gif"
+              border="0" title="{{ obj.app_name }}" />
+          {{ obj.app_name_text }}
+        </td>
+        <td>{{ obj.last_modified }}</td>
+        <td><span class="red"><b>&middot;&middot;<b></span>
+            <a href="JavaScript:showImage('{{ obj.image_url }}')"><img 
+              src="{{ site_url }}/dms_media/image/manage/view.gif"
+              border="0" title="{% trans "Zeigen" %}" /></a>
+        </td>
+        <td></td>
+      {% endif %}
+      <td>
+        <a href="{{ obj.url }}/edit/"><img src="{{ site_url }}/dms_media/image/manage/edit.gif"
+            border="0" title="{% trans "Ändern" %}" /></a>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+</div>
+{% else %}
+<p>
+  {% trans "Dieses Wiki ist leer." %}
+</p>
+{% endif %}
+
+<script type="text/javascript">
+my_formatDate = function(el, oRecord, oColumn, oData) {
+  var oDate = oData;
+  if(oDate instanceof Date) {
+    el.innerHTML = oDate.getDate() + "." + (oDate.getMonth()+1) + "." + oDate.getFullYear() + " "
+                   + oDate.getHours() + ":" + oDate.getMinutes();
+  }
+  else {
+    el.innerHTML = YAHOO.lang.isValue(oData) ? oData : "";
+  }
+};
+
+YAHOO.util.Event.addListener(window, "load", function() {
+    YAHOO.example.EnhanceFromMarkup = new function() {
+        var myColumnDefs = [
+            {key:"wiki_page",label:"Wiki-Seite",sortable:true},
+            {key:"title",label:"Titel",sortable:true},
+            {key:"obj_type",label:"Art",sortable:true},
+            {key:"date",label:"Datum",formatter:my_formatDate,sortable:true},
+            {key:"show",label:" "},
+            {key:"version",label:" "},
+            {key:"edit",label:" "},
+        ];
+
+        this.myDataSource = new YAHOO.util.DataSource(YAHOO.util.Dom.get("items"));
+        this.myDataSource.responseType = YAHOO.util.DataSource.TYPE_HTMLTABLE;
+        this.myDataSource.responseSchema = {
+            fields: [ {key:"wiki_page"}, {key:"title"}, {key:"obj_type"},
+                      {key:"date", parser:YAHOO.util.DataSource.parseDate},
+                      {key:"show"}, {key:"version"}, {key:"edit"} ]
+        };
+
+        this.myDataTable = new YAHOO.widget.DataTable("markup", myColumnDefs, this.myDataSource,
+                {sortedBy:{key:"wiki_page",dir:"desc"}});
+        };
+});
+</script>
+{% endblock %}

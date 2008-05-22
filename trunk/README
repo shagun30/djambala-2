@@ -1,0 +1,16 @@
+dms ist ein auf Django - http://www.djangoproject.com - basierendes
+Content-Management-System, das aehnlich wie zecom - Zope
+Educational Management System - speziell fuer den Bildungsbereich 
+entwickelt wurde/wird.
+
+Einige Aspekte der Entwicklung:
+
+- Einfache Bedienungsoberflaeche (mit Web-2.0-Elementen)
+- Zahlreiche Werkzeuge zum Eingeben und Verwalten von
+  - Informationen
+  - Kommunikation
+  - Kooperation
+- Abgestufte Zuriffe auf verschiedene Bereiche durch Rollenkonzept
+- Weitgehende Selbstorganisation von Communities
+
+Hans Rauch, Januar 2007

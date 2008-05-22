@@ -1,0 +1,23 @@
+{% load i18n %}
+
+{% autoescape off %}
+<p>
+{% trans "Geben Sie bitte im folgenden Formular das betreffende Community-Mtglied ein:" %}
+</p>
+<form method = "POST"
+      action = "">
+<table class="form-table" style="width:100%;">
+<tr class="selectblock" style="border-width:1px; border-color:#000000; border-style:solid;">
+<td class="selectblock" width="30%"><label for="search_name"><b>{% trans "Zugangsname" %}</b></label></td>
+<td width="70%">
+<input name="search_name" value="" />
+</td>
+</tr>
+<tr class="selectblock" style="border-width:1px; border-color:#000000; border-style:solid;">
+<td class="selectblock" colspan="2" align="right">
+<input name="submit" type="submit" value="{% trans "Community-Mitglied suchen ..." %}" />
+</td>
+</tr>
+</table>
+</form>
+{% endautoescape %}

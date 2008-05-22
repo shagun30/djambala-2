@@ -1,0 +1,30 @@
+<VirtualHost *:82>
+  ServerName www.dms.{{ schule.Name_Schule }}.{{ schule.Name_Ort }}.schule.hessen.de
+  ServerAlias dms.{{ schule.Name_Schule }}.{{ schule.Name_Ort }}.schule.hessen.de
+  SetHandler mod_python
+  PythonHandler django.core.handlers.modpython
+  PythonPath "sys.path + ['/data/django_projects/dms_projekt']"
+  SetEnv DJANGO_SETTINGS_MODULE dms.settings
+  PythonDebug Off
+  PythonAutoReload Off
+  Alias /dms_media/ "/data/django_projects/dms_projekt/dms/media/"
+  <Location "/dms_media/">
+    SetHandler None
+    #Options Indexes MultiViews
+    Order allow,deny
+    Allow from all
+  </Location>
+  Alias /media/ "/usr/local/lib64/python2.5/site-packages/django/contrib/admin/media/"
+  <Location "/media/">
+    SetHandler None
+    Order allow,deny
+    Allow from all
+  </Location>
+  ProxyPass /dms_media http://dms.bildung.hessen.de/dms_media/
+  ProxyPassReverse /dms_media http://dms.bildung.hessen.de/dms_media/
+  ProxyPass /media http://dms.bildung.hessen.de/media/
+  ProxyPassReverse /media http://dms.bildung.hessen.de/media/
+  ProxyPass / http://dms.bildung.hessen.de/region/{{ region }}/schule/{{ schule.Name_Ort }}/schule_{{ schule.Schul_Nr }}/
+  ProxyPassReverse / http://dms.bildung.hessen.de/region/{{ region }}/schule/{{ schule.Name_Ort }}/schule_{{ schule.Schul_Nr }}/
+</VirtualHost>
+

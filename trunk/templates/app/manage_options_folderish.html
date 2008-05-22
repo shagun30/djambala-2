@@ -1,0 +1,136 @@
+{% load i18n %}
+
+{% autoescape off %}
+{% if authenticated %}
+
+  {% if show_mode %}
+    <a href="{{ path }}" class="frameLink"
+       title="{% trans "Seite anzeigen" %}">
+    {% trans "Anzeigen ..." %}</a><br /><br />
+  {% endif %}
+  
+  {% if help_mode %}
+    <a href="/help/{{ app_name }}/add/" class="frameLink"
+       title="{% trans "Hilfeseite" %}">
+    {% trans "Hilfe ..." %}</a><br />
+  {% endif %}
+
+  {% if not manage_mode %}
+    {% if not no_add_mode %}
+    <a id="show_more_a" href="javascript:void(0)"  class="frameLink" onClick="do_show_more()"
+        title="Mehr Informationen ..."><img
+        src="{{ base_site_url }}/dms_media/image/action/more_icon.gif" 
+        title="{% trans "Ein/Ausblende-Symbol" %}" />
+        {% trans "Ergänzen ..." %}</a>
+    <a id="show_less_a" href="javascript:void(0)"  class="frameLink" onClick="do_hide_more()"
+        title="Weniger Informationen ..."  style="display:none;"><img
+        src="{{ base_site_url }}/dms_media/image/action/more_icon.gif" 
+        title="{% trans "Ein/Ausblende-Symbol" %}" />
+        {% trans "Einfalten ..." %}</a>
+    <br />
+    {% endif %}
+  {% endif %}
+  {% if edit_mode %}
+    <a href="{{ path }}/edit/" class="frameLink"
+       title="{% trans "Eigenschaften anpassen" %}">
+    {% trans "Ändern ..." %}</a><br />
+  {% endif %}
+
+  {% if show_mode and not edit_mode and not no_image_mode %}
+    <script type="text/javascript">
+    <!--
+    function show_images ( rUrl ) {
+      nWidth = 700
+      nLeft  = screen.width - nWidth;
+      cParam = "top=0,scrollbars=yes,"
+      win = window.open(rUrl,
+            "_images",
+            "width="+String(nWidth)+",height=600,left="+String(nLeft)+","+cParam);
+      win.focus();
+    }
+    //-->
+    </script>
+    <a href="JavaScript:show_images('{{ path }}/show_images/');" class="frameLink" 
+       title="{% trans "Bilderleiste anzeigen" %}">
+    {% trans "Bilderleiste ..." %}</a><br />
+  {% endif %}
+
+  {% if manage_mode %}
+    <a href="{{ path }}/manage/" class="frameLink" 
+       title="{% trans "Ergänzen, kopieren, löschen ..." %}">
+  {% trans "Pflegen ..." %}</a><br />
+  {% endif %}
+  
+  {% if sort_mode %}
+    <a href="{{ path }}/sort/" class="frameLink"
+       title="{% trans "Objekte umordnen" %}">
+    {% trans "Umordnen ..." %}</a><br />
+  {% endif %}
+  
+  {% if browseable_mode %}
+    <a href="{{ path }}/manage_browseable/" class="frameLink" 
+       title="{% trans "Beiträge freigeben oder verstecken" %}">
+    {% trans "Freigeben ..." %}</a><br />
+  {% endif %}
+  
+  {% if comment_mode %}
+    <a href="{{ path }}/manage_comments/" class="frameLink" 
+       title="{% trans "Kommentare freigeben oder verstecken" %}">
+    {% trans "Kommentare freigeben ..." %}</a><br />
+  {% endif %}
+  
+  {% if navigation_mode %}
+    <a href="{{ path }}/navigation/" class="frameLink" 
+       title="{% trans "Navigationspunkt auswählen" %}">
+    {% trans "Navigation ..." %}</a><br />
+  {% endif %}
+  
+  {% if navigation_top_mode %}
+    <a href="{{ path }}/navigation_top/" class="frameLink" 
+       title="{% trans "Oberen Navigationsbereich ändern" %}">
+    {% trans "Obere Navigation ..." %}</a><br />
+  {% endif %}
+  
+  {% if navigation_left_mode %}
+    <a href="{{ path }}/navigation_left/" class="frameLink" 
+       title="{% trans "Linker Navigationsbereich ändern" %}">
+    {% trans "Linke Navigation ..." %}</a><br />
+  {% endif %}
+
+  {% if manage_domain_mode %}
+    <a href="{{ path }}/manage_site/" class="frameLink"
+       title="{% trans "Domaine ändern" %}">
+    {% trans "Domaine ..." %}</a><br />
+  {% endif %}
+  
+  {% if import_mode %}
+    <a href="{{ path }}/add/import/" class="frameLink"
+       title="{% trans "XML-Daten importieren" %}">
+    {% trans "Daten importieren ..." %}</a><br />
+  {% endif %}
+  {% if export_mode %}
+    <a href="{{ path }}/add/export/" class="frameLink"
+       title="{% trans "XML-Daten exportieren" %}">
+    {% trans "Daten exportieren ..." %}</a><br />
+  {% endif %}
+
+  {% if empty_mode %}
+    <a href="{{ path }}/empty_folders/" class="frameLink"
+       title="{% trans "Leere Ordner anzeigen" %}">
+    {% trans "Leere Ordner ..." %}</a><br />
+  {% endif %}
+
+  {% if search_mode %}
+    <a href="{{ path }}/find_items/" class="frameLink"
+       title="{% trans "Bestimmte Web-Ressourcen suchen ..." %}">
+    {% trans "Objekte suchen ..." %}</a><br />
+  {% endif %}
+
+  {% if user_mode %}
+    <br />
+    <a href="{{ user_path }}" class="frameLink" 
+       title="{% trans "Eintragen, löschen, ändern ..." %}">
+    {% trans "Community-Mitglieder" %}</a><br />
+  {% endif %}
+{% endif %}
+{% endautoescape %}

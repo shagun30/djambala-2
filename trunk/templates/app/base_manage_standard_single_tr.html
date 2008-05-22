@@ -1,0 +1,113 @@
+{% load i18n %}
+{% autoescape off %}
+<tr id="tr_{{ obj.id }}">
+  <td class="bottom-border-ex" width="2%">
+  {% if obj.is_folderish and not obj.is_userfolder %}
+  <a class="nav" href="{{ obj.url }}/manage/?id={{ obj.id }}"
+     title="{% trans "Den Ordner öffnen" %}"><img 
+     src="{{ site_url }}/dms_media/image/app/{{ obj.app_name }}_open.gif" border="0" /></a>
+  {% else %}
+    &middot;
+  {% endif %}
+  </td>
+  <td class="bottom-border-ex" width="2%">
+  {% if not obj.is_userfolder %}
+  <a class="nav" href="{{ obj.url }}/edit/?id={{ obj.id }}" 
+     title="{% trans "Objekt ändern" %}"><img
+     src="{{ site_url }}/dms_media/image/manage/edit.gif" border="0" /></a>
+  {% else %}
+    &middot;
+  {% endif %}
+  </td>
+  {% if obj.no_clipboard %}
+    <td class="bottom-border-ex" width="2%">&middot;</td>
+    <td class="bottom-border-ex" width="2%">&middot;</td>
+  {% else %}
+    <td class="bottom-border-ex" width="2%">
+    {% if obj.is_renameable %}
+      <a class="nav" href="{{ obj.url }}/cut/?id={{ obj.id }}" title="Ausschneiden"><img 
+      src="{{ site_url }}/dms_media/image/manage/cut.gif" 
+      alt="{% trans "Ausschneiden-Symbol" %}" border="0"></a>
+    {% else %}
+      &middot;
+    {% endif %}
+    </td>
+    <td class="bottom-border-ex" width="2%">
+    {% if obj.allow_copy %}
+      {% if obj.is_renameable %}
+        <a class="nav" href="{{ obj.url }}/copy/?id={{ obj.id }}" title="Kopieren"><img
+          src="{{ site_url }}/dms_media/image/manage/copy.gif" 
+          alt="{% trans "Kopieren-Symbol" %}" border="0"></a>
+      {% else %}
+        &middot;
+      {% endif %}
+    {% else %}
+      &middot;
+    {% endif %}
+    </td>
+  {% endif %}
+  <td class="bottom-border-ex" width="2%">
+  {% if obj.is_linkable %}
+    {% if obj.is_renameable %}
+      <a class="nav" href="{{ obj.url }}/link_copy/?id={{ obj.id }}"
+      title="Einblenden"><img
+      src="{{ site_url }}/dms_media/image/manage/link_copy.gif" alt="{% trans "Einblende-Symbol" %}" border="0"></a>
+    {% else %}
+      &middot;
+    {%endif %}
+  {% else %}
+    &middot;
+  {%endif %}
+  </td>
+  <td class="bottom-border-ex" width="2%"><img 
+  src="{{ site_url }}/dms_media/image/app/{{ obj.app_name }}.gif" border="0" title="{{ obj.app_name }}" />
+  </td>
+  <td class="bottom-border-ex" width="2%">
+  {% if obj.is_deleted %}
+    <a href="{{ obj.url }}/undo/?id={{ obj.id }}" title="Löschen rückgängig machen"><img
+    src="{{ site_url }}/dms_media/image/manage/undo.gif" alt="{% trans "Undo-Symbol" %}" border="0"></a>
+  {% else %}
+    {% if obj.is_changeable %}
+      <a href="{{ obj.url }}/delete_obj/?id={{ obj.id }}" title="Löschen"><img
+      src="{{ site_url }}/dms_media/image/manage/delete.gif" alt="{% trans "Löschen-Symbol" %}" border="0"></a>
+    {% endif %}
+  {% endif %}
+  </td>
+  <td class="bottom-border-ex" width="2%">
+  {% if obj.is_deleted %}
+    <a id="a_delete_total_{{ obj.id }}" class="nav" href="javascript:void(0)" 
+      onClick="javascript:do_show_delete_total({{ obj.id }})" title="Schreddern"><img
+    src="{{ site_url }}/dms_media/image/manage/delete_total.gif" 
+    alt="{% trans "Schreddern-Symbol" %}" border="0"></a>
+    <div id="div_delete_total_{{obj.id}}" style="display: none;">
+      <b>Wirklich&nbsp;schreddern?</b>
+      <form name="form_delete_total_{{ obj.id }}" method="get" action="{{ obj.url }}/delete_total/"
+            onreset="return do_hide_delete_total({{ obj.id }})">
+      <input name="item_container_id" type="hidden" value="{{ obj.id }}" />
+      <input name="submit" type="submit" value=" {% trans "Ja" %} " />
+      <input name="reset" type="reset" value=" {% trans "Nein" %} " />
+      </form>
+    </div>
+  {% endif %}
+  </td>
+  <td class="bottom-border-ex">
+  {% if obj.is_renameable %}
+    <a class="navLink" id="a_rename_{{obj.id}}" class="nav" href="javascript:void(0)" 
+      onClick="javascript:do_show_rename({{ obj.id }})" 
+      title="{% trans "Umbenennen" %}">{{ obj.name|slice:":25" }}</a>
+    <div id="div_rename_{{ obj.id }}" style="display: none;">
+      <form name="form_rename_{{ obj.id }}" method="get" action="{{ obj.url }}/rename/">
+      <input name="new_name" size="30"
+            value="{{ obj.name }}" onblur="return do_hide_rename({{ obj.id }})" />
+      </form>
+    </div>
+  {% else %}
+    {{ obj.name }}
+  {% endif %}
+  </td>
+  <td class="bottom-border-ex">
+  <a href="{{ obj.url }}" title="{% trans "Objekt anzeigen" %}">{{ obj.title }}</a>
+  </td>
+  <td class="bottom-border-ex" width="20%">{{ obj.last_modified }}</td>
+</tr>
+{% endautoescape %}

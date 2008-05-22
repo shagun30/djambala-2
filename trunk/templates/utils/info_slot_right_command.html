@@ -1,0 +1,12 @@
+{% load i18n %}
+
+{% autoescape off %}
+<div class="info-frame-header" style="width:95%;">
+  <span class="frameSymBg"><img src="{{ site.url }}/dms_media/skin_style/base/leer.gif"
+  width="10" height="10" alt="{% trans "Markierung fuer Befehlsrubriken" %}" /></span>&nbsp;<span 
+class="tabHeaderText"><!-- header start -->{{ header }}<!-- header end --></span></span>
+</div>
+<!-- info start -->
+{{ info }}
+<!-- info end -->
+{% endautoescape %}

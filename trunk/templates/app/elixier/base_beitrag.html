@@ -1,0 +1,347 @@
+{% load i18n %}
+
+{% autoescape off %}
+{% block html_head_ext %}
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/assets/skins/sam/tabview.css" />
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/element/element-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/tabview.js"></script>
+
+<script type="text/javascript">
+function showHelp(url) {
+  width = 500
+  left  = screen.width - width;
+  param = "top=0,menubar=yes,scrollbars=yes"
+  winHelp = window.open(url,
+            "_help",
+            "width="+String(width)+",height=600,left="+String(left)+","+param);
+  winHelp.focus();
+}
+
+function select_dest_url(dest_folder) {
+  o_dest_folder = dest_folder;
+  window.open("{{ dest_url }}","Zielordner","menubar=yes,scrollbars=yes,width=600,height=800,left=0,top=0");
+}
+function set_dest_url(dest_folder) {
+  document.form_input.dest_folder.value = dest_folder;
+}
+//-->
+</script>
+
+<script type="text/javascript" src="/dms_media/javascript/overlib/overlib.js-small"></script>
+{% endblock %}
+
+<h4>{{ item.titel }} / ID: {{ item.id }}</h4>
+
+{% if item.titel_lang %}
+<h5>{{ item.titel_lang }}</h5>
+{% endif %}
+
+{% if does_exist %}
+<p>
+{% trans "Dieser Beitrag existiert (jetzt bzw. schon) in den Lernarchiven." %}
+</p>
+{% endif %}
+
+<p>
+{{ next }}
+</p>
+
+<table class="info-border" border="1" cellspacing="1" cellpadding="3">
+
+  <thead>
+    <tr class="tabHeaderBg">
+      <td><b>{% trans "Feld" %}</b></td>
+      <td><b>{% trans "Inhalt" %}</b></td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td class="selectblock"><b>Beschreibung</b></td>
+      <td class="white">{{ item.beschreibung }}</td>
+    </tr>
+
+    {% if item.beschreibung_lang %}
+    <tr>
+      <td class="selectblock"><b>Beschreibung (lang)</b></td>
+      <td class="white">{{ item.beschreibung_lang }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.lernressourcentyp %}
+    <tr>
+      <td class="selectblock"><b>Lernressourcentyp</b></td>
+      <td class="white">{{ item.lernressourcentyp }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.medienformat %}
+    <tr>
+      <td class="selectblock"><b>Medienformat</b></td>
+      <td class="white">{{ item.medienformat }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.autor %}
+    <tr>
+      <td class="selectblock"><b>Autor/in</b></td>
+      <td class="white">
+      {% if item.autor_email %}
+        <a href="mailto:{{ item.autor_email }}">{{ item.autor }}</a>
+      {% else %}
+        {{ item.autor }}
+      {% endif %}
+      </td>
+    </tr>
+    {% endif %}
+
+    {% if item.herausgeber %}
+    <tr>
+      <td class="selectblock"><b>Herausgeber/in</b></td>
+      <td class="white">{{ item.herausgeber }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.isbn %}
+    <tr>
+      <td class="selectblock"><b>ISBN</b></td>
+      <td class="white">{{ item.isbn }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.publikationsdatum %}
+    <tr>
+      <td class="selectblock"><b>Publikationsdatum</b></td>
+      <td class="white">{{ item.publikationsdatum }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.preis %}
+    <tr>
+      <td class="selectblock"><b>Preis</b></td>
+      <td class="white">{{ item.preis }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.anbieter_herkunft %}
+    <tr>
+      <td class="selectblock"><b>Anbieter/Herkunft</b></td>
+      <td class="white">{{ item.anbieter_herkunft }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.fach_sachgebiet %}
+    <tr>
+      <td class="selectblock"><b>Fach/Sachgebiet</b></td>
+      <td class="white">{{ item.fach_sachgebiet }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.systematikpfad %}
+    <tr>
+      <td class="selectblock"><b>Systematikpfad</b></td>
+      <td class="white">{{ item.systematikpfad }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.lehrplanbezug %}
+    <tr>
+      <td class="selectblock"><b>Lehrplanbezug</b></td>
+      <td class="white">{{ item.lehrplanbezug }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.kmk_standards %}
+    <tr>
+      <td class="selectblock"><b>KMK-Standards</b></td>
+      <td class="white">{{ item.kmk_standards }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.weitere_kompetenzen %}
+    <tr>
+      <td class="selectblock"><b>Standards/Kompetenzen (weitere)</b></td>
+      <td class="white">{{ item.weitere_kompetenzen }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.lernziel %}
+    <tr>
+      <td class="selectblock"><b>Lernziel</b></td>
+      <td class="white">{{ item.lernziel }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.lernzeit %}
+    <tr>
+      <td class="selectblock"><b>Lernzeit</b></td>
+      <td class="white">{{ item.lernzeit }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.methodik %}
+    <tr>
+      <td class="selectblock"><b>Methodik</b></td>
+      <td class="white">{{ item.methodik }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.schlagwort %}
+    <tr>
+      <td class="selectblock"><b>Schlagworte</b></td>
+      <td class="white">{{ item.schlagwort }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.bildungsebene %}
+    <tr>
+      <td class="selectblock"><b>Bildungsebene</b></td>
+      <td class="white">{{ item.bildungsebene }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.schulform %}
+    <tr>
+      <td class="selectblock"><b>Schulform</b></td>
+      <td class="white">{{ item.schulform }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.zielgruppe %}
+    <tr>
+      <td class="selectblock"><b>Zielgruppen</b></td>
+      <td class="white">{{ item.zielgruppe }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.zertifizierung %}
+    <tr>
+      <td class="selectblock"><b>Zertifikate</b></td>
+      <td class="white">{{ item.zertifizierung }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.verfallsdatum %}
+    <tr>
+      <td class="selectblock"><b>Verfallsdatum</b></td>
+      <td class="white">{{ item.verfallsdatum }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.bild_url %}
+    <tr>
+      <td class="selectblock"><b>Bild (URL)</b></td>
+      <td class="white"><img src="{{ item.bild_url }}" /></td>
+    </tr>
+    {% endif %}
+
+    {% if item.rechte %}
+    <tr>
+      <td class="selectblock"><b>Rechte/Nutzung</b></td>
+      <td class="white">{{ item.rechte }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.sprache %}
+    <tr>
+      <td class="selectblock"><b>Sprachen</b></td>
+      <td class="white">{{ item.sprache }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.techn_voraussetzungen %}
+    <tr>
+      <td class="selectblock"><b>Techn. Voraussetzungen</b></td>
+      <td class="white">{{ item.techn_voraussetzungen }}</td>
+    </tr>
+    {% endif %}
+
+    {% if item.letzte_aenderung %}
+    <tr>
+      <td class="selectblock"><b>Letzte Änderung</b></td>
+      <td class="white">{{ item.letzte_aenderung }}</td>
+    </tr>
+    {% endif %}
+
+    <tr>
+      <td class="selectblock"><b>Ressource</b></td>
+      <td class="white">
+      <a href="{{ item.url_ressource }}" target="_extern">{{ item.url_ressource }}</a>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="selectblock"><b>Meta-Daten</b></td>
+      <td class="white">
+      <a href="{{ item.url_datensatz }}" target="_extern">{{ item.url_datensatz }}</a>
+      </td>
+    </tr>
+
+    {% if item.quelle_id %}
+    <tr>
+      <td class="selectblock"><b>Quelle</b></td>
+      <td class="white">
+      <a href="{{ item.quelle_homepage_url }}" target="_extern">{{ item.quelle_id }}</a>
+      </td>
+    </tr>
+    {% endif %}
+
+    {% if item.einsteller %}
+    <tr>
+      <td class="selectblock"><b>Einsteller/in</b></td>
+      <td class="white">
+      {% if item.einsteller_email %}
+        <a href="mailto:{{ item.einsteller_email }}">{{ item.einsteller }}</a>
+      {% else %}
+        {{ item.einsteller }}
+      {% endif %}
+      </td>
+    </tr>
+    {% endif %}
+
+  </tbody>
+
+</table>
+
+  <h4>{% trans "Beitrag zuordnen" %}</h4>
+  
+  <p>
+  {% blocktrans %}
+  Mit {{ select_dest }} bestimmen Sie das Lernarchiv, in das dieser
+  Elixier-Beitrag gegebenenfalls transferiert werden soll.
+  {% endblocktrans %}
+  </p>
+  
+  <form method="post"
+        name  ="form_input"
+        action="{{ action }}">
+  {{ form_status }}
+  <p align="right" style="margin-top:0.5em;">
+  {% if bildungsebene %}<input name="bildungsebene" type="hidden" value="{{ bildungsebene }}" />{% endif %}
+  {% if fach_sachgebiet %}<input name="fach_sachgebiet" type="hidden" value="{{ fach_sachgebiet }}" />{% endif %}
+  {% if medienformat %}<input name="medienformat" type="hidden" value="{{ medienformat }}" />{% endif %}
+  {% if quelle %}<input name="quelle" type="hidden" value="{{ quelle }}" />{% endif %}
+  {% if schlagwort %}<input name="schlagwort" type="hidden" value="{{ schlagwort }}" />{% endif %}
+  <input name="path" type="hidden" value="{{ path }}" />
+  <input name="submit" type="submit" value="{{ submit }} ..." />
+  </p>
+  </form>
+  
+<script>
+ var editTab = new YAHOO.widget.TabView('editForm');
+</script>
+{% if not does_exist %}
+{% endif %}
+
+<p>
+<br />
+{{ next }}
+</p>
+{% endautoescape %}

@@ -1,0 +1,37 @@
+{% load i18n %}
+
+{% autoescape off %}
+{% if has_autocomplete %}
+  <style type="text/css">
+  /* custom styles for multiple stacked instances */
+  #{{ label }}_autocomplete {
+      width:{{ max_length }}em; /* set width here */
+      z-index:9000; /* z-index needed on top instance for ie & sf absolute inside relative issue */
+  }
+  #{{ label }}_container {
+      _position:absolute; /* abs pos needed for ie quirks */
+  }
+  </style>
+<tr>
+  <td class="introblock" width="30%">
+    <label for="id_{{ label }}"><b>{{ title }}</b></label>{{ help }}
+  </td>
+  <td colspan="{{ max_cols }}">
+    <div id="{{ label }}_autocomplete">
+      {{ input }}
+      <div id="{{ label }}_container"></div>
+      <br />
+    </div>
+  </td>
+</tr>
+{% else %}
+<tr>
+  <td class="introblock" width="30%">
+    <label for="id_{{ label }}" ><b>{{ title }}</b></label>{{ help }}
+  </td>
+  <td colspan="{{ max_cols }}">
+    {{ input }}
+  </td>
+</tr>
+{% endif %}
+{% endautoescape %}

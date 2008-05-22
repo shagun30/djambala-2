@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}
+  {{ title }}
+  {% if comments %}
+  <span class="grey" title="{% trans "Beitrag/Beiträge kommentierbar" %}">&there4;</span>
+  {% endif %}
+{% endblock %}
+{% block sub_title %} {{ sub_title }} {% endblock %}
+
+{% block intro %}{% endblock %}
+
+{% block content %}
+{% if image_url %}
+  {% if image_url_url %}
+    <a href="{{ image_url_url }}"{% if image_extern %} target="_extern"{% endif %}><img 
+       src="{{ image_url }}" alt="{% trans "Schmuckbild" %}"
+       class="image-float-left" /></a>
+  {% else %}
+    <img src="{{ image_url }}" alt="{% trans "Schmuckbild" %}"
+       class="image-float-left" />
+  {% endif %}
+{% endif %}
+
+{% if text_intro %}
+  {% if is_wide %}
+    {% if is_important %}
+      <div class="introblock-inner">
+    {% else %}
+      <div>
+    {% endif %}
+  {% else %}
+    {% if is_important %}
+      <div class="introblock-inner" style="margin-left:180px;">
+    {% else %}
+      <div style="margin-left:180px;">
+    {% endif %}
+  {% endif %}
+  {{ text_intro }}
+  </div>
+{% endif %}
+
+{{ text }}
+
+{% if text_more %}
+  {{ text_more }}
+{% endif %}
+
+{% if url_more %}
+  <p>{% trans "Weitere Infos: " %}<a href="{{ url_more }}" target="_extern">{{ url_more }}</a></p>
+{% endif %}
+<div align="right">{{ author }} ( {{ author_full_name }} )</div>
+
+{{ comments }}
+
+<form action = ""
+      method = "post">
+<p align="right">
+<br />
+<input type="hidden" name="do_send" value="1" />
+<input type="submit" name="submit" value="{% trans "Rundschreiben versenden ..." %}" />
+</p>
+</form>
+
+{% endblock %}

@@ -1,0 +1,82 @@
+{% load i18n %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de"> 
+
+<head lang="de">
+  <meta http-equiv="Content-Type"   content="text/html; charset=utf-8">
+  <title>{{ header_title }}</title>
+  <link rel="stylesheet" media="all" type="text/css"
+         href="{{ site.url }}/dms_media/skin_style/{{site.skin_style}}/css_{{ site.skin_style }}.css">
+  <link rel="stylesheet" type="text/css" 
+        href="{{ site.url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+  <link rel="stylesheet" type="text/css" 
+        href="{{ site.url }}/dms_media/javascript/yui/build/tabview/assets/skins/sam/tabview.css" />
+  <script type="text/javascript" 
+        src="{{ site.url }}/dms_media/javascript/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+  <script type="text/javascript" 
+        src="{{ site.url }}/dms_media/javascript/yui/build/element/element-beta.js"></script>
+  <script type="text/javascript" 
+        src="{{ site.url }}/dms_media/javascript/yui/build/tabview/tabview.js"></script>
+  <style>
+  .yui-content { background-color: #f4f4f4 !important; }
+  </style>
+</head>
+
+<body>
+
+{% block top_of_page %}
+  <div style="margin-top:0.5em; margin-bottom:0.5em;" class="{{ site.title_class }}">
+    <span style="font-size:80%;"><b>{{ this_site_title }}</b></span>
+  </div>
+  <div style="margin-bottom:0.5em;" class="{{ site.title_class }}">
+    <span style="font-size:50%;"><b>{{ sub_title }}</b></span>
+  </div>
+{% endblock %}
+
+{% block content %}
+<div class=" yui-skin-sam">
+  <div id="infoForm" class="yui-navset">
+    <ul class="yui-nav">
+        <li><a href="#tab0"><em>{% trans "Allgemeine Beschreibung" %}</em></a></li>
+        <li class="selected"><a href="#tab2"><em>{% trans "Formularfelder" %}</em></a></li>
+    </ul>
+    <div class="yui-content">
+        <div id="tab0">
+          <div class="floatbox">
+            {% if image_url %}
+              <div style="float:left;">
+              {% if image_url_url %}
+                <a href="{{ image_url_url }}"{% if image_extern %} target="_extern"{% endif %}><img 
+                  src="{{ image_url }}" alt="{% trans "Schmuckbild" %}"
+                  class="image-float-right" /></a>
+              {% else %}
+                <img src="{{ image_url }}" alt="{% trans "Schmuckbild" %}"
+                  class="image-float-right" />
+              {% endif %}
+              </div>
+            {% endif %}
+            {{ text }}
+          </div>
+          {{ text_more }}
+        </div>
+        <div id="tab1">
+          <p>
+          {% trans "Die Formularfelder sind (mit Ausnahme der Umlaute) alphabetisch geordnet." %}
+          </p>
+          {{ content }}
+        </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var infoTab = new YAHOO.widget.TabView('infoForm');
+</script>
+{% endblock %}
+
+{% block bottom_of_page %}
+<a name="frame-foot"></a>
+{% endblock %}
+
+</body>
+</html>

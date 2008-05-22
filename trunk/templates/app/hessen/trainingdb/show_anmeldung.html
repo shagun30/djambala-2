@@ -1,0 +1,44 @@
+{% load i18n %}
+
+{% if veranst_status %}
+
+<p>
+<br />
+<b>{% trans "Status" %}: {{ veranst_status }}</b>
+</p>
+<p>
+Eine Online-Anmeldung ist deshalb nicht möglich!
+</p>
+
+{% else %}
+
+<script>
+function select_school_no(school_no) {
+  o_school_no = school_no;
+  window.open("?school_op=school_no","Schulnummer","menubar=yes,scrollbars=yes,width=600,height=400,left=0,top=0");
+}
+function set_school_no(no, name, ort, telefon) {
+  document.form_input.school_no.value = no;
+  document.form_input.school_name.value = name;
+  document.form_input.school_ort.value = ort;
+  document.form_input.school_telefon.value = telefon;
+}
+</script>
+
+<p>
+{% blocktrans %}
+Sie müssen alle erforderlichen Felder zur <b>"Person"</b> und <b>"Dienststelle"</b> ausfüllen!
+{% endblocktrans %}
+</p>
+
+<form method="post"
+      name  ="form_input"
+      action="{{ next }}">
+{{ formular_daten }}
+<p align="right" style="margin-top:0.5em;">
+<input name="path" type="hidden" value="{{ path }}" />
+<input name="submit" type="submit" value="{{ submit }} ..." />
+</p>
+</form>
+
+{% endif %}

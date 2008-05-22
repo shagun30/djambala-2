@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block title %}{% trans "Angaben erfolgreich gesendet" %}{% endblock %}
+
+{% block content %}
+<p>
+{% trans "Folgende Angaben wurden versandt:" %}
+</p>
+
+<table class="info-border" border="1" cellspacing="1" cellpadding="3">
+{% for d in data %}
+  <tr>
+    <td><b>{{ d.header }}</b></td>
+    <td>{{ d.value }}</td>
+  </tr>
+{% endfor %}
+</table>
+
+<p>
+<br />
+<a href="../">Weiter ...</a>
+</p>
+{% endblock %}
+
+{% endautoescape %}

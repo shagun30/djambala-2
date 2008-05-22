@@ -1,0 +1,19 @@
+{% load i18n %}
+
+{% autoescape off %}
+<p>
+{% trans "Mit diesem Formular erstellen Sie eine CSV-Datei mit den Mitgliedern und ihren Rollen:" %}
+</p>
+<form method = "post"
+      action = ""
+      enctype= "multipart/form-data">
+<table class="form-table" style="width:100%;">
+<tr class="selectblock" style="border-width:1px; border-color:#000000; border-style:solid;">
+<td class="selectblock" colspan="2" align="right">
+<input name="mode" type="hidden" value="export" />
+<input name="submit" type="submit" value="{% trans "Community-Mitglieder dieses Bereichs exportieren ..." %}" />
+</td>
+</tr>
+</table>
+</form>
+{% endautoescape %}

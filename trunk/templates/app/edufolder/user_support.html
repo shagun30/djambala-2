@@ -1,0 +1,16 @@
+{% load i18n %}
+
+{% autoescape off %}
+  <a href="{{ path }}index.html/add/edulinkitem/" class="frameLink" 
+     title="{% trans "Verweis auf Lernressource ergänzen ..." %}"
+     >{% trans "Neuer Verweis ..." %}</a><br />
+  <a href="{{ path }}index.html/add/eduexerciseitem/" class="frameLink" 
+     title="{% trans "Aufgabe ergänzen ..." %}"
+     >{% trans "Neue Aufgabe ..." %}</a><br />
+  <a href="{{ path }}index.html/add/edufileitem/" class="frameLink" 
+     title="{% trans "Datei ergänzen ..." %}"
+     >{% trans "Neue Datei ..." %}</a><br />
+  <a href="{{ path }}index.html/add/edutextitem/" class="frameLink" 
+     title="{% trans "Textdokument ergänzen ..." %}"
+     >{% trans "Neuer Text ..." %}</a><br />
+{% endautoescape %}

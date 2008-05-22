@@ -1,0 +1,12 @@
+{% extends "app/base_section.html" %}
+{% load i18n %}
+{% autoescape off %}
+{% block infos %}
+<h5>Monats&uuml;bersicht {{ monthname }} {{ year }}</h5>
+<p align="right">
+<a class="navLink" href="?date_calendar={{ date_cal_prev }}">voriger Monat</a>
+<span class="red"><b><i>::</i></b></span>
+<a class="navLink" href="?date_calendar={{ date_cal_next }}">n&auml;chster Monat</a></p>
+<table id="expand_width_1" class="info-border" border="1" cellspacing="1" cellpadding="3">
+{% endblock %}
+{% endautoescape %}

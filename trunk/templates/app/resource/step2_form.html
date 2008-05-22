@@ -1,0 +1,56 @@
+{% extends "app/base_edit.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+
+
+{% if not show_frame_left %}
+{% block frame_left %}
+  {% if site.left_image_url %}
+  <div id="layer_menu_image">
+    <img src="{{ site.left_image_url }}"
+        width="{{ site.left_image_width }}" height="{{ site.left_image_height }}" 
+        alt="{% trans "Schmuckbild" %}" />
+  </div>
+  {% endif %}
+  <div  id="layer_menu_links">
+    {{ navigation_left }}
+    {{ site.navigation_bottom_image }}
+  </div>
+{% endblock %}
+{% endif %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block sub_title %}
+  {% if sub_title %}
+    {{ sub_title }}{% if my_name %} <i>[{{ my_name }}]</i>{% endif %}
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+
+{% if text_intro %}
+  <p>{{ text_intro }}</p>
+{% endif %}
+
+{% if errors %}
+  {% if show_errors %}
+    {% blocktrans %}<p>
+    <b><span class="red">Ihre Eingaben wurden <i>nicht</i> gespeichert, da Sie
+    nicht fehlerfrei sind.</span></b>
+    Bitte korrigieren Sie die Fehler und versuchen Sie es anschließend noch einmal.
+    </p>
+    {% endblocktrans %}
+  {% endif %}
+{% endif %}
+
+{{ content }}
+
+
+
+<script>
+ //var editTab = new YAHOO.widget.TabView('editForm');
+</script>
+{{ ajax }}
+{% endblock %}
+{% endautoescape %}

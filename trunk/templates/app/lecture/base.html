@@ -1,0 +1,20 @@
+{% extends "app/base_manage.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block html_head_ext %}
+<style>
+#layer_site_title{position:absolute;left:210px;top:.5em;height:5em;z-index:10}
+#col4_content { font-size:140%; line-height:140%; }
+</style>
+{% endblock %}
+
+{% block frame_left %}{% endblock %}
+
+{% block title %}{% endblock %}
+{% block sub_title %}{{ sub_title }}{% endblock %}
+
+{% block content %}
+  {{ content }}
+{% endblock %}
+{% endautoescape %}

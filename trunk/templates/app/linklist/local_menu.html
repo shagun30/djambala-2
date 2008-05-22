@@ -1,0 +1,10 @@
+{% load i18n %}
+
+{% autoescape off %}
+<p>
+{% trans "Bereiche" %}:
+{% for menu in menus %}
+{{ menu }}
+{% endfor %}
+</p>
+{% endautoescape %}

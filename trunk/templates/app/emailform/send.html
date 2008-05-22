@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block title %}{% trans "E-Mail-Versand" %}{% endblock %}
+
+{% block content %}
+<p>
+{% trans "Ihre Eingaben wurden per E-Mail versandt." %}
+</p>
+
+<pre>
+{{ email_text }}
+</pre>
+
+<p>
+<a href="./">{% trans "Weiter ..." %}</a>
+</p>
+{% endblock %}
+{% endautoescape %}

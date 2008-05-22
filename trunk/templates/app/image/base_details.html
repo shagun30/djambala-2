@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block title %} {{ title }} {% endblock %}
+{% block sub_title %} {{ sub_title }} {% endblock %}
+
+{% block intro %}{% endblock %}
+
+{% block content %}
+{{ text }}
+
+{% if text_more %}
+  {{ text_more }}
+{% endif %}
+
+<table class="info-border" border="1" cellspacing="1" cellpadding="3" style="width:50%;">
+<tr>
+  <td class="introblock" width="30%"><b>{% trans "Dateiname" %}</b></td>
+  <td width="70%">{{ item.name }}</td>
+</tr>
+<tr>
+  <td class="introblock" width="30%"><b>{% trans "Größe" %}</b></td>
+  <td width="70%">{{ size }}</td>
+</tr>
+<tr>
+  <td class="introblock" width="30%"><b>{% trans "Breite" %}</b></td>
+  <td width="70%">{{ width }}</td>
+</tr>
+<tr>
+  <td class="introblock" width="30%"><b>{% trans "Höhe" %}</b></td>
+  <td width="70%">{{ height }}</td>
+</tr>
+<tr>
+  <td class="introblock" width="30%"><b>{% trans "Letzte Änderung" %}</b></td>
+  <td width="70%">{{ mtime }}</td>
+</tr>
+<tr>
+  <td class="introblock" width="30%"><b>{% trans "Datei" %}</b></td>
+  <td width="70%">{{ link }}</td>
+</tr>
+<tr>
+  <td class="introblock" width="30%"><b>{% trans "Einsteller/in" %}</b></td>
+  <td width="70%">
+  {{ footer_email }}
+  </td>
+</tr>
+</table>
+
+{% if comments %}
+<br />
+{{ comments }}
+{% endif %}
+
+{% endblock %}
+{% endautoescape %}

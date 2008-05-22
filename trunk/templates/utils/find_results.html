@@ -1,0 +1,17 @@
+{% load i18n %}
+
+{% autoescape off %}
+<h4>{% trans "Suchergebnisse" %}: <i>{{ app_name }} {{ app_id_name }}</i></h4>
+
+<p>
+{% trans "Folgende Web-Ressourcen wurden gefunden (n=" %}{{ count }}):
+</p>
+
+<p>{{ prev_next }}</p>
+
+<ul>
+{{ item_list }}
+</ul>
+<p>{{ prev_next }}</p>
+
+{% endautoescape %}

@@ -1,0 +1,13 @@
+{% load i18n %}
+
+{% autoescape off %}
+  <a href="{{ path }}index.html/add/edumediaitem/" class="frameLink" 
+     title="{% trans "Medienpaket ergänzen ..." %}"
+     >{% trans "Neues Medienpaket ..." %}</a><br />
+  <a href="{{ path }}index.html/add/eduwebquestitem/" class="frameLink" 
+     title="{% trans "Webquest ergänzen ..." %}"
+     >{% trans "Neuer Webquest ..." %}</a><br />
+  <a href="{{ path }}index.html/add/edugalleryitem/" class="frameLink" 
+     title="{% trans "Galerie ergänzen ..." %}"
+     >{% trans "Neue Galerie ..." %}</a><br />
+{% endautoescape %}

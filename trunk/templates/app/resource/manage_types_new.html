@@ -1,0 +1,86 @@
+{% extends "app/base_edit.html" %}
+{% load i18n %}
+
+
+{% autoescape off %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<form name   = "formForm"
+      method = "post"
+      action = "{{ next_types }}">
+  <div style="right:220px;">
+    <div class=" yui-skin-sam">
+      <div id="formForm" class="yui-navset">
+        <ul class="yui-nav">
+            <li class="selected"><a href="#tab1"><em>Kategorien löschen</em></a></li>
+            <li><a href="#tab2"><em>Neue Kategorie</em></a></li>
+        </ul>
+      <div class="yui-content">
+        <div id="tab1">
+          <p>Solange Ressourcen einer bestimmten Kategorie vorliegen, kann diese Kategorie nicht gelöscht werden.</p>
+{% if my_types %}
+<table id="expand_width_1" class="info-border" border="1" cellspacing="1" cellpadding="3" width="100%">
+
+<tr>
+  <td class="introblock" width="10%"><b>Kategorie löschen</b></td>
+  <td class="introblock"><b>Kategorie</b></td>
+  <td class="introblock"><b>Ressource(n)</b></td>
+</tr>
+{% for my_type in my_types %}
+<tr>
+  <td valign="top">
+  {% if my_type.0 %} {# is_empty #}
+    <input name="del_type" type="checkbox" value="{{ my_type.1.id }}"/>
+  </td><td valign="top"><b>{{ my_type.1.description }}</b></td><td><ul><li><i>Es liegen keine Ressourcen dieser Kategorie vor.</i></li>
+  {% else %}
+    &nbsp;&nbsp;&nbsp;<b>-</b>
+  </td><td valign="top"><b>{{ my_type.1.description }}</b></td><td>
+  <ul>
+  {% for res in my_type.2 %}
+    <li>{{ res.description }}</li>
+  {% endfor  %}
+  </ul>
+  {% endif %}
+  </td>
+</tr>
+{% endfor %}
+<!--<tr><td>&nbsp;</td><td colspan="2">&gt;&gt;&gt;<a href="{{ next }}?step=21"> neue Kategorie</a></td></tr>-->
+</table>
+{% else %}
+<p>Es sind momentan keine Kategorien definiert.</a></p>
+{% endif %}
+        </div>
+        <div id="tab2">
+Falls keine neue Kategorie definiert werden soll, lassen Sie das Eingabefeld leer!
+        <table id="expand_width_2" class="info-border" border="1" cellspacing="1" cellpadding="3" width="100%">
+          <tr><td class="introblock" width="30%"><label for="id_type_description" ><b>Bezeichnung</b></label>&nbsp;<a href="JavaScript:showHelp('http://dms-hilfe.bildung.hessen.de/form_help/resource/#type_description');" onMouseOver="return overlib('&lt;p&gt; Geben Sie eine m&ouml;glichst kurze Bezeichnung (Schlagwort) der neuen Kategorie ein.&lt;/p&gt;',CAPTION,'Kurzhilfe: Bezeichnung',TEXTSIZE,2,CAPTIONSIZE,2,SNAPX,16,SNAPY,4,ol_vpos=ABOVE,ol_fgcolor='#f0f0ff',ol_width=400)" onMouseOut="nd();">...?</a></td><td><input id="id_type_description" maxlength="240" type="text" name="type_description" size="30" /></td></tr>
+          <tr><td>Vorhandene Kategorien:</td>
+            <td>
+              {% if my_types %}
+                <select id="id_existing_types" style="width:40%" name="existing_types" size="{{ showchoices }}" disabled="disabled">
+                {% for my_type in my_types %}
+                  <option value="{{ my_type.1.id }}">{{ my_type.1.description }}</option>
+                {% endfor %}
+                </select>
+              {% else %}
+               - keine -
+              {% endif %}
+            </td></tr>
+        </table>
+        </div>
+      </div>
+    </div>
+  <p align="right" style="margin-top:0.5em;">
+  <input name="submit" type="submit" value="Weiter ..." />
+  </p>
+  </div>
+</form>
+
+<!--<p><a href="{{ next }}">{% trans "Weiter ..." %}</a></p>-->
+
+<script>
+ var editTab = new YAHOO.widget.TabView('formForm');
+</script>
+{% endblock%}
+{% endautoescape %}

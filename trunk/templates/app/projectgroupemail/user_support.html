@@ -1,0 +1,13 @@
+{% load i18n %}
+
+{% autoescape off %}
+  <a href="{{ path }}index.html/add/projectgroupemailitem/" class="frameLink" 
+     title="{% trans "Neuen Beitrag versenden ..." %}">{% trans "Neuer Beitrag ..." %}</a>
+  <!--
+  {% if manage_site_mode %}
+    <br />
+    <a href="{{ path }}index.html/select_section/" class="frameLink" 
+       title="{% trans "Rundschreiben versenden ..." %}">{% trans "Rundschreiben versenden ..." %}</a><br />
+  {% endif %}
+  -->
+{% endautoescape %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block html_head_ext %}
+<script type="text/javascript">
+function showHelp(url) {
+  width = 500
+  left  = screen.width - width;
+  param = "top=0,menubar=yes,scrollbars=yes"
+  winHelp = window.open(url,
+            "_help",
+            "width="+String(width)+",height=600,left="+String(left)+","+param);
+  winHelp.focus();
+}
+</script>
+{% endblock %}
+
+{% block title %}
+  {{ title }}
+  {% if comments %}
+  <span class="grey" title="{% trans "Beitrag/Beiträge kommentierbar" %}">&there4;</span>
+  {% endif %}
+{% endblock %}
+{% block sub_title %} {{ sub_title }} {% endblock %}
+
+{% block intro %}{% endblock %}
+
+{% block content %}
+{% if image_url %}
+  {% if image_url_url %}
+    <a href="{{ image_url_url }}"{% if image_extern %} target="_extern"{% endif %}><img 
+       src="{{ image_url }}" alt="{% trans "Schmuckbild" %}"
+       class="image-float-left" /></a>
+  {% else %}
+    <img src="{{ image_url }}" alt="{% trans "Schmuckbild" %}"
+       class="image-float-left" />
+  {% endif %}
+{% endif %}
+
+<h4>{% trans "Frage" %}</h4>
+{{ text }}
+
+{% if text_more %}
+  <h4>{% trans "Antwort" %}</h4>
+  {{ text_more }}
+{% endif %}
+
+{{ comments }}
+
+{% endblock %}
+{% endautoescape %}

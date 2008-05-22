@@ -1,0 +1,12 @@
+{% extends "app/base_section_headline.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block infos %}
+<ul class="form-no-margin" style="list-style-position:inside;">
+{% for link in links %}
+  {{ link }}
+{% endfor %}
+</ul>
+{% endblock %}
+{% endautoescape %}

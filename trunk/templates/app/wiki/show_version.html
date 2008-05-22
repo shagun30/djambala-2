@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block html_head_ext %}
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" 
+      href="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/assets/skins/sam/tabview.css" />
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/element/element-beta.js"></script>
+<script type="text/javascript" 
+      src="{{ base_site_url }}/dms_media/javascript/yui/build/tabview/tabview.js"></script>
+<style>
+.yui-content { background-color: #f4f4f4 !important; }
+</style>
+<style>
+del { background-color: #f47676; }
+ins { background-color: #7ff476; }
+</style>
+
+<script type="text/javascript">
+function showHelp(url) {
+  width = 500
+  left  = screen.width - width;
+  param = "top=0,menubar=yes,scrollbars=yes"
+  winHelp = window.open(url,
+            "_help",
+            "width="+String(width)+",height=600,left="+String(left)+","+param);
+  winHelp.focus();
+}
+</script>
+
+<script type="text/javascript" src="{{ site.url }}/dms_media/javascript/overlib/overlib.js-small"></script>
+{% endblock %}
+
+{% block title %}
+{{title}}
+{% if comments %}
+<span class="grey" title="{% trans "Beitrag/Beiträge kommentierbar" %}">&there4;</span>
+{% endif %}
+{% endblock %}
+{% block sub_title %}{{ sub_title }}{% endblock %}
+
+{% block content %}
+<div style="right:220px;">
+  <div class=" yui-skin-sam">
+    <div id="versionForm" class="yui-navset">
+      <ul class="yui-nav">
+        <li class="selected"><a href="#tab0"><em>{% trans "Aktuell" %}</em></a></li>
+        {% for v in versions %}
+          <li><a href="#tab{{ v.version }}"><em>{{ v.version }}</em></a></li>
+        {% endfor %}
+      </ul>
+      <div class="yui-content">
+        <div id="tab0">
+          <p align="right">
+            {{ user }}, {{ modified }}
+          </p>
+          {{ org_text }}
+        </div>
+        {% for v in versions %}
+          <div id="tab{{ v.version }}">
+            <p align="right">
+              {{ v.user }}, {{ v.modified }}
+            </p>
+            {{ v.text_diff }}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+ var versionTab = new YAHOO.widget.TabView('versionForm');
+</script>
+{% endblock %}
+{% endautoescape %}

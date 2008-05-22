@@ -1,0 +1,22 @@
+{% load i18n %}
+
+{% autoescape off %}
+<a name="anker_{{ id }}"></a>
+<div class="item_title">
+  {{ title }}
+
+  <div class="bottom-border-light_ex"; style="margin-left:5%;">
+  {% if image_url %}
+    <a href="{{ image_url_url }}" target="_extern"><img 
+    src="{{ image_url }}" alt="{% trans "Mini-Bild" %}"
+    align="left" class="image_right_bottom" /></a>
+
+  {% endif %}
+  {{ text }}
+  <br clear="all" />
+  <div class="item_text">
+    <a href="{{ edu_object_url }}">Mehr ...</a>
+  </div>
+  </div>
+</div>
+{% endautoescape %}

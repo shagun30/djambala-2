@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block html_head_ext %}
+<style>
+#col4_content { font-size:140%; line-height:140%; }
+</style>
+{% endblock %}
+
+{% block frame_left %}{% endblock %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block sub_title %}{{ sub_title }}{% endblock %}
+
+{% block content %}
+  {{ show_next }}
+  {{ comments }}
+{% endblock %}
+{% endautoescape %}

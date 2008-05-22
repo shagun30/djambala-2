@@ -1,0 +1,40 @@
+{% load i18n %}
+
+{% autoescape off %}
+<script type="text/javascript">
+function do_show_more_news () {
+  document.getElementById("show_more_news").style.display="none";
+  document.getElementById("text_more_news").style.display="inline";
+  document.getElementById("show_less_news").style.display="inline";
+}
+function do_hide_more_news (id) {
+  document.getElementById("text_more_news").style.display="none";
+  document.getElementById("show_less_news").style.display="none";
+  document.getElementById("show_more_news").style.display="inline";
+}
+</script>
+
+<h4>{% trans "Alte Termine" %}</h4>
+<p>
+  <a id="show_more_news" class="navLink" 
+      href="javascript:void(0)" onClick="do_show_more_news()"
+      title="{% trans "Weitere Informationen ..." %}"><img
+      src="{{ base_site_url }}/dms_media/image/action/more_icon.gif" 
+      title="{% trans "Ein/Ausblende-Symbol" %}" />&nbsp;{% trans "Alte Termine anzeigen ..." %}</a>
+  <a id="show_less_news" class="navLink" style="display:none"
+      href="javascript:void(0)" onClick="do_hide_more_news()"
+      title="{% trans "Zusammenfalten ..." %}"><img
+      src="{{ base_site_url }}/dms_media/image/action/more_icon.gif" 
+      title="{% trans "Ein/Ausblende-Symbol" %}" />&nbsp;{% trans "Alte Termine ausblenden ..." %}</a>
+</p>
+
+<div id="text_more_news" style="display:none;">
+<ul>
+{% for item in items_old %}
+  <li><a href="{{ item.item.name }}">{{ item.item.title }}</a>
+{% endfor %}
+</ul>
+
+{{ archives }}
+</div>
+{% endautoescape %}

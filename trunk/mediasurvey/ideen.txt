@@ -1,0 +1,57 @@
+  class DmsItemForm(forms.Form):
+    """ Elemente des Eingabeformulars """
+    0_0_title           = forms.CharField(max_length=240,
+                                    widget=forms.TextInput(attrs={'size':60}) )
+    0_1_title           = forms.CharField(max_length=240,
+                                    widget=forms.TextInput(attrs={'size':60}) )
+    1_0_title           = forms.CharField(max_length=240,
+                                    widget=forms.TextInput(attrs={'size':60}) )
+    1_1_title           = forms.CharField(max_length=240,
+                                    widget=forms.TextInput(attrs={'size':60}) )
+    2_0_title           = forms.CharField(max_length=240,
+                                    widget=forms.TextInput(attrs={'size':60}) )
+    2_1_title           = forms.CharField(max_length=240,
+                                    widget=forms.TextInput(attrs={'size':60}) )
+
+
+  tabs = [
+           ( 'tab_base'      , [ [
+                                   ['0_0_title', '0_1_title'],
+                                   ['1_0_title', '1_1_title'],
+                                   ['2_0_title', '2_1_title'],
+                                 ]
+                                 'text', 'is_wide', 'is_important', 'section', ] ),
+           ( 'tab_frame'     , [ 'info_slot_right', ] ),
+           ( 'tab_visibility', [ 'is_browseable', 'visible_start', 'visible_end' ] ),
+         ]
+
+  tab_cluster = {}
+  tab_cluster['title'] = ('title', 2, 3)
+  tabs = [
+           ( 'tab_base'      , [ 'title', 'text', 'is_wide', 'is_important', 'section', ] ),
+           ( 'tab_frame'     , [ 'info_slot_right', ] ),
+           ( 'tab_visibility', [ 'is_browseable', 'visible_start', 'visible_end' ] ),
+         ]
+
+  tab_cluster = {}
+  tab_cluster['title'] = ( 'title',
+                           ['col_0_title', 'col_1_title'],
+                           ['row_0_title', 'row_1_title', 'row_2_title'],
+                           [
+                             ['0_0_title', '0_1_title'],
+                             ['1_0_title', '1_1_title'],
+                             ['2_0_title', '2_1_title'],
+                           ]
+                         )
+  tabs = [
+           ( 'tab_base'      , [ 'title', 'text', 'is_wide', 'is_important', 'section', ] ),
+           ( 'tab_frame'     , [ 'info_slot_right', ] ),
+           ( 'tab_visibility', [ 'is_browseable', 'visible_start', 'visible_end' ] ),
+         ]
+
+
+                       | Überschrift 0 | Überschrift 1 |
+--------------------------------------------------------
+Zeile 1                |
+Zeile 2                |
+Zeile 3                |

@@ -1,0 +1,15 @@
+{% load i18n %}
+
+{% autoescape off %}
+<h4>{{ title }}</h4>
+{{ text }}
+{% if url_more %}
+{% trans "Weitere Infos: " %}<a href="{{ url_more }}" target="_extern">{{ url_more }}</a>
+{% endif %}
+<div align="right">
+  {{ name }}<br />
+  <a href="mailto:{{ mail }}">{{ mail }}</a><br />
+  {{ date }}<br />
+</div>
+<hr />
+{% endautoescape %}

@@ -1,0 +1,15 @@
+{% extends "app/base_section.html" %}
+{% load i18n %}
+
+{% autoescape off %}
+{% block infos %}
+<ul class="form-no-margin" style="margin-left:{% if width %}{{ width }}{% else %}180px{% endif%}; 
+   list-style-position:{% if not list_style %}outside{% else %}inside{% endif %};">
+{% for link in links %}
+  <li>
+  {{ link|safe }}
+  </li>
+{% endfor %}
+</ul>
+{% endblock %}
+{% endautoescape %}

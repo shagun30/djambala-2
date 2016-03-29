@@ -1,0 +1,1 @@
+Djambala-II will be an LCMS - learning content mangement system - based on Django.
